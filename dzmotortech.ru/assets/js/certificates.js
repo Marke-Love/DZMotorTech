@@ -19,6 +19,10 @@
 
     var cards = Array.prototype.slice.call(grid.querySelectorAll('.dzs-card'));
 
+    /* На английской странице в разметке задан data-dzs-number-label="No.",
+       на русской атрибута нет — тогда используется «№» по умолчанию. */
+    var numberLabel = box.getAttribute('data-dzs-number-label') || '№';
+
     /* ---------- фильтр ---------- */
 
     var filters = Array.prototype.slice.call(document.querySelectorAll('[data-dzs-filter]'));
@@ -68,7 +72,11 @@
       image.src = cert.src;
       image.alt = cert.title;
       titleEl.textContent = cert.title;
-      metaEl.textContent = cert.badge + ' · ' + cert.issuer + ' · № ' + cert.number;
+      /* Не у всех документов есть орган выдачи и номер (сканы наград
+         и патентов), поэтому строку собираем только из того, что есть. */
+      var metaParts = [cert.badge, cert.issuer, cert.number ? numberLabel + ' ' + cert.number : null]
+        .filter(Boolean);
+      metaEl.textContent = metaParts.join(' · ');
       var list = visibleIndexes();
       countEl.textContent = (list.indexOf(index) + 1) + ' / ' + list.length;
     }
