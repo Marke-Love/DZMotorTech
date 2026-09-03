@@ -228,7 +228,98 @@
 
 .dzh .dzh-about__cta:hover svg { transform: translateX(3px); }
 
+/* --- Блок «Партнёры» ------------------------------------------------------ */
+
+/* Плитки повторяют карточки со страницы «Партнёры» (assets/css/partners.css,
+   префикс dzp-): те же рамка, скругление и подъём при наведении. Стили
+   продублированы здесь, а не подключены оттуда, потому что partners.css
+   содержит ещё вступление, тёмную врезку и обложку той страницы. */
+.dzh-partners {
+  padding: clamp(40px, 4.6vw, 72px) 0 clamp(44px, 5vw, 78px);
+  background: var(--h-paper);
+  color: var(--h-ink);
+}
+
+.dzh-partners__head { display: grid; gap: 12px; max-width: 760px; margin-bottom: clamp(22px, 2.6vw, 34px); }
+
+.dzh .dzh-partners__title { font-size: clamp(23px, 2.5vw, 36px); color: var(--h-ink); }
+
+.dzh-partners__lede { margin: 0; font-size: 15.5px; line-height: 1.68; color: #46545e; }
+
+.dzh-partners__grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.dzh-partners__card {
+  display: grid;
+  grid-template-rows: 1fr auto;
+  gap: 12px;
+  margin: 0;
+  padding: 20px 18px 16px;
+  border: 1px solid var(--h-steel-300);
+  border-radius: 18px;
+  background: var(--h-surface);
+  transition: border-color 0.2s var(--h-ease), transform 0.2s var(--h-ease),
+    box-shadow 0.2s var(--h-ease);
+}
+
+.dzh-partners__card:hover {
+  border-color: var(--h-ink);
+  transform: translateY(-3px);
+  box-shadow: 0 18px 30px -22px rgba(13, 31, 45, 0.6);
+}
+
+.dzh-partners__card img {
+  width: 100%;
+  height: 56px;
+  object-fit: contain;
+  transition: transform 0.2s var(--h-ease);
+}
+
+.dzh-partners__card:hover img { transform: scale(1.04); }
+
+.dzh-partners__card figcaption {
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.3;
+  text-align: center;
+  color: var(--h-ink);
+}
+
+.dzh .dzh-partners__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: clamp(22px, 2.4vw, 32px);
+  padding: 12px 24px;
+  border-radius: 999px;
+  background: #1a2b4a;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  transition: background-color 0.18s var(--h-ease), transform 0.18s var(--h-ease);
+}
+
+.dzh .dzh-partners__cta svg { transition: transform 0.18s var(--h-ease); }
+
+.dzh .dzh-partners__cta:hover { background: #24395f; color: #fff; transform: translateY(-1px); }
+
+.dzh .dzh-partners__cta:hover svg { transform: translateX(3px); }
+
 /* --- адаптив -------------------------------------------------------------- */
+
+@media (max-width: 1100px) {
+  .dzh-partners__grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+@media (max-width: 900px) {
+  .dzh-partners__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
 
 @media (max-width: 1000px) {
   .dzh-about__grid { grid-template-columns: minmax(0, 1fr); }
@@ -238,6 +329,8 @@
 }
 
 @media (max-width: 620px) {
+  .dzh-partners__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .dzh-partners__card { padding: 16px 14px 13px; }
   .dzh-about__facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   /* В английской версии значения длиннее («14 million kW») и в узкую ячейку
      одной строкой не помещаются — здесь перенос разрешён. */
