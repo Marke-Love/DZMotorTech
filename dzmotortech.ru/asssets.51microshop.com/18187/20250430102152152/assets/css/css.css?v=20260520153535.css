@@ -6,7 +6,7 @@ html{-webkit-text-size-adjust:none}
 body{font-size:14px;line-height:1.5;font-family:QuattrocentoSans-Regular;-webkit-font-smoothing:antialiased}
 a{color:#5a5a5a;text-decoration:none;cursor:pointer;-webkit-transition:color .5s ease;-moz-transition:color .5s ease;transition:color .5s ease}
 a:hover{text-decoration:none;color:inherit}
-.nav_first a:hover{text-decoration:underline;color:#00aeef}
+.nav_first a:hover{text-decoration:none;color:#00aeef}
 a,button{outline:0!important}
 img{max-width:100%;max-height:100%;height:auto;width:auto}
 ul{list-style-type:none}

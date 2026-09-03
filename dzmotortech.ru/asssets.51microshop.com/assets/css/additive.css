@@ -1750,3 +1750,60 @@ body.page-en[data-template="index"] #gallery-jigsaw-b_8 { order: 8 !important; }
     transition-duration: 0.01ms !important;
   }
 }
+
+/* 9. Кнопка «наверх страницы» — ставится скриптом assets/js/to-top.js.
+   Стиль повторяет кнопку .dzc-top со страницы каталога (assets/css/catalog.css),
+   чтобы кнопка выглядела одинаково на всех страницах сайта. Там, где
+   .dzc-top уже есть на странице, скрипт свою кнопку не создаёт. */
+.dz-to-top {
+  position: fixed;
+  right: 32px;
+  bottom: 32px;
+  z-index: 9999;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(0, 174, 239, 0.9);
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(0, 174, 239, 0.35);
+  backdrop-filter: blur(8px);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(12px);
+  pointer-events: none;
+  transition: opacity 0.25s cubic-bezier(0.22, 0.61, 0.36, 1),
+    transform 0.25s cubic-bezier(0.22, 0.61, 0.36, 1),
+    background-color 0.18s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.dz-to-top.is-visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.dz-to-top:hover,
+.dz-to-top:focus-visible {
+  background: rgba(0, 174, 239, 1);
+}
+
+@media (max-width: 680px) {
+  .dz-to-top {
+    right: 16px;
+    bottom: 16px;
+    width: 44px;
+    height: 44px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dz-to-top {
+    transition-duration: 0.01ms !important;
+  }
+}
