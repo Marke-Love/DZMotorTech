@@ -1412,6 +1412,19 @@ input[name="ckb_cartitem"] {
   margin: 0 1px;
   flex-shrink: 0;
 }
+.ls-flag {
+  display: inline-flex;
+  width: 18px;
+  height: 12px;
+  border-radius: 2px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.ls-flag svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
 .header_language_con { display: none !important; }
 
 /* ── Mobile adaptations ──────────────────────────────────── */

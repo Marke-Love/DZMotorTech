@@ -53,10 +53,25 @@
   var path = window.location.pathname;
   var isEn = path.indexOf('/en') === 0;
 
+  /* Флаги нарисованы как SVG, а не взяты из эмодзи (🇷🇺/🇬🇧): на части
+     Windows-систем шрифт не собирает пару emoji-букв в картинку флага и
+     вместо флага показываются голые буквы "RU"/"GB". SVG рендерится
+     одинаково везде. */
+  var FLAG_RU =
+    '<svg viewBox="0 0 30 20" aria-hidden="true"><rect width="30" height="20" fill="#fff"/>' +
+    '<rect y="6.67" width="30" height="6.66" fill="#0039a6"/>' +
+    '<rect y="13.33" width="30" height="6.67" fill="#d52b1e"/></svg>';
+  var FLAG_GB =
+    '<svg viewBox="0 0 30 20" aria-hidden="true"><rect width="30" height="20" fill="#012169"/>' +
+    '<path d="M0,0 30,20M30,0 0,20" stroke="#fff" stroke-width="4"/>' +
+    '<path d="M0,0 30,20M30,0 0,20" stroke="#c8102e" stroke-width="1.6"/>' +
+    '<rect x="12" width="6" height="20" fill="#fff"/><rect y="7" width="30" height="6" fill="#fff"/>' +
+    '<rect x="13" width="4" height="20" fill="#c8102e"/><rect y="8" width="30" height="4" fill="#c8102e"/></svg>';
+
   function pillHTML(active) {
-    return '<a class="ls-pill-opt' + (!active ? ' ls-active' : '') + '" href="/"><span>🇷🇺</span> RU</a>' +
+    return '<a class="ls-pill-opt' + (!active ? ' ls-active' : '') + '" href="/"><span class="ls-flag">' + FLAG_RU + '</span> RU</a>' +
            '<div class="ls-pill-sep"></div>' +
-           '<a class="ls-pill-opt' + (active ? ' ls-active' : '') + '" href="/en/"><span>🇬🇧</span> EN</a>';
+           '<a class="ls-pill-opt' + (active ? ' ls-active' : '') + '" href="/en/"><span class="ls-flag">' + FLAG_GB + '</span> EN</a>';
   }
 
   function initSwitcher() {
