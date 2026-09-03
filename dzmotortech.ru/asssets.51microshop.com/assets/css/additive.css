@@ -1643,19 +1643,21 @@ body.page-en #header .header_box .r_icon {
   height: 24px !important;
 }
 
-/* 6. EN homepage: sync section order to match RU (categories → video → 4 products) */
+/* 6. EN homepage: sync section order to match RU
+   (категории → видео → 4 товара → партнёры → сертификаты).
+   Блоки на английской главной лежат в другом порядке, чем на русской, и
+   переставлены здесь. Порядок совпадает с порядком в разметке, чтобы
+   визуальная последовательность не расходилась с порядком чтения. */
 body.page-en[data-template="index"] .home_custom_design {
   display: flex !important;
   flex-direction: column !important;
 }
-body.page-en[data-template="index"] #gallery_1         { order: 1 !important; }
+body.page-en[data-template="index"] #gallery_1          { order: 1 !important; }
 body.page-en[data-template="index"] #gallery-jigsaw-b_4 { order: 2 !important; }
 body.page-en[data-template="index"] #videos-a_3         { order: 3 !important; }
 body.page-en[data-template="index"] #gallery-jigsaw-b_2 { order: 4 !important; }
-body.page-en[data-template="index"] #testimonials_5     { order: 5 !important; }
-body.page-en[data-template="index"] #gallery_18187_b_6  { order: 6 !important; }
-body.page-en[data-template="index"] #gallery-jigsaw-b_7 { order: 7 !important; }
-body.page-en[data-template="index"] #gallery-jigsaw-b_8 { order: 8 !important; }
+body.page-en[data-template="index"] #gallery-jigsaw-b_7 { order: 5 !important; }
+body.page-en[data-template="index"] #testimonials_5     { order: 6 !important; }
 
 /* 6. Меню «Продукция» — главный пункт шапки.
    Ведёт прямо в каталог, поэтому выпадающий список ему не нужен: он перекрывал
