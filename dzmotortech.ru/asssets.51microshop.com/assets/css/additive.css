@@ -1443,13 +1443,6 @@ input[name="ckb_cartitem"] {
   }
 }
 
-/* 2. Category section + product images strip: hide on mobile (homepage only) */
-@media (max-width: 767px) {
-  body[data-template="index"] #gallery-jigsaw-b_2,
-  body[data-template="index"] #gallery-jigsaw-b_4 {
-    display: none !important;
-  }
-}
 
 /* 3a. Gallery card style — страница "применение" (все размеры экрана) */
 body.page-application .gallery_jigsaw_b .btn_group_modal {
@@ -1595,18 +1588,6 @@ body.page-application .gallery_jigsaw_b h2.title {
   list-style-type: disc !important;
 }
 
-/* 5. Product images strip: hover scale effect (RU: #gallery-jigsaw-b_4, EN: #gallery-jigsaw-b_2) */
-#gallery-jigsaw-b_4 .btn_group_modal,
-#gallery-jigsaw-b_2 .btn_group_modal {
-  transition: transform 0.25s ease !important;
-  cursor: pointer !important;
-}
-#gallery-jigsaw-b_4 .btn_group_modal:hover,
-#gallery-jigsaw-b_2 .btn_group_modal:hover {
-  transform: scale(1.05) !important;
-  position: relative !important;
-  z-index: 2 !important;
-}
 
 /* 6a. EN header: vertically center nav + distribute items evenly */
 body.page-en #header .header_box {
@@ -1643,21 +1624,6 @@ body.page-en #header .header_box .r_icon {
   height: 24px !important;
 }
 
-/* 6. EN homepage: sync section order to match RU
-   (категории → видео → 4 товара → партнёры → сертификаты).
-   Блоки на английской главной лежат в другом порядке, чем на русской, и
-   переставлены здесь. Порядок совпадает с порядком в разметке, чтобы
-   визуальная последовательность не расходилась с порядком чтения. */
-body.page-en[data-template="index"] .home_custom_design {
-  display: flex !important;
-  flex-direction: column !important;
-}
-body.page-en[data-template="index"] #gallery_1          { order: 1 !important; }
-body.page-en[data-template="index"] #gallery-jigsaw-b_4 { order: 2 !important; }
-body.page-en[data-template="index"] #videos-a_3         { order: 3 !important; }
-body.page-en[data-template="index"] #gallery-jigsaw-b_2 { order: 4 !important; }
-body.page-en[data-template="index"] #gallery-jigsaw-b_7 { order: 5 !important; }
-body.page-en[data-template="index"] #testimonials_5     { order: 6 !important; }
 
 /* 6. Меню «Продукция» — главный пункт шапки.
    Ведёт прямо в каталог, поэтому выпадающий список ему не нужен: он перекрывал

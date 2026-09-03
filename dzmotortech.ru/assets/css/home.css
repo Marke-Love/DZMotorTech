@@ -228,6 +228,332 @@
 
 .dzh .dzh-about__cta:hover svg { transform: translateX(3px); }
 
+/* --- Блок «Категории продукции» ------------------------------------------- */
+
+/* Слева список категорий, справа — панель с фото, описанием и моделями.
+   Панель меняется при наведении на категорию (assets/js/home-cats.js).
+   Без скрипта секция раскрывается в обычный список: все панели видны подряд,
+   поэтому содержимое остаётся доступным и поисковику, и читателю. */
+.dzh-cats {
+  padding: clamp(40px, 4.6vw, 72px) 0 clamp(44px, 5vw, 78px);
+  background: var(--h-surface);
+  color: var(--h-ink);
+}
+
+.dzh-cats__head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px 24px;
+  align-items: end;
+  margin-bottom: clamp(22px, 2.6vw, 34px);
+}
+
+.dzh-cats__headings { display: grid; gap: 12px; max-width: 760px; }
+
+.dzh .dzh-cats__title { font-size: clamp(23px, 2.5vw, 36px); color: var(--h-ink); }
+
+.dzh-cats__lede { margin: 0; font-size: 15.5px; line-height: 1.68; color: #46545e; }
+
+.dzh-cats__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 300px) minmax(0, 1fr);
+  gap: clamp(18px, 2vw, 28px);
+  align-items: start;
+}
+
+/* --- список категорий --- */
+
+.dzh-cats__list { display: grid; gap: 4px; margin: 0; padding: 0; list-style: none; }
+
+.dzh .dzh-cats__link {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 16px;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  color: var(--h-ink);
+  font-size: 14.5px;
+  font-weight: 600;
+  line-height: 1.3;
+  transition: background-color 0.18s var(--h-ease), border-color 0.18s var(--h-ease),
+    color 0.18s var(--h-ease);
+}
+
+.dzh .dzh-cats__link:hover { border-color: var(--h-steel-300); }
+
+.dzh-cats__count { font-size: 12px; font-weight: 600; color: var(--h-steel-500); }
+
+.dzh .dzh-cats__link.is-active {
+  background: var(--h-ink);
+  border-color: var(--h-ink);
+  color: #fff;
+}
+
+.dzh-cats__link.is-active .dzh-cats__count { color: rgba(255, 255, 255, 0.6); }
+
+/* --- панель категории --- */
+
+.dzh-cats__panel {
+  display: grid;
+  grid-template-columns: minmax(0, 0.62fr) minmax(0, 1fr);
+  gap: clamp(16px, 1.8vw, 24px);
+  align-items: stretch;
+  padding: 16px;
+  border: 1px solid var(--h-steel-300);
+  border-radius: 20px;
+  background: var(--h-surface);
+}
+
+/* Фото тянется по высоте текстовой колонки: у категорий разное число моделей,
+   и фиксированная пропорция оставляла бы под снимком пустое место.
+   object-fit: contain — снимки двигателей нельзя кадрировать, у них важны
+   пропорции и края корпуса, поэтому вписываем целиком на светлой подложке. */
+.dzh-cats__shot {
+  height: 100%;
+  min-height: 210px;
+  padding: 10px;
+  border: 1px solid var(--h-steel-300);
+  border-radius: 14px;
+  /* Снимки каталога сняты на белом, поэтому подложка тоже белая — иначе вокруг
+     фото появляется вторая рамка. */
+  background: var(--h-surface);
+  overflow: hidden;
+}
+
+.dzh-cats__shot img { display: block; width: 100%; height: 100%; object-fit: contain; }
+
+.dzh-cats__body { display: grid; gap: 8px; align-content: start; }
+
+.dzh-cats__meta { margin: 0; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--h-accent); }
+
+/* Место под две строки резервируется всегда: часть названий переносится
+   («Двигатель с постоянными магнитами»), и без этого панель прыгала бы. */
+.dzh .dzh-cats__name {
+  margin: 0;
+  min-height: 2.3em;
+  font-size: clamp(18px, 1.6vw, 22px);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+/* Две строки максимум: описания у категорий разной длины, а панель должна
+   оставаться одной высоты, чтобы при наведении не прыгала вёрстка. */
+.dzh-cats__text {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin: 0;
+  min-height: 3.1em;
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: #46545e;
+}
+
+/* Место под пять строк резервируется всегда: в разделах бывает и три модели,
+   без этого панель прыгала бы по высоте при переходе между категориями. */
+.dzh-cats__items {
+  display: grid;
+  gap: 1px;
+  align-content: start;
+  min-height: 164px;
+  margin: 2px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Каждая модель — ровно одна строка: длинные названия обрезаются многоточием
+   (полное остаётся в title), поэтому список читается ровным столбцом, а не
+   разъезжается на три-четыре строки. */
+.dzh .dzh-cats__item {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, auto) auto;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 10px;
+  border-radius: 9px;
+  color: var(--h-ink);
+  font-size: 13px;
+  line-height: 1.4;
+  transition: background-color 0.16s var(--h-ease);
+}
+
+.dzh-cats__item > span:first-child {
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.dzh .dzh-cats__item:hover { background: var(--h-paper); }
+
+/* Код серии вынесен из названия: длинные названия обрезаются, а различает их
+   как раз хвост вроде «серии YE5» — здесь он всегда на виду. */
+.dzh-cats__series {
+  padding: 3px 7px;
+  border-radius: 5px;
+  background: var(--h-paper);
+  font-size: 11.5px;
+  font-weight: 700;
+  /* line-height как у соседнего текста, иначе чип поднимает высоту строки */
+  line-height: 1;
+  color: var(--h-ink);
+  white-space: nowrap;
+}
+
+/* У части моделей в каталоге характеристика — целое предложение; в строке она
+   ужимается и при нехватке места обрезается, а не распирает карточку. */
+.dzh-cats__spec {
+  min-width: 0;
+  overflow: hidden;
+  font-size: 12px;
+  color: var(--h-steel-500);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.dzh-cats__item svg { color: var(--h-steel-500); align-self: center; }
+
+.dzh .dzh-cats__more {
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+  padding: 10px 16px;
+  border: 1px solid var(--h-steel-300);
+  border-radius: 999px;
+  color: var(--h-ink);
+  font-size: 13px;
+  font-weight: 600;
+  transition: border-color 0.18s var(--h-ease), background-color 0.18s var(--h-ease),
+    color 0.18s var(--h-ease);
+}
+
+.dzh .dzh-cats__more:hover { border-color: var(--h-ink); background: var(--h-ink); color: #fff; }
+
+/* Панели показываются по одной только когда скрипт включил интерактив. */
+.dzh-cats.is-enhanced .dzh-cats__panel[hidden] { display: none; }
+
+.dzh-cats:not(.is-enhanced) .dzh-cats__panels { display: grid; gap: 14px; }
+
+/* Полоса избранных моделей под категориями: раньше это был отдельный блок
+   платформы, теперь часть той же секции «Наша продукция». Оформление
+   сохранено прежним — снимок и подпись под ним. */
+.dzh-cats__featured {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  margin: clamp(18px, 2vw, 26px) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.dzh .dzh-cats__feat {
+  display: grid;
+  grid-template-rows: auto auto;
+  gap: 10px;
+  padding: 14px 14px 16px;
+  border: 1px solid var(--h-steel-300);
+  border-radius: 16px;
+  background: var(--h-surface);
+  color: var(--h-ink);
+  transition: border-color 0.2s var(--h-ease), transform 0.2s var(--h-ease),
+    box-shadow 0.2s var(--h-ease);
+}
+
+.dzh .dzh-cats__feat:hover {
+  border-color: var(--h-ink);
+  transform: translateY(-3px);
+  box-shadow: 0 18px 30px -22px rgba(13, 31, 45, 0.6);
+}
+
+/* Снимок и подсказка лежат в общей рамке: подсказка появляется поверх фото
+   при наведении и при фокусе с клавиатуры — так карточка сообщает, что она
+   кликабельна, не занимая место в спокойном состоянии. */
+.dzh-cats__feat-shot {
+  position: relative;
+  display: block;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.dzh-cats__feat img {
+  display: block;
+  width: 100%;
+  height: 150px;
+  object-fit: contain;
+  transition: transform 0.25s var(--h-ease);
+}
+
+.dzh-cats__feat-hint {
+  position: absolute;
+  inset: auto 0 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 26px 10px 10px;
+  background: linear-gradient(to top, rgba(13, 31, 45, 0.86), rgba(13, 31, 45, 0));
+  color: #fff;
+  font-size: 12.5px;
+  font-weight: 600;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.2s var(--h-ease), transform 0.2s var(--h-ease);
+}
+
+.dzh .dzh-cats__feat:hover img,
+.dzh .dzh-cats__feat:focus img,
+.dzh .dzh-cats__feat:focus-visible img { transform: scale(1.05); }
+
+.dzh .dzh-cats__feat:hover .dzh-cats__feat-hint,
+.dzh .dzh-cats__feat:focus .dzh-cats__feat-hint,
+.dzh .dzh-cats__feat:focus-visible .dzh-cats__feat-hint { opacity: 1; transform: translateY(0); }
+
+/* На тач-экранах наведения нет — подсказка там показана сразу. */
+@media (hover: none) {
+  .dzh-cats__feat-hint { opacity: 1; transform: none; }
+}
+
+.dzh-cats__feat span {
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.4;
+  text-align: center;
+}
+
+/* --- адаптив --- */
+
+@media (max-width: 900px) {
+  .dzh-cats__head { grid-template-columns: minmax(0, 1fr); }
+  .dzh-cats__grid { grid-template-columns: minmax(0, 1fr); }
+  /* Список категорий превращается в горизонтальную ленту вкладок. */
+  .dzh-cats__list {
+    grid-auto-flow: column;
+    grid-auto-columns: max-content;
+    gap: 8px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    scrollbar-width: none;
+  }
+  .dzh-cats__list::-webkit-scrollbar { display: none; }
+  .dzh-cats__featured { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .dzh .dzh-cats__link { border-color: var(--h-steel-300); border-radius: 999px; padding: 10px 14px; font-size: 13.5px; }
+  .dzh-cats__count { display: none; }
+}
+
+@media (max-width: 620px) {
+  .dzh-cats__panel { grid-template-columns: minmax(0, 1fr); padding: 14px; }
+  .dzh-cats__shot { height: auto; min-height: 0; aspect-ratio: 16 / 10; }
+  .dzh-cats__items { min-height: 0; }
+  .dzh-cats__feat img { height: 110px; }
+  .dzh-cats__spec { display: none; }
+}
+
 /* --- Блок «Партнёры» ------------------------------------------------------ */
 
 /* Плитки повторяют карточки со страницы «Партнёры» (assets/css/partners.css,
