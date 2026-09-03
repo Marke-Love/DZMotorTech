@@ -1,0 +1,250 @@
+/* ==========================================================================
+   Главная страница. Блоки главной переписываются по одному, поэтому файл
+   растёт секциями: сначала общие токены с префиксом dzh-, ниже — блоки.
+   Палитра и типографика те же, что на внутренних страницах (каталог,
+   сертификаты, о компании), чтобы главная не выбивалась из сайта.
+
+   Важно: блоки главной лежат внутри .home_custom_design, а платформенный
+   css.css задаёт там свои h2 (50px, по центру, с процентными отступами).
+   Поэтому заголовки перебиваются селектором из двух классов — так он весит
+   больше платформенного .home_custom_design h2 и обходится без !important.
+   ========================================================================== */
+
+.dzh {
+  --h-ink: #0d1f2d;
+  --h-ink-deep: #081620;
+  --h-paper: #f2f3f2;
+  --h-surface: #ffffff;
+  --h-accent: #00aeef;
+  --h-steel-300: #c6ccd0;
+  --h-steel-500: #7b8891;
+  --h-radius: 24px;
+  --h-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+
+  overflow-x: clip;
+}
+
+.dzh *,
+.dzh *::before,
+.dzh *::after { box-sizing: border-box; }
+
+.dzh__shell { width: 100%; max-width: 1320px; margin: 0 auto; padding: 0 24px; }
+
+.dzh a { text-decoration: none; }
+
+.dzh :focus-visible { outline: 3px solid var(--h-accent); outline-offset: 3px; }
+
+.dzh .dzh__display {
+  margin: 0;
+  width: auto;
+  font-weight: 800;
+  line-height: 1.06;
+  letter-spacing: -0.025em;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+.dzh .dzh__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--h-accent);
+}
+
+.dzh .dzh__eyebrow::before { content: ""; width: 28px; height: 1px; background: currentColor; }
+
+/* --- Блок «О нас» --------------------------------------------------------- */
+
+.dzh-about {
+  position: relative;
+  padding: clamp(46px, 5.4vw, 84px) 0;
+  background: var(--h-ink);
+  color: #fff;
+  overflow: hidden;
+}
+
+/* Мягкое свечение за видео: тёмная плашка во всю ширину без него выглядит
+   плоской заливкой. */
+.dzh-about::before {
+  content: "";
+  position: absolute;
+  top: -25%;
+  left: -12%;
+  width: 62%;
+  height: 130%;
+  background: radial-gradient(closest-side, rgba(0, 174, 239, 0.22), transparent 72%);
+  pointer-events: none;
+}
+
+.dzh-about__grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: clamp(28px, 3.4vw, 56px);
+  align-items: stretch;
+}
+
+/* Видео вытянуто по горизонтали и само по себе ниже текстовой колонки.
+   Цифры под ним идут сеткой 2×2 и добирают высоту, а вся группа выровнена
+   по центру — так слева не остаётся пустой тёмной дыры. */
+.dzh-about__media { display: flex; flex-direction: column; justify-content: center; gap: 18px; }
+
+/* Видео формата 854×384 — вытянутое по горизонтали, поэтому под ним стоят
+   цифры: так левая колонка догоняет по высоте текстовую. */
+.dzh-about__player {
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 18px;
+  background: var(--h-ink-deep);
+  box-shadow: 0 30px 60px -34px rgba(0, 0, 0, 0.9);
+  overflow: hidden;
+  line-height: 0;
+}
+
+.dzh-about__player video { display: block; width: 100%; height: auto; }
+
+/* Своя кнопка play вместо системной панели: панель браузера рисуется поверх
+   нижней части обложки и перекрывает её. Кнопку показывает assets/js/home-video.js,
+   он же возвращает штатное управление после старта ролика — без скрипта у видео
+   остаются обычные controls. */
+.dzh-about__play {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  display: grid;
+  place-items: center;
+  width: 66px;
+  height: 66px;
+  padding-left: 4px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--h-accent);
+  color: #06202c;
+  cursor: pointer;
+  box-shadow: 0 14px 30px -12px rgba(0, 0, 0, 0.75);
+  transition: background-color 0.2s var(--h-ease), transform 0.2s var(--h-ease);
+}
+
+.dzh-about__play[hidden] { display: none; }
+
+.dzh-about__play:hover { background: #24c1f5; transform: scale(1.06); }
+
+.dzh-about__player.is-playing .dzh-about__play { display: none; }
+
+.dzh-about__facts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.14);
+  overflow: hidden;
+}
+
+.dzh-about__facts li {
+  display: grid;
+  gap: 4px;
+  align-content: start;
+  padding: 18px 20px 19px;
+  background: var(--h-ink);
+}
+
+.dzh-about__facts b {
+  font-size: clamp(19px, 1.95vw, 27px);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+
+.dzh-about__facts span { font-size: 12px; line-height: 1.35; color: rgba(255, 255, 255, 0.55); }
+
+.dzh-about__body { display: grid; gap: 17px; align-content: start; justify-items: start; }
+
+.dzh .dzh-about__title { font-size: clamp(23px, 2.5vw, 37px); color: #fff; }
+
+.dzh-about__lede {
+  margin: 0;
+  font-size: clamp(15px, 1.1vw, 17px);
+  line-height: 1.68;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.dzh-about__text { margin: 0; font-size: 14.5px; line-height: 1.68; color: rgba(255, 255, 255, 0.6); }
+
+.dzh-about__chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; }
+
+.dzh-about__chips li {
+  padding: 7px 13px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  font-size: 12.5px;
+  font-weight: 600;
+  line-height: 1.2;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.dzh-about__quote {
+  margin: 0;
+  padding: 2px 0 2px 18px;
+  border-left: 2px solid var(--h-accent);
+  font-size: 14.5px;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.dzh-about__quote b { color: #fff; font-weight: 700; }
+
+.dzh .dzh-about__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 3px;
+  padding: 13px 24px;
+  border-radius: 999px;
+  background: var(--h-accent);
+  color: #06202c;
+  font-size: 14px;
+  font-weight: 700;
+  transition: background-color 0.2s var(--h-ease), transform 0.2s var(--h-ease),
+    box-shadow 0.2s var(--h-ease);
+}
+
+.dzh .dzh-about__cta svg { transition: transform 0.2s var(--h-ease); }
+
+.dzh .dzh-about__cta:hover {
+  background: #24c1f5;
+  color: #06202c;
+  transform: translateY(-2px);
+  box-shadow: 0 16px 30px -18px rgba(0, 174, 239, 0.9);
+}
+
+.dzh .dzh-about__cta:hover svg { transform: translateX(3px); }
+
+/* --- адаптив -------------------------------------------------------------- */
+
+@media (max-width: 1000px) {
+  .dzh-about__grid { grid-template-columns: minmax(0, 1fr); }
+  /* На узком экране текст важнее видео — он идёт первым, как и раньше. */
+  .dzh-about__body { order: 1; }
+  .dzh-about__media { order: 2; }
+}
+
+@media (max-width: 620px) {
+  .dzh-about__facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  /* В английской версии значения длиннее («14 million kW») и в узкую ячейку
+     одной строкой не помещаются — здесь перенос разрешён. */
+  .dzh-about__facts b { white-space: normal; }
+  .dzh-about__chips li { font-size: 12px; padding: 6px 11px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dzh * { transition-duration: 0.01ms !important; }
+}

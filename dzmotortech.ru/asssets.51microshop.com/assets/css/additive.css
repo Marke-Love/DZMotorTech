@@ -1820,3 +1820,28 @@ body.page-en[data-template="index"] #gallery-jigsaw-b_8 { order: 8 !important; }
     transition-duration: 0.01ms !important;
   }
 }
+
+/* 10. Подвал. В теме платформы он залит чистым чёрным (#000) и выбивается из
+   остального сайта — тёмно-синий #0d1f2d здесь тот же, что в блоке «О нас»
+   на главной и в шапках внутренних страниц.
+
+   Селекторы начинаются с body: css.css подключён в разметке ПОСЛЕ additive.css,
+   поэтому при равной силе выигрывал бы он. Лишний body поднимает вес и
+   позволяет обойтись без !important. */
+body #footer {
+  background-color: #0d1f2d;
+}
+
+/* На чёрном ссылки #888 читались нормально, на более светлом синем они
+   выглядят замыленными — чуть повышаем контраст. */
+body #footer .footer_sub_nav li a {
+  color: rgba(255, 255, 255, 0.62);
+}
+
+body #footer .footer_sub_nav li a:hover {
+  color: #fff;
+}
+
+body #footer .footer_bottom {
+  color: rgba(255, 255, 255, 0.5);
+}

@@ -108,7 +108,7 @@ var chectoutpage="";
   var usetiktokpixelapi=false;
 </script>
 
-
+<link rel="stylesheet" href="/assets/css/home.css?v=1787200000">
 </head>
 <body  data-template="index" class="body">
 	<article class="article">
@@ -617,41 +617,66 @@ var chectoutpage="";
 	</div>
 
 	<div id="videos-a_3" data-tag="videos-a">
-		
-			
-    
-    
-        
-    
-    <div class="gallery_jigsaw_b padding-5 videotext">
-        <div class="container">
-            <div class="row">
-                <div class="btn-group btn-group-justified" data-length="2">
-                    
-                          
-                        <div class="btn-group" data-index="1">
-                            <div class="video-list-modal home-intro-video">
-                                <video width="100%" height="auto" controls preload="metadata" playsinline><source src="/video/dazhong-motor-introduction.mp4" type="video/mp4"></video>
-                            </div>
-                        </div>
-                          
-                    
-                          
-                        <div class="btn-group" data-index="2">
-                            <h2>About Us</h2>
-                            <!-- CONTENT:home_about_en:start -->
-                            <div><div style="text-align: justify;">As a world-leading industrial electric motor manufacturer and professional motor supplier in China, Dazhong was established in 1958 with a registered capital of $31 million.</div><div style="text-align: justify;">We specialize in the production of a wide range of high-efficiency and high-performance industrial motors, including servo motors, the mainstream three-phase motor, various high-voltage motor and low-voltage motor products, industry-specific explosion-proof motor, DC motors, permanent magnet motors, other custom special motors and matched VFDs.</div><div style="text-align: justify;">With 2,000 employees, 68% of whom are professional technicians, including 1,360 senior and master-level experts, our factory achieves an annual production capacity of 10 million units or 14 million kW.</div><div style="text-align: justify;">We pride ourselves on being a leading manufacturer of high-efficiency electric motor products and a reliable motor supplier of high-performance drive solutions, catering to diverse industrial needs worldwide. Committed to the principle of "quality first and customer priority", we consistently provide high-quality products and full-cycle services to meet the ever-growing global industrial demands.</div></div>
-                            <!-- CONTENT:home_about_en:end -->
-                              <a class="videobtn" href="pages/about-us-11909900.html" title="more">more</a>
-                        </div>
-                        
-                    
-                </div>
-            </div>
-        </div>
-    </div>
+    <section class="dzh dzh-about">
+      <div class="dzh__shell">
+        <div class="dzh-about__grid">
 
-      	
+          <div class="dzh-about__media">
+            <div class="dzh-about__player" data-dzh-player>
+              <video controls playsinline preload="none" width="854" height="384"
+                     poster="/assets/images/home/about-video-poster-en.jpg">
+                <source src="/video/dazhong-motor-introduction.mp4" type="video/mp4">
+              </video>
+              <button class="dzh-about__play" type="button" data-dzh-play hidden
+                      aria-label="Watch the company video">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.4v13.2L19 12z"/></svg>
+              </button>
+            </div>
+            <ul class="dzh-about__facts">
+              <li><b>1958</b><span>year the company was founded</span></li>
+              <li><b>2,000</b><span>employees at the factory</span></li>
+              <li><b>10 million</b><span>motors per year</span></li>
+              <li><b>14 million kW</b><span>annual capacity</span></li>
+            </ul>
+          </div>
+
+          <div class="dzh-about__body">
+            <!-- CONTENT:home_about_en:start -->
+            <p class="dzh__eyebrow">About us</p>
+            <h2 class="dzh__display dzh-about__title">Leading manufacturer of electric motors</h2>
+            <p class="dzh-about__lede">
+              Dazhong is a world-leading industrial electric motor manufacturer and professional
+              motor supplier in China, established in 1958 with a registered capital of $31 million.
+            </p>
+            <ul class="dzh-about__chips">
+              <li>Servo motors</li>
+              <li>High- and low-voltage</li>
+              <li>DC motors</li>
+              <li>Permanent magnet</li>
+              <li>Explosion-proof</li>
+              <li>Custom special motors</li>
+              <li>Matched VFDs</li>
+            </ul>
+            <p class="dzh-about__text">
+              The factory employs 2,000 people, 68% of whom are professional technicians,
+              including 1,360 senior and master-level experts.
+            </p>
+            <p class="dzh-about__quote">
+              <b>&ldquo;Quality first and customer priority&rdquo;</b> &mdash; the principle behind the
+              high-quality products and full-cycle services we provide to meet the ever-growing
+              global industrial demands.
+            </p>
+            <a class="dzh-about__cta" href="pages/about-us-11909900.html">
+              More about the company
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                   stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13"/><path d="M12 5l7 7-7 7"/></svg>
+            </a>
+            <!-- CONTENT:home_about_en:end -->
+          </div>
+
+        </div>
+      </div>
+    </section>
 	</div>
 
 	<div id="gallery-jigsaw-b_4" data-tag="gallery-jigsaw-b">
@@ -1726,5 +1751,6 @@ s.parentNode.insertBefore(b, s);})(window.lintrk);
 	<script src="../asssets.51microshop.com/assets/js/PluginUit.js" type="text/javascript" async></script>
 <script src="/assets/js/nav.js?v=1787154820" defer></script>
 <script src="/assets/js/to-top.js?v=1787154820" defer></script>
+<script src="/assets/js/home-video.js?v=1787200000" defer></script>
 </body>
 </html>
