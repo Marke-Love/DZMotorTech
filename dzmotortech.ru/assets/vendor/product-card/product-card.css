@@ -581,3 +581,18 @@ strong{text-decoration:underline dotted;text-underline-offset:3px}
 div.breadcrumbs a.long,div.breadcrumbs span.long{max-width:none;overflow:hidden}
 .link_popup:hover img{filter:brightness(0) saturate(100%) invert(37%) sepia(29%) saturate(7145%) hue-rotate(215deg) brightness(98%) contrast(98%)}
 .link_popup:hover{color:#336af7}
+/* ==========================================================================
+   Характеристики товара — читаемая сетка
+   Значения были выключены вправо и прижаты к низу строки: длинные описания
+   рвались на 3–4 строки и выглядели так, будто не помещаются. Ставим текст
+   по левому краю, выравниваем по верху и отдаём значению больше ширины.
+   Правила ограничены десктопом — на узких экранах работает своя раскладка.
+   ========================================================================== */
+@media (min-width:891px){
+  .page_detail .chars{gap:0 72px;margin-top:4px}
+  .page_detail .chars__row{grid-template-columns:minmax(180px,34%) minmax(0,1fr);align-items:start;column-gap:24px;margin:0;padding:15px 0;border-bottom:1px solid #ecf3f5}
+  .page_detail .chars__row::after{content:none}
+  .page_detail .chars__cell{font-size:17px;line-height:26px;padding-top:0;padding-right:0;justify-self:stretch;text-align:left;color:#222}
+  .page_detail .chars__cell:first-child{width:auto;font-size:15px;color:rgba(34,34,34,.55)}
+  .page_detail .chars__cell span{border-bottom:0}
+}
