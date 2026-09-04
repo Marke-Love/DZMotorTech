@@ -813,3 +813,154 @@
 @media (prefers-reduced-motion: reduce) {
   .dzh * { transition-duration: 0.01ms !important; }
 }
+
+/* --- Блок «Области применения» -------------------------------------------
+
+   Раскрывающаяся лента отраслей: карточки лежат в ряд одинаковой ширины,
+   а под курсором (или под фокусом с клавиатуры) выбранная раздвигается и
+   показывает описание. Работает на чистом CSS — flex-grow плюс :hover и
+   :focus-within, поэтому блок не зависит от скриптов.
+
+   На узких экранах и на тач-устройствах раздвигать нечего: карточки
+   становятся в столбец, а описания видны сразу.
+   -------------------------------------------------------------------------- */
+
+.dzh-apps {
+  padding: clamp(40px, 4.6vw, 72px) 0 0;
+  background: var(--h-surface);
+  color: var(--h-ink);
+}
+
+.dzh-apps__head { display: grid; gap: 12px; max-width: 780px; margin-bottom: clamp(22px, 2.6vw, 34px); }
+
+.dzh .dzh-apps__title { font-size: clamp(23px, 2.5vw, 36px); color: var(--h-ink); }
+
+.dzh-apps__lede { margin: 0; font-size: 15.5px; line-height: 1.68; color: #46545e; }
+
+/* Лента во всю ширину экрана: фотографии смыкаются встык, без полей. */
+.dzh-apps__row {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  height: clamp(340px, 34vw, 460px);
+}
+
+.dzh-apps__item { display: flex; flex: 1 1 0; min-width: 0; transition: flex-grow 0.45s var(--h-ease); }
+
+.dzh-apps__link {
+  position: relative;
+  display: block;
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  color: #fff;
+  isolation: isolate;
+}
+
+.dzh-apps__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.02);
+  transition: transform 0.6s var(--h-ease);
+}
+
+/* Затемнение снизу: по нему читается подпись поверх любой фотографии. */
+.dzh-apps__scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(8, 22, 32, 0.88) 0%, rgba(8, 22, 32, 0.42) 46%, rgba(8, 22, 32, 0.12) 100%);
+  transition: background 0.4s var(--h-ease);
+}
+
+.dzh-apps__inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 100%;
+  padding: clamp(18px, 1.8vw, 26px);
+}
+
+.dzh-apps__icon {
+  position: absolute;
+  top: clamp(18px, 1.8vw, 26px);
+  left: clamp(18px, 1.8vw, 26px);
+  display: block;
+  color: #fff;
+  opacity: 0.85;
+}
+
+.dzh-apps__name {
+  display: block;
+  font-size: clamp(16px, 1.35vw, 20px);
+  font-weight: 700;
+  line-height: 1.25;
+  text-shadow: 0 1px 12px rgba(8, 22, 32, 0.5);
+}
+
+/* Описание держим в потоке, но схлопнутым по высоте: так при раскрытии
+   карточка не дёргает соседей, а текст выезжает снизу вверх. */
+.dzh-apps__body {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition: grid-template-rows 0.45s var(--h-ease), opacity 0.35s var(--h-ease);
+}
+
+.dzh-apps__body > span { overflow: hidden; min-width: 0; }
+
+.dzh-apps__text {
+  display: block;
+  max-width: 46ch;
+  margin-top: 10px;
+  font-size: 14px;
+  line-height: 1.62;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.dzh-apps__more {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 14px;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--h-accent);
+}
+
+.dzh-apps__item:hover,
+.dzh-apps__item:focus-within { flex-grow: 2.6; }
+
+.dzh-apps__item:hover .dzh-apps__img,
+.dzh-apps__item:focus-within .dzh-apps__img { transform: scale(1.08); }
+
+.dzh-apps__item:hover .dzh-apps__scrim,
+.dzh-apps__item:focus-within .dzh-apps__scrim {
+  background: linear-gradient(to top, rgba(8, 22, 32, 0.92) 0%, rgba(8, 22, 32, 0.62) 60%, rgba(8, 22, 32, 0.3) 100%);
+}
+
+.dzh-apps__item:hover .dzh-apps__body,
+.dzh-apps__item:focus-within .dzh-apps__body { grid-template-rows: 1fr; opacity: 1; }
+
+.dzh-apps__item:hover .dzh-apps__icon,
+.dzh-apps__item:focus-within .dzh-apps__icon { opacity: 1; color: var(--h-accent); }
+
+/* Раскладку меняем только по ширине: медиазапрос hover для этого не годится —
+   часть окружений отдаёт hover: none даже на обычном десктопе. */
+@media (max-width: 1024px) {
+  .dzh-apps__row { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); height: auto; }
+  .dzh-apps__item { flex: none; }
+  .dzh-apps__link { min-height: 260px; }
+  .dzh-apps__body { grid-template-rows: 1fr; opacity: 1; }
+}
+
+/* Где навести курсор нельзя, описания показываем сразу — иначе их не достать. */
+@media (hover: none) {
+  .dzh-apps__body { grid-template-rows: 1fr; opacity: 1; }
+  .dzh-apps__text { font-size: 13px; }
+}
