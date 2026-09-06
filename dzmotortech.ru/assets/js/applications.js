@@ -1,11 +1,151 @@
-/* Страница «Области применения»: просмотр фотографий объектов на весь экран.
-   Список кадров лежит в JSON рядом с разметкой — подписи в мозаике и в окне
-   просмотра берутся из одного источника. Пролистывание идёт сквозь все
-   отрасли подряд, поэтому в окне видно, к какой из них относится кадр. */
+/* Страница «Области применения».
+
+   Три задачи: подсветить в рельсе ту отрасль, которую сейчас читают;
+   показать стопку объектов и коннектор «условия → серии», когда блок
+   доходит до экрана; открыть кадр на весь экран. Список кадров лежит
+   в JSON рядом с разметкой — подписи в стопке и в окне просмотра берутся
+   из одного источника, пролистывание идёт сквозь все отрасли подряд. */
 (function () {
   'use strict';
 
-  function init() {
+  /* --- рельс и появление блоков ------------------------------------------ */
+
+  function initScene() {
+    var root = document.querySelector('.dzu');
+    var fields = Array.prototype.slice.call(document.querySelectorAll('[data-dzu-field]'));
+    var links = Array.prototype.slice.call(document.querySelectorAll('[data-dzu-rail]'));
+    if (!root || !fields.length) return;
+
+    /* Анимацию включаем только отсюда: если скрипт не отработал,
+       карточки и коннектор остаются видимыми. */
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      root.classList.add('dzu--anim');
+    }
+
+    if (!('IntersectionObserver' in window)) {
+      fields.forEach(function (field) { field.classList.add('is-in'); });
+      return;
+    }
+
+
+    function showAll() {
+      fields.forEach(function (field) { field.classList.add('is-in'); });
+    }
+
+    /* Появление: блок засчитывается, когда в кадр вошла его четверть. */
+    var seen = false;
+    var reveal = new IntersectionObserver(function (entries) {
+      seen = true;
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-in');
+        reveal.unobserve(entry.target);
+      });
+    }, { rootMargin: '0px 0px -18% 0px', threshold: 0.12 });
+
+    fields.forEach(function (field) { reveal.observe(field); });
+
+    /* То, что уже на экране, показываем сразу, не дожидаясь наблюдателя. */
+    fields.forEach(function (field) {
+      var rect = field.getBoundingClientRect();
+      if (rect.top < window.innerHeight && rect.bottom > 0) field.classList.add('is-in');
+    });
+
+    /* Страховка: в фоновой вкладке наблюдатель молчит, и если по какой-то
+       причине он так и не отработает, страница осталась бы пустой. */
+    window.setTimeout(function () { if (!seen) showAll(); }, 1500);
+
+    if (!links.length) return;
+
+    function mark(index) {
+      links.forEach(function (link, i) {
+        if (i === index) link.setAttribute('aria-current', 'true');
+        else link.removeAttribute('aria-current');
+      });
+    }
+
+    /* Активной считаем отрасль, чей блок пересекает верхнюю треть экрана:
+       полоса узкая, поэтому в ней всегда ровно один блок. */
+    var visible = {};
+    var current = -1;
+    var track = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        visible[entry.target.getAttribute('data-dzu-field')] = entry.isIntersecting;
+      });
+      for (var i = 0; i < fields.length; i++) {
+        if (visible[String(i)] && i !== current) { current = i; mark(i); return; }
+      }
+    }, { rootMargin: '-18% 0px -68% 0px' });
+
+    fields.forEach(function (field) { track.observe(field); });
+    mark(0);
+  }
+
+  /* --- коннектор «условия → серии» ---------------------------------------- */
+
+  /* Дуги должны выходить из центров карточек условий, а их число и ширина
+     зависят от вёрстки. Поэтому пути пересчитываем по факту: берём центры
+     карточек и переводим их в проценты ширины коннектора. Если карточки
+     перенеслись на второй ряд, коннектор прячем — врать линиями нельзя. */
+  function drawWires() {
+    Array.prototype.slice.call(document.querySelectorAll('.dzu-map')).forEach(function (map) {
+      var wire = map.querySelector('.dzu-map__wire');
+      var svg = wire && wire.querySelector('svg');
+      var items = Array.prototype.slice.call(map.querySelectorAll('.dzu-cond > li'));
+      if (!svg || !items.length) return;
+
+      wire.hidden = false;
+      var box = wire.getBoundingClientRect();
+      if (!box.width) return;
+
+      var top = null;
+      var oneRow = true;
+      var xs = items.map(function (item) {
+        var rect = item.getBoundingClientRect();
+        if (top === null) top = rect.top;
+        else if (Math.abs(rect.top - top) > 2) oneRow = false;
+        return (rect.left + rect.width / 2 - box.left) / box.width * 100;
+      });
+
+      if (!oneRow) { wire.hidden = true; return; }
+
+      svg.innerHTML = xs.map(function (x) {
+        var v = x.toFixed(2);
+        return '<path d="M' + v + ' 0 V12 Q' + v + ' 26 50 26 V40" pathLength="1"/>';
+      }).join('');
+    });
+  }
+
+  function watchWires() {
+    drawWires();
+
+    /* ResizeObserver ловит любое изменение ширины списка — и поворот экрана,
+       и подгрузку веб-шрифтов, которая меняет высоту карточек. */
+    if ('ResizeObserver' in window) {
+      var timer = null;
+      var observer = new ResizeObserver(function () {
+        window.clearTimeout(timer);
+        timer = window.setTimeout(drawWires, 80);
+      });
+      Array.prototype.slice.call(document.querySelectorAll('.dzu-cond')).forEach(function (list) {
+        observer.observe(list);
+      });
+      return;
+    }
+
+    var fallback = null;
+    window.addEventListener('resize', function () {
+      window.clearTimeout(fallback);
+      fallback = window.setTimeout(drawWires, 150);
+    });
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(drawWires);
+    }
+  }
+
+  /* --- просмотр кадра на весь экран --------------------------------------- */
+
+  function initLightbox() {
     var box = document.querySelector('[data-dzu-lb]');
     var data = document.querySelector('[data-dzu-data]');
     if (!box || !data) return;
@@ -78,6 +218,12 @@
       if (event.key === 'ArrowLeft') { event.preventDefault(); step(-1); }
       if (event.key === 'ArrowRight') { event.preventDefault(); step(1); }
     });
+  }
+
+  function init() {
+    initScene();
+    watchWires();
+    initLightbox();
   }
 
   if (document.readyState === 'loading') {

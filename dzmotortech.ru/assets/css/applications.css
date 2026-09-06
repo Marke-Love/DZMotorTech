@@ -1,8 +1,9 @@
 /* ==========================================================================
-   Страница «Области применения». Было — пять платформенных галерей подряд,
-   все карточки вели на профиль компании. Стало — пять отраслевых разворотов
-   в шахматном порядке: слева задача отрасли и ссылки на подходящие серии,
-   справа мозаика из трёх объектов. Префикс dzu-.
+   Страница «Области применения». Пять отраслей идут одной сценой: слева
+   липкий рельс с нумерацией, в середине разбор отрасли, справа стопка
+   объектов, которая держится на экране, пока читаешь текст. Ядро блока —
+   матрица «условия площадки → что применяется»: пиктограммы требований
+   сводятся коннектором к сериям из каталога. Префикс dzu-.
    ========================================================================== */
 
 .dzu {
@@ -17,6 +18,8 @@
   --u-steel-700: #46545e;
   --u-radius: 24px;
   --u-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  /* Шапка сайта липкая: от неё отсчитываются все top у sticky-элементов. */
+  --u-top: 96px;
 
   background: var(--u-paper);
   color: var(--u-ink);
@@ -32,8 +35,6 @@
 .dzu a { text-decoration: none; }
 
 .dzu :focus-visible { outline: 3px solid var(--u-accent); outline-offset: 3px; }
-
-.dzu__display { margin: 0; font-weight: 800; line-height: 1.04; letter-spacing: -0.025em; text-transform: uppercase; }
 
 .dzu__eyebrow {
   display: inline-flex;
@@ -68,7 +69,15 @@
 
 .dzu-hero__inner { position: relative; display: grid; gap: 18px; max-width: 760px; padding: clamp(44px, 5vw, 76px) 0 clamp(28px, 3vw, 44px); }
 
-.dzu-hero__title { font-size: clamp(27px, 3.2vw, 46px); color: #fff; }
+.dzu-hero__title {
+  margin: 0;
+  font-size: clamp(27px, 3.2vw, 46px);
+  font-weight: 800;
+  line-height: 1.04;
+  letter-spacing: -0.025em;
+  text-transform: uppercase;
+  color: #fff;
+}
 
 .dzu-hero__lede { margin: 0; max-width: 60ch; font-size: clamp(15px, 1.1vw, 17px); line-height: 1.68; color: rgba(255, 255, 255, 0.76); }
 
@@ -90,52 +99,152 @@
 
 .dzu-facts span { font-size: 12.5px; line-height: 1.4; color: rgba(255, 255, 255, 0.58); }
 
-/* --- якорная навигация по отраслям ---------------------------------------- */
+/* --- сцена: рельс + поток отраслей ---------------------------------------- */
 
-.dzu-jump { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: clamp(24px, 3vw, 36px) 0 0; list-style: none; }
+.dzu-scene { padding: clamp(30px, 3.6vw, 52px) 0 clamp(10px, 1.4vw, 20px); }
 
-.dzu-jump a {
-  display: inline-flex;
+.dzu-scene__grid { display: grid; grid-template-columns: 200px minmax(0, 1fr); column-gap: 48px; align-items: start; }
+
+.dzu-rail { position: sticky; top: var(--u-top); align-self: start; }
+
+.dzu-rail__label { margin: 0 0 14px; font-size: 11px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--u-steel-500); }
+
+.dzu-rail__list { margin: 0; padding: 0; list-style: none; border-left: 1px solid var(--u-steel-300); }
+
+.dzu-rail__list a {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
   align-items: baseline;
-  gap: 9px;
-  padding: 11px 18px;
-  border: 1px solid var(--u-steel-300);
-  border-radius: 999px;
-  background: var(--u-surface);
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--u-steel-700);
-  transition: border-color 0.18s var(--u-ease), color 0.18s var(--u-ease), transform 0.18s var(--u-ease);
+  gap: 10px;
+  padding: 11px 0 11px 20px;
+  font-size: 13.5px;
+  line-height: 1.35;
+  color: var(--u-steel-500);
+  transition: color 0.2s var(--u-ease), transform 0.2s var(--u-ease);
 }
 
-.dzu-jump a:hover, .dzu-jump a:focus { border-color: var(--u-ink); color: var(--u-ink); transform: translateY(-1px); }
+/* Точка на рельсе: сидит ровно на линии списка, поэтому смещена на свой радиус. */
+.dzu-rail__list a::before {
+  content: "";
+  position: absolute;
+  left: -4.5px;
+  top: 16px;
+  width: 8px;
+  height: 8px;
+  border: 1px solid var(--u-steel-300);
+  border-radius: 50%;
+  background: var(--u-paper);
+  transition: background-color 0.2s var(--u-ease), border-color 0.2s var(--u-ease), transform 0.2s var(--u-ease);
+}
 
-.dzu-jump i { font-style: normal; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; color: var(--u-accent); }
+.dzu-rail__list i { font-style: normal; font-size: 11px; font-weight: 700; letter-spacing: 0.06em; font-variant-numeric: tabular-nums; color: var(--u-steel-300); }
 
-/* --- отраслевой разворот ---------------------------------------------------- */
+.dzu-rail__list a:hover, .dzu-rail__list a:focus { color: var(--u-ink); }
 
-.dzu-field { padding: clamp(38px, 4.4vw, 66px) 0; border-bottom: 1px solid var(--u-steel-300); scroll-margin-top: 96px; }
+.dzu-rail__list a[aria-current="true"] { color: var(--u-ink); font-weight: 600; transform: translateX(2px); }
 
-.dzu-field:last-of-type { border-bottom: 0; }
+.dzu-rail__list a[aria-current="true"] i { color: var(--u-accent); }
 
-.dzu-field__inner { display: grid; grid-template-columns: minmax(0, 360px) minmax(0, 1fr); gap: clamp(24px, 3.4vw, 60px); align-items: start; }
+.dzu-rail__list a[aria-current="true"]::before { background: var(--u-accent); border-color: var(--u-accent); transform: scale(1.25); }
 
-/* Часть отраслей разворачиваем зеркально — страница перестаёт читаться
-   как пять одинаковых блоков подряд. Модификатор ставится в разметке:
-   на nth-of-type полагаться нельзя, среди соседей есть другие section. */
-.dzu-field--flip .dzu-field__inner { grid-template-columns: minmax(0, 1fr) minmax(0, 360px); }
+/* --- отраслевой блок ------------------------------------------------------- */
 
-.dzu-field--flip .dzu-field__text { order: 2; }
+.dzu-flow { display: grid; }
 
-.dzu-field__text { display: grid; gap: 14px; align-content: start; position: sticky; top: 96px; }
+.dzu-field {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 400px);
+  column-gap: 48px;
+  /* Запас хода: блок заметно выше стопки объектов, поэтому она успевает
+     «постоять» на экране, пока читают текст. Нижняя и верхняя границы —
+     чтобы на низких ноутбуках не жалась, а на больших экранах не зияла. */
+  min-height: clamp(820px, 106vh, 1140px);
+  padding: clamp(28px, 3.4vw, 48px) 0 clamp(34px, 4vw, 60px);
+  border-top: 1px solid var(--u-steel-300);
+  scroll-margin-top: calc(var(--u-top) - 8px);
+}
 
-.dzu-field__num { font-size: 12px; font-weight: 700; letter-spacing: 0.12em; color: var(--u-accent); font-variant-numeric: tabular-nums; }
+.dzu-field:first-child { border-top: 0; padding-top: 0; }
 
-.dzu-field__title { margin: 0; font-size: clamp(24px, 2.6vw, 36px); font-weight: 800; line-height: 1.1; letter-spacing: -0.025em; text-transform: uppercase; }
+/* За последним блоком прокручивать больше нечего — запас хода ему не нужен. */
+.dzu-field:last-child { min-height: 0; }
 
-.dzu-field__text p { margin: 0; font-size: 15px; line-height: 1.7; color: var(--u-steel-700); }
+.dzu-field__body { display: grid; gap: 14px; align-content: start; align-self: start; }
 
-.dzu-field__label { margin: 6px 0 0; font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--u-steel-500); }
+.dzu-field__num { margin: 0; font-size: 12px; font-weight: 600; letter-spacing: 0.12em; color: var(--u-steel-500); font-variant-numeric: tabular-nums; }
+
+.dzu-field__num b { font-size: 13px; font-weight: 800; color: var(--u-accent); }
+
+.dzu-field__title { margin: 0; font-size: clamp(26px, 3vw, 42px); font-weight: 800; line-height: 1.06; letter-spacing: -0.028em; text-transform: uppercase; }
+
+.dzu-field__lede { margin: 0; max-width: 54ch; font-size: 15.5px; line-height: 1.7; color: var(--u-steel-700); }
+
+/* --- матрица «условия → решение» -------------------------------------------- */
+
+.dzu-map { margin-top: 10px; }
+
+.dzu-map__label { margin: 0 0 12px; font-size: 11px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--u-steel-500); }
+
+.dzu-map__label--out { margin-top: 0; color: var(--u-ink); }
+
+.dzu-cond {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.dzu-cond li {
+  display: grid;
+  gap: 6px;
+  align-content: start;
+  padding: 14px 13px 15px;
+  border: 1px solid var(--u-steel-300);
+  border-radius: 14px;
+  background: var(--u-surface);
+}
+
+.dzu-cond__icon { color: var(--u-accent); }
+
+.dzu-cond b { font-size: 13px; font-weight: 700; line-height: 1.3; color: var(--u-ink); }
+
+.dzu-cond span { font-size: 12px; line-height: 1.45; color: var(--u-steel-500); }
+
+/* Коннектор: дуги от каждого условия сходятся в одну точку над списком серий.
+   Линии рисуются в процентах ширины, поэтому попадают в центры карточек. */
+.dzu-map__wire { position: relative; height: 46px; margin: 2px 0 0; color: var(--u-steel-300); }
+
+.dzu-map__wire[hidden] { display: none; }
+
+.dzu-map__wire[hidden] + .dzu-map__label--out { margin-top: 24px; }
+
+.dzu-map__wire svg { display: block; width: 100%; height: 40px; }
+
+.dzu--anim .dzu-map__wire path { stroke-dasharray: 1; stroke-dashoffset: 1; }
+
+.dzu-map__node {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--u-accent);
+  transform: translate(-50%, 50%);
+  transition: transform 0.4s 0.5s var(--u-ease);
+}
+
+.dzu--anim .dzu-map__node { transform: translate(-50%, 50%) scale(0); }
+
+.dzu--anim .dzu-field.is-in .dzu-map__wire path { animation: dzu-draw 0.7s var(--u-ease) forwards; }
+
+.dzu--anim .dzu-field.is-in .dzu-map__node { transform: translate(-50%, 50%) scale(1); }
+
+@keyframes dzu-draw { to { stroke-dashoffset: 0; } }
 
 .dzu-series { display: grid; gap: 7px; margin: 0; padding: 0; list-style: none; }
 
@@ -143,31 +252,49 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
-  padding: 12px 16px;
-  border: 1px solid var(--u-steel-300);
-  border-radius: 12px;
-  background: var(--u-surface);
+  gap: 14px;
+  padding: 14px 18px;
+  border: 1px solid transparent;
+  border-radius: 14px;
+  background: var(--u-ink);
   font-size: 13.5px;
   font-weight: 600;
   line-height: 1.35;
-  color: var(--u-ink);
-  transition: border-color 0.18s var(--u-ease), color 0.18s var(--u-ease), transform 0.18s var(--u-ease);
+  color: #fff;
+  transition: background-color 0.2s var(--u-ease), transform 0.2s var(--u-ease), box-shadow 0.2s var(--u-ease);
 }
 
-.dzu-series a:hover, .dzu-series a:focus { border-color: var(--u-ink); color: var(--u-accent); transform: translateX(3px); }
+.dzu-series svg { flex: none; color: var(--u-accent); transition: transform 0.2s var(--u-ease); }
 
-.dzu-series svg { flex: none; color: var(--u-steel-500); }
+.dzu-series a:hover, .dzu-series a:focus {
+  background: var(--u-ink-deep);
+  transform: translateX(4px);
+  box-shadow: 0 16px 30px -22px rgba(8, 22, 32, 0.9);
+}
 
-.dzu-series a:hover svg { color: var(--u-accent); }
+.dzu-series a:hover svg, .dzu-series a:focus svg { transform: translateX(3px); }
 
-/* --- мозаика объектов ------------------------------------------------------- */
+/* --- стопка объектов --------------------------------------------------------- */
 
-.dzu-shots { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin: 0; padding: 0; list-style: none; }
+.dzu-field__aside { min-width: 0; }
 
-.dzu-shots li:first-child { grid-column: span 2; }
+.dzu-deck {
+  position: sticky;
+  top: var(--u-top);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
 
-.dzu-shot {
+.dzu-deck li:first-child { grid-column: span 2; }
+
+/* Второй кадр опущен — стопка читается как разложенные снимки, а не сетка. */
+.dzu-deck li:last-child { margin-top: 28px; }
+
+.dzu-card {
   display: grid;
   width: 100%;
   padding: 0;
@@ -177,25 +304,34 @@
   text-align: left;
   cursor: pointer;
   overflow: hidden;
-  transition: border-color 0.2s var(--u-ease), transform 0.2s var(--u-ease), box-shadow 0.2s var(--u-ease);
+  transition: opacity 0.5s var(--u-ease), transform 0.5s var(--u-ease),
+              border-color 0.2s var(--u-ease), box-shadow 0.2s var(--u-ease);
 }
 
-.dzu-shot:hover { border-color: var(--u-ink); transform: translateY(-3px); box-shadow: 0 18px 34px -24px rgba(8, 22, 32, 0.55); }
+.dzu--anim .dzu-card { opacity: 0; transform: translateY(18px); }
 
-.dzu-shot__frame { position: relative; aspect-ratio: 16 / 9; background: var(--u-steel-100); overflow: hidden; }
+.dzu--anim .dzu-field.is-in .dzu-card { opacity: 1; transform: none; }
 
-.dzu-shot__frame img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s var(--u-ease); }
+.dzu--anim .dzu-field.is-in li:nth-child(2) .dzu-card { transition-delay: 0.08s; }
 
-.dzu-shot:hover .dzu-shot__frame img { transform: scale(1.04); }
+.dzu--anim .dzu-field.is-in li:nth-child(3) .dzu-card { transition-delay: 0.16s; }
 
-.dzu-shot__zoom {
+.dzu-card:hover { border-color: var(--u-ink); box-shadow: 0 22px 40px -28px rgba(8, 22, 32, 0.7); }
+
+.dzu-card__frame { position: relative; display: block; aspect-ratio: 16 / 9; background: var(--u-steel-100); overflow: hidden; }
+
+.dzu-card__frame img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s var(--u-ease); }
+
+.dzu-card:hover .dzu-card__frame img { transform: scale(1.05); }
+
+.dzu-card__zoom {
   position: absolute;
-  right: 12px;
-  bottom: 12px;
+  right: 10px;
+  bottom: 10px;
   display: grid;
   place-items: center;
-  width: 36px;
-  height: 36px;
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
   background: rgba(8, 22, 32, 0.7);
   color: #fff;
@@ -203,10 +339,12 @@
   transition: opacity 0.2s var(--u-ease), background-color 0.2s var(--u-ease);
 }
 
-.dzu-shot:hover .dzu-shot__zoom,
-.dzu-shot:focus-visible .dzu-shot__zoom { opacity: 1; background: var(--u-accent); color: #06202c; }
+.dzu-card:hover .dzu-card__zoom,
+.dzu-card:focus-visible .dzu-card__zoom { opacity: 1; background: var(--u-accent); color: #06202c; }
 
-.dzu-shot__name { padding: 14px 16px 16px; font-size: 13.5px; font-weight: 600; line-height: 1.4; color: var(--u-ink); }
+.dzu-card__name { display: block; padding: 12px 14px 14px; font-size: 12.5px; font-weight: 600; line-height: 1.4; color: var(--u-ink); }
+
+.dzu-deck li:first-child .dzu-card__name { padding: 14px 16px 16px; font-size: 13.5px; }
 
 /* --- полноэкранный просмотр -------------------------------------------------- */
 
@@ -294,12 +432,23 @@
 
 /* --- адаптив ------------------------------------------------------------------ */
 
+@media (max-width: 1180px) {
+  .dzu-scene__grid { grid-template-columns: 168px minmax(0, 1fr); column-gap: 36px; }
+  .dzu-field { grid-template-columns: minmax(0, 1fr) minmax(0, 340px); column-gap: 36px; }
+}
+
 @media (max-width: 1000px) {
-  .dzu-field__inner,
-  .dzu-field--flip .dzu-field__inner { grid-template-columns: minmax(0, 1fr); }
-  .dzu-field--flip .dzu-field__text { order: 0; }
-  /* В одну колонку липкий текст только мешает: он занял бы весь экран. */
-  .dzu-field__text { position: static; }
+  /* Рельс уезжает наверх и становится обычной строкой переходов. */
+  .dzu-scene__grid { grid-template-columns: minmax(0, 1fr); row-gap: 26px; }
+  .dzu-rail { position: static; }
+  .dzu-rail__label { margin-bottom: 10px; }
+  .dzu-rail__list { display: flex; flex-wrap: wrap; gap: 8px; border-left: 0; }
+  .dzu-rail__list a { padding: 10px 16px; border: 1px solid var(--u-steel-300); border-radius: 999px; background: var(--u-surface); }
+  .dzu-rail__list a::before { content: none; }
+  .dzu-rail__list a[aria-current="true"] { border-color: var(--u-ink); transform: none; }
+
+  .dzu-field { grid-template-columns: minmax(0, 1fr); row-gap: 26px; min-height: 0; }
+  .dzu-deck { position: static; }
 }
 
 @media (max-width: 900px) {
@@ -308,8 +457,10 @@
 }
 
 @media (max-width: 620px) {
-  .dzu-shots { grid-template-columns: minmax(0, 1fr); }
-  .dzu-shots li:first-child { grid-column: span 1; }
+  .dzu-cond { grid-auto-flow: row; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .dzu-deck { grid-template-columns: minmax(0, 1fr); }
+  .dzu-deck li:first-child { grid-column: span 1; }
+  .dzu-deck li:last-child { margin-top: 0; }
   .dzu-lb__stage { grid-template-columns: minmax(0, 1fr); grid-template-areas: "figure"; }
   .dzu-lb__figure { grid-area: figure; }
   .dzu-lb__nav { position: absolute; bottom: clamp(14px, 2vw, 26px); }
@@ -317,6 +468,10 @@
   .dzu-lb__nav--next { right: clamp(14px, 2vw, 26px); }
 }
 
+/* Класс dzu--anim ставит скрипт: без него карточки и коннектор видны сразу. */
 @media (prefers-reduced-motion: reduce) {
-  .dzu * { transition-duration: 0.01ms !important; }
+  .dzu * { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+  .dzu--anim .dzu-card { opacity: 1; transform: none; }
+  .dzu--anim .dzu-map__wire path { stroke-dashoffset: 0; }
+  .dzu--anim .dzu-map__node { transform: translate(-50%, 50%) scale(1); }
 }
