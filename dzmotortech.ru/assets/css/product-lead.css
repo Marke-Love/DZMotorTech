@@ -1,0 +1,152 @@
+/* ==========================================================================
+   Быстрая заявка с карточки товара. Кнопка «Запросить предложение» осталась
+   от платформенного магазина и ничего не открывала — окно, которое она
+   вызывала, в выгрузке пустое. Здесь своё окно: та же форма, что на
+   контактах, но короткая, с уже подставленной моделью. Префикс dzl-.
+   ========================================================================== */
+
+.dzl {
+  --l-ink: #0d1f2d;
+  --l-ink-deep: #081620;
+  --l-paper: #f2f3f2;
+  --l-surface: #ffffff;
+  --l-accent: #00aeef;
+  --l-steel-300: #c6ccd0;
+  --l-steel-500: #7b8891;
+  --l-steel-700: #46545e;
+  --l-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+
+  position: fixed;
+  inset: 0;
+  /* Шапка сайта сидит на 10001 — окно должно быть выше неё. */
+  z-index: 100000;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(8, 22, 32, 0.72);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.dzl[hidden] { display: none; }
+
+.dzl *,
+.dzl *::before,
+.dzl *::after { box-sizing: border-box; }
+
+.dzl__card {
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+  padding: clamp(24px, 3vw, 34px);
+  border-radius: 24px;
+  background: var(--l-surface);
+  color: var(--l-ink);
+  box-shadow: 0 40px 90px -40px rgba(0, 0, 0, 0.8);
+}
+
+.dzl__close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  border: 1px solid var(--l-steel-300);
+  border-radius: 50%;
+  background: none;
+  color: var(--l-steel-700);
+  cursor: pointer;
+  transition: border-color 0.18s var(--l-ease), color 0.18s var(--l-ease);
+}
+
+.dzl__close:hover { border-color: var(--l-ink); color: var(--l-ink); }
+
+.dzl__art { margin: 0 0 6px; font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--l-accent); }
+
+.dzl__title { margin: 0 0 6px; padding-right: 44px; font-size: clamp(19px, 2vw, 23px); font-weight: 800; line-height: 1.2; letter-spacing: -0.02em; }
+
+.dzl__lede { margin: 0 0 22px; font-size: 14px; line-height: 1.55; color: var(--l-steel-500); }
+
+.dzl__field { display: grid; gap: 7px; margin-bottom: 14px; }
+
+.dzl__field label { font-size: 13px; font-weight: 700; color: var(--l-ink); }
+
+.dzl input[type="text"],
+.dzl input[type="tel"],
+.dzl input[type="email"],
+.dzl textarea {
+  width: 100%;
+  height: 48px;
+  padding: 0 15px;
+  border: 1px solid var(--l-steel-300);
+  border-radius: 12px;
+  background: var(--l-surface);
+  font-family: inherit;
+  font-size: 15px;
+  color: var(--l-ink);
+  transition: border-color 0.18s var(--l-ease), box-shadow 0.18s var(--l-ease);
+}
+
+.dzl textarea { height: auto; min-height: 92px; padding: 12px 15px; line-height: 1.55; resize: vertical; }
+
+.dzl input::placeholder,
+.dzl textarea::placeholder { color: var(--l-steel-500); }
+
+.dzl input:focus,
+.dzl textarea:focus { border-color: var(--l-accent); box-shadow: 0 0 0 3px rgba(0, 174, 239, 0.16); outline: none; }
+
+.dzl__row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+
+.dzl__consent { display: grid; grid-template-columns: 18px minmax(0, 1fr); gap: 11px; align-items: start; margin: 16px 0 0; font-size: 12.5px; line-height: 1.5; color: var(--l-steel-700); cursor: pointer; }
+
+.dzl__consent input { width: 18px; height: 18px; margin: 1px 0 0; accent-color: var(--l-accent); cursor: pointer; }
+
+.dzl__consent a { color: var(--l-ink); text-decoration: underline; }
+
+.dzl__consent a:hover { color: var(--l-accent); }
+
+.dzl__submit {
+  width: 100%;
+  margin-top: 18px;
+  padding: 15px 24px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--l-accent);
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 700;
+  color: #06202c;
+  cursor: pointer;
+  transition: background-color 0.18s var(--l-ease), transform 0.18s var(--l-ease);
+}
+
+.dzl__submit:hover:not(:disabled) { background: #33c1f3; transform: translateY(-1px); }
+
+.dzl__submit:disabled { opacity: 0.6; cursor: default; }
+
+.dzl__error { margin: 14px 0 0; font-size: 13.5px; line-height: 1.5; color: #b3261e; }
+
+.dzl__error[hidden] { display: none; }
+
+/* --- состояние «отправлено» -------------------------------------------------- */
+
+.dzl__done { display: grid; justify-items: center; gap: 10px; padding: 12px 0 4px; text-align: center; }
+
+.dzl__done[hidden] { display: none; }
+
+.dzl__done svg { color: var(--l-accent); }
+
+.dzl__done h3 { margin: 6px 0 0; font-size: 19px; font-weight: 800; letter-spacing: -0.02em; }
+
+.dzl__done p { margin: 0; max-width: 34ch; font-size: 14.5px; line-height: 1.6; color: var(--l-steel-500); }
+
+@media (max-width: 520px) {
+  .dzl__row { grid-template-columns: minmax(0, 1fr); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dzl * { transition-duration: 0.01ms !important; }
+}
