@@ -1283,3 +1283,562 @@
   .dzh-hero--anim .dzh-hero__specs li { opacity: 1; animation: none; }
   .dzh-hero--anim .dzh-hero__shot.is-on { animation: none; }
 }
+
+/* ==========================================================================
+   Первый экран, вариант со стеклянными карточками. Слева — крупный набор
+   и две кнопки, справа — карточка с цифрами и бегущая строка партнёров.
+   Фон: кадр цеха, приглушённый и срезанный градиентной маской снизу.
+   Префикс dzn-. Скриптов не требует: появление, бегущая строка и пульсация
+   точки сделаны на css-анимациях.
+   ========================================================================== */
+
+.dzn {
+  /* Токены объявляем здесь: секция лежит вне .dzh, и без своих значений
+     var(--h-ease) не разрешается — тогда и анимация появления не стартует. */
+  --h-accent: #00aeef;
+  --h-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: clamp(48px, 6vw, 104px) 0 clamp(36px, 4vw, 72px);
+  background: #0a0b0c;
+  color: #fff;
+}
+
+.dzn *,
+.dzn *::before,
+.dzn *::after { box-sizing: border-box; }
+
+.dzn a { text-decoration: none; }
+
+.dzn :focus-visible { outline: 3px solid var(--h-accent); outline-offset: 3px; }
+
+.dzn__bg {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background: url("/assets/images/factory/assembly.jpg") center / cover no-repeat;
+  opacity: 0.38;
+  /* Кадр растворяется книзу, чтобы блок сходился с белой секцией под ним. */
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 62%, transparent 100%);
+  mask-image: linear-gradient(180deg, #000 0%, #000 62%, transparent 100%);
+}
+
+.dzn__veil {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(85% 75% at 16% 32%, rgba(10, 11, 12, 0.97), rgba(10, 11, 12, 0.74) 52%, rgba(10, 11, 12, 0.12) 100%),
+    linear-gradient(180deg, rgba(10, 11, 12, 0.55), rgba(10, 11, 12, 0.15) 40%, #0a0b0c 100%);
+}
+
+.dzn__shell { position: relative; width: 100%; max-width: 1320px; margin: 0 auto; padding: 0 24px; }
+
+.dzn__grid { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(28px, 3vw, 48px); align-items: start; }
+
+/* --- появление ------------------------------------------------------------- */
+
+.dzn-in { opacity: 0; animation: dzn-in 0.8s var(--h-ease) forwards; }
+
+.dzn-in--1 { animation-delay: 0.08s; }
+.dzn-in--2 { animation-delay: 0.18s; }
+.dzn-in--3 { animation-delay: 0.28s; }
+.dzn-in--4 { animation-delay: 0.38s; }
+.dzn-in--5 { animation-delay: 0.48s; }
+
+@keyframes dzn-in { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
+
+/* --- левая колонка ---------------------------------------------------------- */
+
+.dzn__left { display: grid; gap: clamp(20px, 2.2vw, 32px); align-content: start; padding-top: 8px; }
+
+.dzn-badge {
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin: 0;
+  padding: 7px 15px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(12px);
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.82);
+  transition: background-color 0.2s var(--h-ease);
+}
+
+.dzn-badge:hover { background: rgba(255, 255, 255, 0.11); }
+
+.dzn-badge svg { color: var(--h-accent); }
+
+.dzn .dzn-title {
+  margin: 0;
+  width: auto;
+  font-size: clamp(34px, 4.6vw, 66px);
+  font-weight: 500;
+  line-height: 0.95;
+  letter-spacing: -0.045em;
+  text-align: left;
+  text-transform: none;
+  color: #fff;
+  /* Нижняя строка мягко уходит в фон — приём из шаблона. */
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 78%, rgba(0, 0, 0, 0.35) 100%);
+  mask-image: linear-gradient(180deg, #000 0%, #000 78%, rgba(0, 0, 0, 0.35) 100%);
+}
+
+.dzn-title__grad {
+  background: linear-gradient(120deg, #ffffff 12%, #9fe6ff 55%, var(--h-accent) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.dzn-lede { margin: 0; max-width: 46ch; font-size: clamp(15px, 1.15vw, 17.5px); line-height: 1.66; color: rgba(255, 255, 255, 0.62); }
+
+.dzn-cta { display: flex; flex-wrap: wrap; gap: 14px; }
+
+.dzn-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 30px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(10px);
+  font-size: 14.5px;
+  font-weight: 700;
+  color: #fff;
+  transition: background-color 0.2s var(--h-ease), border-color 0.2s var(--h-ease), transform 0.2s var(--h-ease);
+}
+
+.dzn-btn:hover, .dzn-btn:focus { background: rgba(255, 255, 255, 0.12); border-color: rgba(255, 255, 255, 0.24); color: #fff; }
+
+.dzn-btn svg { flex: none; transition: transform 0.2s var(--h-ease); }
+
+.dzn-btn--solid { border-color: #fff; background: #fff; color: #0a0b0c; }
+
+.dzn-btn--solid:hover, .dzn-btn--solid:focus { background: #e6e8ea; border-color: #e6e8ea; color: #0a0b0c; transform: scale(1.015); }
+
+.dzn-btn--solid:hover svg { transform: translateX(4px); }
+
+/* --- стеклянные карточки ------------------------------------------------------ */
+
+.dzn__right { display: grid; gap: 22px; margin-top: clamp(0px, 2vw, 44px); }
+
+.dzn-card {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 26px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(18px);
+  box-shadow: 0 40px 80px -50px rgba(0, 0, 0, 0.9);
+}
+
+.dzn-card__glow {
+  position: absolute;
+  top: -64px;
+  right: -64px;
+  width: 256px;
+  height: 256px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.06);
+  filter: blur(48px);
+  pointer-events: none;
+}
+
+.dzn-stats { position: relative; z-index: 1; padding: clamp(24px, 2.6vw, 32px); }
+
+.dzn-stats__head { display: flex; align-items: center; gap: 16px; margin-bottom: 28px; }
+
+.dzn-stats__icon {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 48px;
+  height: 48px;
+  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+
+.dzn-stats__big { display: block; font-size: 30px; font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; }
+
+.dzn-stats__note { display: block; margin-top: 2px; font-size: 13.5px; color: rgba(255, 255, 255, 0.55); }
+
+.dzn-meter { display: grid; gap: 11px; margin-bottom: 26px; }
+
+.dzn-meter__top { display: flex; justify-content: space-between; font-size: 13.5px; color: rgba(255, 255, 255, 0.55); }
+
+.dzn-meter__top b { font-weight: 600; color: #fff; }
+
+.dzn-meter__bar { height: 8px; border-radius: 999px; background: rgba(255, 255, 255, 0.1); overflow: hidden; }
+
+.dzn-meter__bar span { display: block; height: 100%; border-radius: 999px; background: linear-gradient(90deg, #fff, #9fb0ba); }
+
+.dzn-rule { height: 1px; margin-bottom: 22px; background: rgba(255, 255, 255, 0.1); }
+
+.dzn-mini { display: grid; grid-template-columns: 1fr 1px 1fr 1px 1fr; align-items: center; margin: 0; padding: 0; list-style: none; text-align: center; }
+
+.dzn-mini__sep { width: 1px; height: 34px; background: rgba(255, 255, 255, 0.1); }
+
+.dzn-mini b { display: block; font-size: 21px; font-weight: 800; letter-spacing: -0.02em; }
+
+.dzn-mini span { display: block; margin-top: 3px; font-size: 10.5px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255, 255, 255, 0.42); }
+
+.dzn-mini li:not(.dzn-mini__sep) { transition: transform 0.2s var(--h-ease); }
+
+.dzn-mini li:not(.dzn-mini__sep):hover { transform: translateY(-3px); }
+
+.dzn-pills { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 28px; }
+
+.dzn-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 13px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.05);
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.dzn-pill svg { color: var(--h-accent); }
+
+/* Пульсирующая точка: внешнее кольцо расходится и гаснет. */
+.dzn-dot { position: relative; display: inline-flex; width: 8px; height: 8px; }
+
+.dzn-dot::before,
+.dzn-dot::after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: #22c55e; }
+
+.dzn-dot::before { animation: dzn-ping 1.6s cubic-bezier(0, 0, 0.2, 1) infinite; }
+
+@keyframes dzn-ping { 75%, 100% { transform: scale(2.2); opacity: 0; } }
+
+/* --- бегущая строка партнёров ---------------------------------------------------- */
+
+.dzn-card--flat { backdrop-filter: none; background: rgba(255, 255, 255, 0.045); }
+
+.dzn-trust { position: relative; z-index: 1; padding: 26px 0; }
+
+.dzn-trust h3 { margin: 0 0 20px; padding: 0 clamp(24px, 2.6vw, 32px); font-size: 13.5px; font-weight: 500; color: rgba(255, 255, 255, 0.55); }
+
+/* Края ленты гасим не маской, а двумя градиентными накладками сверху.
+   Маска пересчитывалась бы на каждом кадре вместе с движущейся строкой —
+   именно от этого прокрутка и подрагивала. Накладки рисуются один раз. */
+.dzn-marquee { position: relative; display: flex; overflow: hidden; }
+
+.dzn-marquee::before,
+.dzn-marquee::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 2;
+  width: 90px;
+  pointer-events: none;
+}
+
+.dzn-marquee::before { left: 0; background: linear-gradient(90deg, #121415, rgba(18, 20, 21, 0)); }
+
+.dzn-marquee::after { right: 0; background: linear-gradient(270deg, #121415, rgba(18, 20, 21, 0)); }
+
+/* Строка состоит из двух одинаковых половин. Сдвиг ровно на половину
+   ширины ставит вторую половину туда, где начиналась первая, — стык не
+   виден. Раньше сдвиг шёл на всю ширину, и в середине круга появлялся
+   пустой участок с рывком. */
+/* translate3d уводит строку на отдельный слой видеокарты: на скорости
+   17 px/с обычный translateX округляется до целых пикселей и движение
+   выглядит ступенчатым. */
+.dzn-marquee__row {
+  display: flex;
+  flex: none;
+  align-items: center;
+  animation: dzn-marquee 46s linear infinite;
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+.dzn-marquee__set { display: flex; flex: none; gap: 46px; align-items: center; padding-right: 46px; }
+
+@keyframes dzn-marquee { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(-50%, 0, 0); } }
+
+.dzn-marquee:hover .dzn-marquee__row { animation-play-state: paused; }
+
+/* Логотипы подготовлены заранее: белый силуэт на прозрачном фоне,
+   поэтому никаких плашек и фильтров не нужно — знак ложится прямо
+   на карточку, как в исходном шаблоне. */
+.dzn-marquee img {
+  display: block;
+  width: auto;
+  height: 30px;
+  opacity: 0.5;
+  transition: opacity 0.2s var(--h-ease), transform 0.2s var(--h-ease);
+}
+
+.dzn-marquee img:hover { opacity: 1; transform: translateY(-2px); }
+
+/* --- адаптив ------------------------------------------------------------------ */
+
+@media (max-width: 1000px) {
+  .dzn__grid { grid-template-columns: minmax(0, 1fr); }
+  .dzn__right { margin-top: 0; }
+  .dzn-lede { max-width: none; }
+}
+
+@media (max-width: 560px) {
+  .dzn-btn { flex: 1 1 auto; justify-content: center; padding: 15px 22px; }
+  .dzn-mini { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+  .dzn-mini__sep { display: none; }
+  .dzn-marquee img { height: 24px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dzn-in { opacity: 1; animation: none; }
+  .dzn-marquee__row { animation: none; }
+  .dzn-dot::before { animation: none; }
+  .dzn * { transition-duration: 0.01ms !important; }
+}
+
+/* ==========================================================================
+   Первый экран английской главной. Светлая половина с набором и контактами,
+   справа — фотография, срезанная по диагонали: она въезжает при загрузке,
+   раскрывая клин. Префикс dze-. Скриптов не требует.
+   ========================================================================== */
+
+.dze {
+  --e-ink: #0d1f2d;
+  --e-muted: #6b7780;
+  --e-line: #d7dcdf;
+  --e-accent: #00aeef;
+  --e-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+
+  position: relative;
+  display: flex;
+  width: 100%;
+  overflow: hidden;
+  background: #fff;
+  color: var(--e-ink);
+}
+
+.dze *,
+.dze *::before,
+.dze *::after { box-sizing: border-box; }
+
+.dze a { text-decoration: none; }
+
+.dze :focus-visible { outline: 3px solid var(--e-accent); outline-offset: 3px; }
+
+/* --- левая половина --------------------------------------------------------- */
+
+.dze__body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 60%;
+  padding: clamp(34px, 4.4vw, 64px) clamp(24px, 3.4vw, 56px) clamp(28px, 3vw, 44px);
+  padding-left: max(24px, calc((100vw - 1320px) / 2 + 24px));
+}
+
+/* Логотип здесь не повторяем — он уже стоит в шапке сайта, а в исходном
+   шаблоне шапки над блоком не было. Оставляем только название и слоган. */
+.dze-brand { display: flex; align-items: center; gap: 14px; margin-bottom: clamp(28px, 4vw, 56px); }
+
+.dze-brand > span { border-left: 3px solid var(--e-accent); padding-left: 12px; }
+
+/* Название набрано так же, как было до правки: прописными, приглушённым
+   цветом — заказчику понравилось именно это начертание. */
+.dze-brand b { display: block; font-size: 17px; font-weight: 800; letter-spacing: -0.01em; text-transform: uppercase; color: var(--e-muted); }
+
+/* Селектор по span цеплял и обёртку блока, поэтому название бренда
+   тоже уходило в серый и верхний регистр. Оставляем это подписи. */
+.dze-brand > span > span { display: block; margin-top: 3px; font-size: 11px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--e-muted); }
+
+.dze .dze-title {
+  margin: 0;
+  width: auto;
+  font-size: clamp(30px, 3.9vw, 54px);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -0.035em;
+  text-align: left;
+  text-transform: none;
+  color: var(--e-ink);
+}
+
+.dze-rule { width: 84px; height: 4px; margin: clamp(20px, 2.4vw, 30px) 0; background: var(--e-accent); }
+
+.dze-lede { margin: 0 0 clamp(24px, 2.8vw, 36px); max-width: 46ch; font-size: clamp(15px, 1.1vw, 16.5px); line-height: 1.68; color: var(--e-muted); }
+
+.dze-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 15.5px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--e-ink);
+  transition: color 0.2s var(--e-ease), gap 0.2s var(--e-ease);
+}
+
+.dze-cta:hover, .dze-cta:focus { color: var(--e-accent); gap: 18px; }
+
+.dze-cta svg { flex: none; }
+
+/* --- контакты внизу ---------------------------------------------------------- */
+
+.dze-contacts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px 26px;
+  margin: clamp(30px, 4vw, 56px) 0 0;
+  padding: 20px 0 0;
+  border-top: 1px solid var(--e-line);
+  list-style: none;
+}
+
+.dze-contacts li { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; line-height: 1.5; color: var(--e-muted); }
+
+.dze-contacts svg { flex: none; margin-top: 1px; color: var(--e-accent); }
+
+.dze-contacts a { color: var(--e-muted); transition: color 0.18s var(--e-ease); }
+
+.dze-contacts a:hover { color: var(--e-accent); }
+
+/* --- правая половина: фото с диагональю ---------------------------------------- */
+
+.dze__shot {
+  width: 40%;
+  min-height: 560px;
+  background: #eceff1 url("/assets/images/factory/stator.jpg") center / cover no-repeat;
+  /* Клин раскрывается при загрузке: справа налево. */
+  clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
+  animation: dze-reveal 1.2s cubic-bezier(0, 0.55, 0.45, 1) 0.15s forwards;
+}
+
+@keyframes dze-reveal {
+  to { clip-path: polygon(25% 0, 100% 0, 100% 100%, 0% 100%); }
+}
+
+/* --- появление текста ---------------------------------------------------------- */
+
+.dze-in { opacity: 0; animation: dze-in 0.6s var(--e-ease) forwards; }
+
+.dze-in--1 { animation-delay: 0.15s; }
+.dze-in--2 { animation-delay: 0.28s; }
+.dze-in--3 { animation-delay: 0.38s; }
+.dze-in--4 { animation-delay: 0.48s; }
+.dze-in--5 { animation-delay: 0.58s; }
+.dze-in--6 { animation-delay: 0.68s; }
+
+@keyframes dze-in { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
+
+/* --- адаптив -------------------------------------------------------------------- */
+
+@media (max-width: 1000px) {
+  .dze { flex-direction: column-reverse; }
+  .dze__body { width: 100%; padding-left: clamp(24px, 3.4vw, 56px); }
+  /* На узком экране кадр показывается небольшой полосой — отдаём лёгкую версию. */
+  .dze__shot {
+    width: 100%;
+    min-height: 300px;
+    background-image: url("/assets/images/factory/stator-900.jpg");
+    clip-path: none;
+    animation: none;
+  }
+}
+
+@media (max-width: 620px) {
+  .dze-contacts { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dze-in { opacity: 1; animation: none; }
+  .dze__shot { clip-path: polygon(25% 0, 100% 0, 100% 100%, 0% 100%); animation: none; }
+  .dze * { transition-duration: 0.01ms !important; }
+}
+
+/* ==========================================================================
+   Шапка на главной. Белая полоса шапки резко обрывалась в тёмный первый
+   экран. Здесь шапка ложится поверх экрана: фотография проходит под ней,
+   а фон шапки — мягкий градиент от почти чёрного к прозрачному, так что
+   граница исчезает. Правила действуют только на странице, где есть блок
+   .dzn, то есть на русской главной; остальные страницы не затронуты.
+   ========================================================================== */
+
+body:has(.dzn) { position: relative; }
+
+body:has(.dzn) header#header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  background: linear-gradient(180deg, rgba(8, 9, 10, 0.92) 0%, rgba(8, 9, 10, 0.6) 52%, rgba(8, 9, 10, 0) 100%);
+  color: #fff;
+}
+
+/* Экран начинается под шапкой, поэтому отступ сверху включает её высоту. */
+body:has(.dzn) .dzn { padding-top: calc(100px + clamp(40px, 4.4vw, 76px)); }
+
+body:has(.dzn) header#header .nav_bar .nav_first > li.nav_list > a.navigation { color: #fff; }
+
+body:has(.dzn) header#header .nav_bar .nav_first > li.nav_list > a.navigation:hover { color: var(--h-accent, #00aeef); }
+
+/* Активный пункт был тёмно-синей плашкой — на тёмной шапке её не видно. */
+/* Тот же голубой, что у кнопки «наверх», — rgba(0,174,239,.9). */
+body:has(.dzn) header#header .nav_bar .nav_first > li.nav_list > a.navigation[data-nav="Продукция"] {
+  background: rgba(0, 174, 239, 0.9);
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(0, 174, 239, 0.35);
+}
+
+body:has(.dzn) header#header .nav_bar .nav_first > li.nav_list > a.navigation[data-nav="Продукция"]:hover {
+  background: rgba(0, 174, 239, 1);
+  color: #fff;
+}
+
+body:has(.dzn) header#header .r_icon .header_language { background: rgba(255, 255, 255, 0.12); }
+
+body:has(.dzn) header#header .ls-pill-opt { color: rgba(255, 255, 255, 0.75); }
+
+body:has(.dzn) header#header .ls-pill-opt.ls-active { background: #fff; color: #0d1f2d !important; }
+
+body:has(.dzn) header#header .ls-pill-sep { background: rgba(255, 255, 255, 0.2); }
+
+/* Выпадающие разделы остаются светлыми — там свой фон и тёмный текст. */
+body:has(.dzn) header#header .nav_children_wrap a { color: inherit; }
+
+@media (max-width: 991px) {
+  /* На узких экранах работает своя шапка платформы: она закреплена сверху,
+     а телу страницы добавлен отступ под неё. Убираем отступ, чтобы кадр
+     уходил под шапку, и красим её тем же градиентом. */
+  body:has(.dzn) header#header { position: static; background: none; }
+
+  body:has(.dzn) { padding-top: 0 !important; }
+
+  /* Белый фон и тень заданы в additive.css через !important — перебиваем. */
+  body:has(.dzn) .ueeshop_responsive_header .header {
+    background: linear-gradient(180deg, rgba(8, 9, 10, 0.92) 0%, rgba(8, 9, 10, 0.5) 62%, rgba(8, 9, 10, 0) 100%) !important;
+    box-shadow: none !important;
+  }
+
+  /* Значок меню там белый по исходнику, а additive.css его инвертирует
+     под светлую шапку. На тёмной шапке инверсия не нужна. */
+  body:has(.dzn) .ueeshop_responsive_header .header .func .menu_btn,
+  body:has(.dzn) .ueeshop_responsive_header .header .func .menu_btn.on { filter: none !important; }
+
+  body:has(.dzn) .dzn { padding-top: calc(50px + clamp(34px, 6vw, 68px)); }
+}
