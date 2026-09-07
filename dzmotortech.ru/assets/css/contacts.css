@@ -1,0 +1,273 @@
+/* ==========================================================================
+   Страница «Контакты». Было — платформенная вёрстка: центрированный
+   заголовок, серая панель формы и синяя кнопка Bootstrap. Стало — тот же
+   язык, что на остальных страницах: тёмный первый экран, карточки офисов
+   слева и форма справа. Префикс dzk-.
+   ========================================================================== */
+
+.dzk {
+  --k-ink: #0d1f2d;
+  --k-ink-deep: #081620;
+  --k-paper: #f2f3f2;
+  --k-surface: #ffffff;
+  --k-accent: #00aeef;
+  --k-steel-100: #e4e7e9;
+  --k-steel-300: #c6ccd0;
+  --k-steel-500: #7b8891;
+  --k-steel-700: #46545e;
+  --k-radius: 24px;
+  --k-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+
+  background: var(--k-paper);
+  color: var(--k-ink);
+  overflow-x: clip;
+}
+
+.dzk *,
+.dzk *::before,
+.dzk *::after { box-sizing: border-box; }
+
+.dzk__shell { width: 100%; max-width: 1320px; margin: 0 auto; padding: 0 24px; }
+
+.dzk a { text-decoration: none; }
+
+.dzk :focus-visible { outline: 3px solid var(--k-accent); outline-offset: 3px; }
+
+.dzk__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--k-accent);
+}
+
+.dzk__eyebrow::before { content: ""; width: 28px; height: 1px; background: currentColor; }
+
+/* --- первый экран -------------------------------------------------------- */
+
+.dzk-hero { position: relative; background: var(--k-ink); color: #fff; overflow: hidden; }
+
+.dzk-hero__media {
+  position: absolute;
+  inset: 0;
+  background: url("/assets/images/factory/assembly.jpg") center / cover no-repeat;
+  opacity: 0.18;
+}
+
+.dzk-hero__scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(98deg, var(--k-ink) 22%, rgba(13, 31, 45, 0.88) 60%, rgba(13, 31, 45, 0.55) 100%);
+}
+
+.dzk-hero__inner { position: relative; display: grid; gap: 18px; max-width: 720px; padding: clamp(44px, 5vw, 76px) 0 clamp(40px, 4.4vw, 66px); }
+
+.dzk-hero__title {
+  margin: 0;
+  font-size: clamp(27px, 3.2vw, 46px);
+  font-weight: 800;
+  line-height: 1.04;
+  letter-spacing: -0.025em;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.dzk-hero__lede { margin: 0; max-width: 58ch; font-size: clamp(15px, 1.1vw, 17px); line-height: 1.68; color: rgba(255, 255, 255, 0.76); }
+
+/* --- раскладка ------------------------------------------------------------ */
+
+.dzk-body { padding: clamp(34px, 4vw, 60px) 0 clamp(44px, 5vw, 76px); }
+
+.dzk-body__grid { display: grid; grid-template-columns: minmax(0, 400px) minmax(0, 1fr); gap: clamp(24px, 3.4vw, 56px); align-items: start; }
+
+/* --- карточки офисов ------------------------------------------------------- */
+
+.dzk-side { display: grid; gap: 16px; }
+
+.dzk-office {
+  padding: clamp(22px, 2.2vw, 28px);
+  border: 1px solid var(--k-steel-300);
+  border-radius: 20px;
+  background: var(--k-surface);
+}
+
+.dzk-office__label { margin: 0 0 4px; font-size: 11px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--k-steel-500); }
+
+.dzk-office__title { margin: 0 0 4px; font-size: 19px; font-weight: 800; letter-spacing: -0.02em; color: var(--k-ink); }
+
+.dzk-office__person { margin: 0 0 16px; font-size: 14px; color: var(--k-steel-700); }
+
+.dzk-rows { display: grid; gap: 14px; margin: 0; padding: 0; list-style: none; }
+
+.dzk-rows li { display: grid; grid-template-columns: 20px minmax(0, 1fr); gap: 12px; align-items: start; }
+
+.dzk-rows svg { margin-top: 2px; color: var(--k-accent); }
+
+.dzk-rows b { display: block; font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--k-steel-500); }
+
+.dzk-rows span { display: block; margin-top: 3px; font-size: 15px; line-height: 1.5; color: var(--k-ink); }
+
+.dzk-rows a { color: var(--k-ink); border-bottom: 1px solid var(--k-steel-300); transition: color 0.18s var(--k-ease), border-color 0.18s var(--k-ease); }
+
+.dzk-rows a:hover, .dzk-rows a:focus { color: var(--k-accent); border-color: var(--k-accent); }
+
+/* Несколько контактных лиц в одной строке — каждый со своей строчки. */
+.dzk-rows .dzk-rows__stack { display: grid; gap: 5px; }
+
+/* Имя и номер стоят в одной строке: общее правило display:block для span
+   внутри строки к этой подписи применяться не должно. */
+.dzk-rows .dzk-rows__who { display: inline; color: var(--k-steel-500); }
+
+/* --- форма ---------------------------------------------------------------- */
+
+.dzk-form {
+  padding: clamp(24px, 2.6vw, 36px);
+  border: 1px solid var(--k-steel-300);
+  border-radius: var(--k-radius);
+  background: var(--k-surface);
+}
+
+.dzk-form__title { margin: 0 0 6px; font-size: clamp(20px, 2vw, 26px); font-weight: 800; letter-spacing: -0.02em; }
+
+.dzk-form__lede { margin: 0 0 24px; font-size: 14.5px; line-height: 1.6; color: var(--k-steel-500); }
+
+.dzk-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 18px; }
+
+.dzk-field { display: grid; gap: 8px; }
+
+.dzk-field--wide { grid-column: 1 / -1; }
+
+.dzk-field label { font-size: 13px; font-weight: 700; letter-spacing: 0.01em; color: var(--k-ink); }
+
+.dzk .dzk-input {
+  width: 100%;
+  height: 50px;
+  padding: 0 16px;
+  border: 1px solid var(--k-steel-300);
+  border-radius: 12px;
+  background: var(--k-surface);
+  font-family: inherit;
+  font-size: 15px;
+  color: var(--k-ink);
+  box-shadow: none;
+  transition: border-color 0.18s var(--k-ease), box-shadow 0.18s var(--k-ease);
+}
+
+.dzk .dzk-input::placeholder { color: var(--k-steel-500); }
+
+.dzk .dzk-input:focus { border-color: var(--k-accent); box-shadow: 0 0 0 3px rgba(0, 174, 239, 0.16); outline: none; }
+
+.dzk textarea.dzk-input { height: auto; min-height: 140px; padding: 14px 16px; line-height: 1.6; resize: vertical; }
+
+.dzk-hint { margin: -2px 0 0; font-size: 12.5px; line-height: 1.5; color: var(--k-steel-500); }
+
+/* --- вложения -------------------------------------------------------------- */
+
+.dzk-file { position: absolute; width: 1px; height: 1px; opacity: 0; overflow: hidden; }
+
+.dzk-drop {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 56px;
+  padding: 10px 16px;
+  border: 1px dashed var(--k-steel-300);
+  border-radius: 12px;
+  background: var(--k-paper);
+  cursor: pointer;
+  transition: border-color 0.18s var(--k-ease), background-color 0.18s var(--k-ease);
+}
+
+.dzk-drop:hover { border-color: var(--k-accent); background: var(--k-surface); }
+
+.dzk-drop__btn {
+  flex: none;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: var(--k-ink);
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.dzk-drop__name { min-width: 0; font-size: 14px; color: var(--k-steel-500); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* --- согласие и отправка ----------------------------------------------------- */
+
+.dzk-consent { display: grid; grid-template-columns: 18px minmax(0, 1fr); gap: 12px; align-items: start; margin-top: 20px; font-size: 13px; line-height: 1.55; color: var(--k-steel-700); cursor: pointer; }
+
+.dzk-consent input { width: 18px; height: 18px; margin: 1px 0 0; accent-color: var(--k-accent); cursor: pointer; }
+
+.dzk-consent a { color: var(--k-ink); border-bottom: 1px solid var(--k-steel-300); }
+
+.dzk-consent a:hover { color: var(--k-accent); border-color: var(--k-accent); }
+
+.dzk .dzk-submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  margin-top: 20px;
+  padding: 16px 28px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--k-accent);
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 700;
+  color: #06202c;
+  cursor: pointer;
+  transition: background-color 0.18s var(--k-ease), transform 0.18s var(--k-ease);
+}
+
+.dzk .dzk-submit:hover, .dzk .dzk-submit:focus { background: #33c1f3; transform: translateY(-1px); }
+
+.dzk .dzk-submit svg { transition: transform 0.18s var(--k-ease); }
+
+.dzk .dzk-submit:hover svg { transform: translateX(3px); }
+
+/* --- ответы после отправки ----------------------------------------------------- */
+
+.dzk-note {
+  display: grid;
+  grid-template-columns: 22px minmax(0, 1fr);
+  gap: 12px;
+  align-items: start;
+  margin-bottom: 20px;
+  padding: 16px 18px;
+  border-radius: 14px;
+  font-size: 14.5px;
+  line-height: 1.55;
+}
+
+.dzk-note[hidden] { display: none; }
+
+.dzk-note svg { margin-top: 1px; }
+
+.dzk-note--ok { border: 1px solid #bfe3c4; background: #eef7ef; color: #1d6b2c; }
+
+.dzk-note--bad { border: 1px solid #f5c6c2; background: #fdecea; color: #b3261e; }
+
+/* Ответ об успешной отправке заменяет форму, поэтому живёт вне карточки. */
+.dzk-body__grid > .dzk-note { grid-column: 2; }
+
+/* --- адаптив ------------------------------------------------------------------ */
+
+@media (max-width: 980px) {
+  .dzk-body__grid { grid-template-columns: minmax(0, 1fr); }
+  .dzk-body__grid > .dzk-note { grid-column: 1; }
+}
+
+@media (max-width: 620px) {
+  .dzk-grid { grid-template-columns: minmax(0, 1fr); }
+  .dzk-drop { flex-wrap: wrap; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dzk * { transition-duration: 0.01ms !important; }
+}

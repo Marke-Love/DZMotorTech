@@ -50,7 +50,8 @@ $power = trim((string) ($_POST['txt_power'] ?? ''));
 $message = trim((string) ($_POST['message'] ?? ''));
 $consent = isset($_POST['privacy_consent']);
 
-if ($name === '' || $phone === '' || $email === '' || $message === '' || !$consent) {
+// комментарий необязателен: заявку принимаем и без него
+if ($name === '' || $phone === '' || $email === '' || !$consent) {
     fail_redirect($lang);
 }
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {

@@ -964,3 +964,322 @@
   .dzh-apps__body { grid-template-rows: 1fr; opacity: 1; }
   .dzh-apps__text { font-size: 13px; }
 }
+
+/* ==========================================================================
+   Первый экран. Было — два баннера-картинки с вшитым в JPEG текстом. Стало —
+   тёмная сцена: слева живой заголовок, справа сама машина на светлой панели
+   с выносками характеристик. Фон — кадр цеха, сильно затемнённый и размытый:
+   размытие заодно снимает вопрос разрешения исходников. Три слайда — три
+   машины, текст и выноски меняются вместе с фотографией.
+   ========================================================================== */
+
+.dzh-hero {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(40px, 4.6vw, 72px) 0 clamp(20px, 2.2vw, 30px);
+  background: var(--h-ink-deep);
+  color: #fff;
+  overflow: hidden;
+}
+
+.dzh-hero__bg { position: absolute; inset: -40px; z-index: -2; }
+
+.dzh-hero__frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  /* кадр уходит в атмосферу: сильное размытие и лёгкий наезд */
+  filter: blur(26px) saturate(0.75);
+  transform: scale(1.12);
+  transition: opacity 1.1s var(--h-ease);
+}
+
+.dzh-hero__frame.is-on { opacity: 0.42; }
+
+.dzh-hero__veil {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(120% 80% at 78% 42%, rgba(0, 174, 239, 0.22), transparent 58%),
+    linear-gradient(102deg, var(--h-ink-deep) 26%, rgba(8, 22, 32, 0.86) 62%, rgba(8, 22, 32, 0.7) 100%);
+}
+
+.dzh-hero__grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 596px);
+  column-gap: 56px;
+  align-items: center;
+}
+
+/* --- левая колонка --------------------------------------------------------- */
+
+.dzh-hero__text {
+  display: grid;
+  gap: 20px;
+  align-content: center;
+  /* Высоту задаёт панель справа — так первый экран не дёргается при смене слайда. */
+  min-height: 336px;
+}
+
+/* Колонку не сжимаем по содержимому: иначе вторая строка заголовка
+   ориентируется на ширину первой и переносится не там, где задумано. */
+.dzh-hero__text > * { justify-self: stretch; }
+
+/* Переносы в заголовке заданы разметкой, поэтому ширину колонке не режем:
+   иначе кнопки уходят на вторую строку, а заголовок ломается не там. */
+
+.dzh .dzh-hero__eyebrow { color: var(--h-accent); }
+
+.dzh .dzh-hero__title {
+  font-size: clamp(30px, 3.2vw, 46px);
+  line-height: 1.03;
+  letter-spacing: -0.03em;
+  color: #fff;
+}
+
+/* Строки заголовка выезжают из-под собственной маски — по очереди. */
+.dzh-hero__line { display: block; overflow: hidden; }
+
+.dzh-hero__line > span { display: block; }
+
+.dzh-hero__lede {
+  margin: 0;
+  max-width: 46ch;
+  font-size: clamp(15px, 1.15vw, 17px);
+  line-height: 1.66;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.dzh-hero__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 4px; }
+
+.dzh-hero__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px 26px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 999px;
+  font-size: 14.5px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: #fff;
+  transition: background-color 0.2s var(--h-ease), border-color 0.2s var(--h-ease),
+              color 0.2s var(--h-ease), transform 0.2s var(--h-ease);
+}
+
+.dzh-hero__btn svg { flex: none; transition: transform 0.2s var(--h-ease); }
+
+.dzh-hero__btn:hover, .dzh-hero__btn:focus { border-color: #fff; transform: translateY(-1px); }
+
+.dzh-hero__btn:hover svg, .dzh-hero__btn:focus svg { transform: translateX(3px); }
+
+.dzh-hero__btn--solid { border-color: var(--h-accent); background: var(--h-accent); color: #06202c; }
+
+.dzh-hero__btn--solid:hover, .dzh-hero__btn--solid:focus { border-color: #33c1f3; background: #33c1f3; color: #06202c; }
+
+/* --- сцена с машиной ------------------------------------------------------- */
+
+.dzh-hero__stage { display: grid; grid-template-columns: minmax(0, 1fr) 196px; column-gap: 38px; align-items: center; }
+
+.dzh-hero__panel {
+  position: relative;
+  display: grid;
+  align-content: center;
+  aspect-ratio: 1 / 1;
+  padding: 26px;
+  border-radius: 28px;
+  background:
+    radial-gradient(82% 68% at 50% 44%, #ffffff 0%, #f5f8f9 66%, #e8edf0 100%);
+  box-shadow: 0 40px 80px -40px rgba(0, 0, 0, 0.85), 0 0 0 1px rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+}
+
+/* Код серии лежит подложкой — панель читается как витрина, а не как рамка. */
+.dzh-hero__mark {
+  position: absolute;
+  left: 50%;
+  top: 46%;
+  transform: translate(-50%, -50%);
+  font-size: clamp(70px, 9vw, 128px);
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  color: rgba(13, 31, 45, 0.07);
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.dzh-hero__shot {
+  grid-area: 1 / 1;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+  opacity: 0;
+  transform: scale(0.97);
+  transition: opacity 0.55s var(--h-ease), transform 0.55s var(--h-ease);
+}
+
+.dzh-hero__shot.is-on { opacity: 1; transform: none; }
+
+/* Машина едва заметно покачивается — панель перестаёт читаться как стоп-кадр. */
+.dzh-hero--anim .dzh-hero__shot.is-on { animation: dzh-hero-float 7s 0.6s var(--h-ease) infinite; }
+
+@keyframes dzh-hero-float { 0%, 100% { transform: none; } 50% { transform: translateY(-8px); } }
+
+.dzh-hero__caption {
+  position: absolute;
+  left: 26px;
+  right: 26px;
+  bottom: 20px;
+  margin: 0;
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: rgba(13, 31, 45, 0.55);
+}
+
+.dzh-hero__specs { display: grid; gap: 22px; margin: 0; padding: 0; list-style: none; }
+
+/* Выноска: тонкая линия с точкой уходит от панели к значению. */
+.dzh-hero__specs li { position: relative; padding-left: 42px; }
+
+.dzh-hero__specs li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 11px;
+  width: 30px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.34);
+}
+
+.dzh-hero__specs li::after {
+  content: "";
+  position: absolute;
+  left: -4px;
+  top: 8px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--h-accent);
+}
+
+.dzh-hero__specs b { display: block; font-size: 17px; font-weight: 800; letter-spacing: -0.01em; color: #fff; }
+
+.dzh-hero__specs span { display: block; margin-top: 3px; font-size: 12px; line-height: 1.4; color: rgba(255, 255, 255, 0.52); }
+
+/* --- цифры и переключатель -------------------------------------------------- */
+
+.dzh-hero__foot {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: 24px;
+  margin-top: clamp(30px, 3.4vw, 52px);
+  padding-top: 22px;
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+.dzh-hero__facts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; margin: 0; padding: 0; list-style: none; }
+
+.dzh-hero__facts b { display: block; font-size: clamp(20px, 2vw, 27px); font-weight: 800; letter-spacing: -0.02em; color: #fff; }
+
+.dzh-hero__facts span { display: block; margin-top: 3px; font-size: 12.5px; line-height: 1.4; color: rgba(255, 255, 255, 0.55); }
+
+.dzh-hero__dots { display: flex; gap: 14px; margin: 0; padding: 0; list-style: none; }
+
+.dzh-hero__dots button {
+  display: grid;
+  gap: 8px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.45);
+  transition: color 0.2s var(--h-ease);
+}
+
+.dzh-hero__dots button:hover { color: #fff; }
+
+.dzh-hero__dots button[aria-current="true"] { color: #fff; }
+
+.dzh-hero__dots i { font-style: normal; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; font-variant-numeric: tabular-nums; }
+
+.dzh-hero__bar { display: block; width: 54px; height: 2px; background: rgba(255, 255, 255, 0.22); overflow: hidden; }
+
+.dzh-hero__bar > span { display: block; width: 0; height: 100%; background: var(--h-accent); }
+
+/* Полоса заполняется только под активным слайдом и только при автопоказе. */
+.dzh-hero--playing .dzh-hero__dots button[aria-current="true"] .dzh-hero__bar > span {
+  animation: dzh-hero-bar var(--h-hero-step, 7s) linear forwards;
+}
+
+@keyframes dzh-hero-bar { from { width: 0; } to { width: 100%; } }
+
+/* --- появление текста при смене слайда --------------------------------------- */
+
+.dzh-hero--anim .dzh-hero__line > span,
+.dzh-hero--anim .dzh-hero__eyebrow,
+.dzh-hero--anim .dzh-hero__lede,
+.dzh-hero--anim .dzh-hero__specs li { opacity: 0; }
+
+.dzh-hero--anim [data-dzh-text].is-live .dzh-hero__eyebrow { animation: dzh-hero-up 0.5s var(--h-ease) forwards; }
+
+.dzh-hero--anim [data-dzh-text].is-live .dzh-hero__line > span { animation: dzh-hero-line 0.66s var(--h-ease) forwards; }
+
+.dzh-hero--anim [data-dzh-text].is-live .dzh-hero__line:nth-child(2) > span { animation-delay: 0.08s; }
+
+.dzh-hero--anim [data-dzh-text].is-live .dzh-hero__lede { animation: dzh-hero-up 0.5s 0.16s var(--h-ease) forwards; }
+
+.dzh-hero--anim [data-dzh-specs].is-live li { animation: dzh-hero-up 0.5s var(--h-ease) forwards; }
+
+.dzh-hero--anim [data-dzh-specs].is-live li:nth-child(2) { animation-delay: 0.09s; }
+
+.dzh-hero--anim [data-dzh-specs].is-live li:nth-child(3) { animation-delay: 0.18s; }
+
+@keyframes dzh-hero-line { from { opacity: 0; transform: translateY(102%); } to { opacity: 1; transform: none; } }
+
+@keyframes dzh-hero-up { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+
+/* --- адаптив ----------------------------------------------------------------- */
+
+@media (max-width: 1180px) {
+  .dzh-hero__grid { grid-template-columns: minmax(0, 1fr) minmax(0, 520px); column-gap: 40px; }
+  .dzh-hero__stage { grid-template-columns: minmax(0, 1fr) 168px; column-gap: 26px; }
+}
+
+@media (max-width: 940px) {
+  .dzh-hero__grid { grid-template-columns: minmax(0, 1fr); row-gap: 34px; }
+  .dzh-hero__text { max-width: none; }
+  .dzh-hero__stage { grid-template-columns: minmax(0, 300px) minmax(0, 1fr); align-items: center; }
+  .dzh-hero__foot { grid-template-columns: minmax(0, 1fr); }
+  .dzh-hero__dots { justify-content: flex-start; }
+}
+
+@media (max-width: 620px) {
+  .dzh-hero__stage { grid-template-columns: minmax(0, 1fr); row-gap: 22px; }
+  .dzh-hero__panel { aspect-ratio: 4 / 3; }
+  .dzh-hero__specs { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+  .dzh-hero__specs li { padding-left: 0; padding-top: 14px; }
+  .dzh-hero__specs li::before { top: 0; left: 0; width: 100%; }
+  .dzh-hero__specs li::after { top: -3px; left: 0; }
+  .dzh-hero__specs b { font-size: 14.5px; }
+  .dzh-hero__facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .dzh-hero__btn { flex: 1 1 auto; justify-content: center; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dzh-hero__frame { transition-duration: 0.01ms; }
+  .dzh-hero__shot { transition-duration: 0.01ms; }
+  .dzh-hero--anim .dzh-hero__line > span,
+  .dzh-hero--anim .dzh-hero__eyebrow,
+  .dzh-hero--anim .dzh-hero__lede,
+  .dzh-hero--anim .dzh-hero__specs li { opacity: 1; animation: none; }
+  .dzh-hero--anim .dzh-hero__shot.is-on { animation: none; }
+}
