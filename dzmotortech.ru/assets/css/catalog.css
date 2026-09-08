@@ -144,11 +144,25 @@
   padding: clamp(48px, 5vw, 76px) 0 clamp(36px, 3.4vw, 52px);
 }
 
+/* Текст держим в левой колонке, кнопки уводим к правому краю экрана. */
 .dzc-hero__grid {
   display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: 26px;
-  max-width: 760px;
+  grid-template-columns: minmax(0, 760px) auto;
+  grid-template-rows: auto auto auto;
+  align-items: start;
+  column-gap: clamp(32px, 5vw, 80px);
+  row-gap: 26px;
+}
+
+.dzc-hero__title { grid-column: 1; grid-row: 1; }
+.dzc-hero__lede  { grid-column: 1; grid-row: 2; }
+.dzc-hero__plate { grid-column: 1; grid-row: 3; }
+
+.dzc-hero__actions {
+  grid-column: 2;
+  grid-row: 1 / -1;
+  justify-self: end;
+  align-self: center;
 }
 
 .dzc-hero__title {
@@ -162,6 +176,19 @@
   color: var(--dzc-accent);
 }
 
+/* Вторая строка заголовка — подзаголовок, а не продолжение крупного набора:
+   иначе диапазон «от … до …» разъезжается на четыре строки капсом. */
+.dzc-hero__title-sub {
+  display: block;
+  margin-top: 16px;
+  font-size: clamp(15px, 1.5vw, 23px);
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: 0;
+  text-transform: none;
+  color: rgba(255, 255, 255, 0.72);
+}
+
 .dzc-hero__lede {
   max-width: 56ch;
   color: rgba(255, 255, 255, 0.74);
@@ -170,8 +197,50 @@
 .dzc-hero__actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: 14px;
   align-items: center;
+}
+
+/* Столбиком и одной ширины — базовое правило выше сбрасывает выравнивание. */
+.dzc-hero__grid > .dzc-hero__actions {
+  flex-direction: column;
+  align-items: stretch;
+  flex-wrap: nowrap;
+}
+
+/* Кнопки первого экрана — прямоугольные, как техническая плашка с цифрами
+   под ними: тот же радиус 4px, тот же разрядженный капс. */
+.dzc-hero__actions .dzc-btn {
+  justify-content: space-between;
+  gap: 22px;
+  padding: 19px 24px 19px 28px;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.dzc-hero__actions .dzc-btn__arrow {
+  flex: none;
+  transition: transform 0.18s var(--dzc-ease);
+}
+
+.dzc-hero__actions .dzc-btn:hover .dzc-btn__arrow,
+.dzc-hero__actions .dzc-btn:focus .dzc-btn__arrow { transform: translateX(4px); }
+
+.dzc-hero__actions .dzc-btn--primary {
+  box-shadow: 0 10px 30px rgba(0, 174, 239, 0.28);
+}
+
+.dzc-hero__actions .dzc-btn--primary:hover,
+.dzc-hero__actions .dzc-btn--primary:focus { transform: none; }
+
+.dzc-hero__actions .dzc-btn--ghost {
+  border-color: rgba(255, 255, 255, 0.28);
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(2px);
 }
 
 .dzc-btn {
@@ -702,6 +771,21 @@
 /* --- адаптив ------------------------------------------------------------ */
 
 @media (max-width: 1180px) {
+  .dzc-hero__grid { grid-template-columns: minmax(0, 1fr); }
+  .dzc-hero__title { grid-column: 1; grid-row: 1; }
+  .dzc-hero__lede  { grid-column: 1; grid-row: 2; }
+  .dzc-hero__plate { grid-column: 1; grid-row: 4; }
+  .dzc-hero__grid > .dzc-hero__actions {
+    grid-column: 1;
+    grid-row: 3;
+    justify-self: start;
+    align-self: start;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .dzc-hero__actions .dzc-btn { padding: 16px 20px 16px 24px; font-size: 12px; gap: 16px; }
+
   .dzc-why { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .dzc-tiles { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }

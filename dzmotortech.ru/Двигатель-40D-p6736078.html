@@ -84,15 +84,6 @@
 		</div>
 		<div class="nav_bar">
 			<ul class="nav_first clearfix list-inline">
-<li class="nav_list">
-	<a class="navigation" href="index.html" data-nav="Главная">
-		Главная
-		
-	</a>
-	
-</li>
-
-				
 <li class="nav_list more">
 	<a class="navigation" href="catalog.html" data-nav="Продукция">
 		Продукция
@@ -477,13 +468,6 @@
     <div class="wrapper">
         <ul class="clearfix list-unstyled">
 			
-<li >
-	<a class="phone_navigation" href="index.html" data-nav="Главная">
-		Главная
-	</a>
-	
-</li>
-
 <li  class="more click_more">
 	<a class="phone_navigation" href="pages/about-us-11931230.html" data-nav="О компании">
 		О компании
@@ -900,6 +884,25 @@
     body { background-color: #f2f3f2; }
     body, body * { font-family: 'Montserrat', sans-serif !important; }
     .areas-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; }
+
+    .rel__row { display: flex; gap: 14px; overflow-x: auto; padding: 2px 32px 10px; scroll-snap-type: x proximity; }
+    .rel__row::-webkit-scrollbar { height: 6px; }
+    .rel__row::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.18); border-radius: 3px; }
+    .rel__row::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); border-radius: 3px; }
+    .rel-card { flex: none; width: 190px; scroll-snap-align: start; display: flex; flex-direction: column; gap: 12px;
+                text-decoration: none; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+                border-radius: 14px; padding: 12px; transition: background .2s, border-color .2s, transform .2s; }
+    .rel-card:hover { background: rgba(0,174,239,0.10); border-color: rgba(0,174,239,0.45); transform: translateY(-3px); }
+    .rel-card__shot { display: block; background: #fff; border-radius: 10px; overflow: hidden; }
+    .rel-card__shot img { display: block; width: 100%; height: 132px; object-fit: contain; padding: 8px; box-sizing: border-box; }
+    .rel-card__name { font-size: 13px; font-weight: 600; color: #fff; line-height: 1.35;
+                      display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    @media (max-width: 700px) {
+      .rel__head { flex-direction: column; align-items: flex-start; gap: 14px; }
+      .rel__row { padding-left: 20px; padding-right: 20px; }
+      .rel-card { width: 158px; }
+    }
+
     @media (max-width: 1100px) { .areas-grid { grid-template-columns: repeat(4, 1fr); } }
     @media (max-width: 800px)  { .areas-grid { grid-template-columns: repeat(3, 1fr); } }
     @media (max-width: 560px)  { .areas-grid { grid-template-columns: repeat(2, 1fr); } }
@@ -914,7 +917,7 @@
                         <div class="product_nav__content">
                 <img
                     class="product_nav__img"
-                    src="//images.51microshop.com/18628/product/20250909/_40D_1757401759978_0.png"
+                    src="/images.51microshop.com/18628/product/20250909/_40D_1757401759978_0.png"
                     alt="Двигатель 40D" />
                 <div class="product_nav__desc">
                     <span class="product_item__top-art">
@@ -1010,7 +1013,7 @@
                     <div class="swiper dz-main-swiper" style="width:373px;height:373px;border-radius:12px;overflow:hidden;background:#f7f8fa;">
                         <div class="swiper-wrapper">
                             <div class="swiper-slide" style="display:flex;align-items:center;justify-content:center;">
-                                <img src="//images.51microshop.com/18628/product/20250909/_40D_1757401759978_0.png" alt="Двигатель 40D" style="max-width:100%;max-height:373px;object-fit:contain;">
+                                <img src="/images.51microshop.com/18628/product/20250909/_40D_1757401759978_0.png" alt="Двигатель 40D" style="max-width:100%;max-height:373px;object-fit:contain;">
                             </div>
                         </div>
                         <div class="swiper-pagination"></div>
@@ -1282,6 +1285,22 @@
                 </a>
             </div>
 
+        </section>
+
+
+        <!-- Другие модели категории -->
+        <section class="rel" style="margin-top:16px;background:#0d1f2d;border-radius:24px;overflow:hidden;padding:32px 0 28px;">
+            <div class="rel__head" style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px;padding:0 32px 22px;">
+                <div>
+                    <div style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:10px;">Каталог</div>
+                    <h2 style="margin:0;font-size:24px;font-weight:700;color:#fff;line-height:1.3;">Другие модели категории «Миниатюрные сервоприводы»</h2>
+                </div>
+                <a class="rel__all" href="/miniature-servo-motor-миниатюрный-сервопривод-c245137.html" style="flex:none;display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-size:13px;font-weight:600;color:#00aeef;border:1px solid rgba(0,174,239,0.35);border-radius:999px;padding:11px 20px;">
+                    Вся категория — 19 моделей
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+                </a>
+            </div>
+            <div class="rel__row"><a class="rel-card" href="Драйвер-типа-импульса-ZKSY830ABS-p6736139.html" title="Драйвер с импульсным управлением (ZKSY830ABS)"><span class="rel-card__shot"><img loading="lazy" src="/images.51microshop.com/18628/product/20250909/_ZKSY830ABS__1757402756340_0.png_w360.jpg" alt="Драйвер с импульсным управлением (ZKSY830ABS)" width="360" height="360"></span><span class="rel-card__name">Драйвер с импульсным управлением (ZKSY830ABS)</span></a><a class="rel-card" href="Драйвер-типа-шины-EtherCAT-YKB300-p6736130.html" title="Драйвер с управлением по шине EtherCAT (YKB300)"><span class="rel-card__shot"><img loading="lazy" src="/images.51microshop.com/18628/product/20250909/_EtherCAT_YKB300__1757402806594_0.png_w360.jpg" alt="Драйвер с управлением по шине EtherCAT (YKB300)" width="360" height="360"></span><span class="rel-card__name">Драйвер с управлением по шине EtherCAT (YKB300)</span></a><a class="rel-card" href="Серво-мотор-с-полым-валом-p6736119.html" title="Серво-мотор с полым валом"><span class="rel-card__shot"><img loading="lazy" src="/images.51microshop.com/18628/product/20250909/__1757402628319_0.png_w360.jpg" alt="Серво-мотор с полым валом" width="360" height="360"></span><span class="rel-card__name">Серво-мотор с полым валом</span></a><a class="rel-card" href="Сервоэлектроцилиндр-p6736109.html" title="Сервоэлектроцилиндр"><span class="rel-card__shot"><img loading="lazy" src="/images.51microshop.com/18628/product/20250909/__1757402346479_0.png_w360.jpg" alt="Сервоэлектроцилиндр" width="360" height="360"></span><span class="rel-card__name">Сервоэлектроцилиндр</span></a><a class="rel-card" href="Серво-интегрированная-машина-с-шариковым-винтом-p6736108.html" title="Линейный привод с шарико-винтовой парой"><span class="rel-card__shot"><img loading="lazy" src="/images.51microshop.com/18628/product/20250909/__1757402301649_0.png_w360.jpg" alt="Линейный привод с шарико-винтовой парой" width="360" height="360"></span><span class="rel-card__name">Линейный привод с шарико-винтовой парой</span></a><a class="rel-card" href="Серво-модуль-скольжения-p6736103.html" title="Серво-модуль скольжения"><span class="rel-card__shot"><img loading="lazy" src="/images.51microshop.com/18628/product/20250909/__1757402196377_0.png_w360.jpg" alt="Серво-модуль скольжения" width="360" height="360"></span><span class="rel-card__name">Серво-модуль скольжения</span></a><a class="rel-card" href="Сервоэлектродвижок-p6736101.html" title="Линейный актуатор"><span class="rel-card__shot"><img loading="lazy" src="/images.51microshop.com/18628/product/20250909/__1757402147857_0.png_w360.jpg" alt="Линейный актуатор" width="360" height="360"></span><span class="rel-card__name">Линейный актуатор</span></a><a class="rel-card" href="Серво-мотор-с-круглым-фланцем-p6736098.html" title="Серво-мотор с круглым фланцем"><span class="rel-card__shot"><img loading="lazy" src="/images.51microshop.com/18628/product/20250909/__1757402105897_0.png_w360.jpg" alt="Серво-мотор с круглым фланцем" width="360" height="360"></span><span class="rel-card__name">Серво-мотор с круглым фланцем</span></a><a class="rel-card" href="ДД30-p6736096.html" title="ДД30"><span class="rel-card__shot"><img loading="lazy" src="/images.51microshop.com/18628/product/20250909/_30_1757402055172_0.png_w360.jpg" alt="ДД30" width="360" height="360"></span><span class="rel-card__name">ДД30</span></a><a class="rel-card" href="Сервоуправляемый-интегрированный-гармонический-редуктор-p6736091.html" title="Сервоуправляемый интегрированный гармонический редуктор"><span class="rel-card__shot"><img loading="lazy" src="/images.51microshop.com/18628/product/20250909/__1757401962022_0.png_w360.jpg" alt="Сервоуправляемый интегрированный гармонический редуктор" width="360" height="360"></span><span class="rel-card__name">Сервоуправляемый интегрированный гармонический редуктор</span></a><a class="rel-card" href="Двигатель-с-тормозом-40E-p6736085.html" title="Серводвигатели с тормозом 40E"><span class="rel-card__shot"><img loading="lazy" src="/images.51microshop.com/18628/product/20250909/_40E_1757401899534_0.png_w360.jpg" alt="Серводвигатели с тормозом 40E" width="360" height="360"></span><span class="rel-card__name">Серводвигатели с тормозом 40E</span></a><a class="rel-card" href="Двигатель-40E-p6736082.html" title="Двигатель 40E"><span class="rel-card__shot"><img loading="lazy" src="/images.51microshop.com/18628/product/20250909/_40E_1757401851445_0.png_w360.jpg" alt="Двигатель 40E" width="360" height="360"></span><span class="rel-card__name">Двигатель 40E</span></a><a class="rel-card" href="Двигатель-с-тормозом-40D-p6736081.html" title="Серводвигатели с тормозом 40D"><span class="rel-card__shot"><img loading="lazy" src="/images.51microshop.com/18628/product/20250909/_40D_1757401806238_0.png_w360.jpg" alt="Серводвигатели с тормозом 40D" width="360" height="360"></span><span class="rel-card__name">Серводвигатели с тормозом 40D</span></a><a class="rel-card" href="Двигатель-25E-p6736071.html" title="Серводвигатели с тормозом 25E"><span class="rel-card__shot"><img loading="lazy" src="/images.51microshop.com/18628/product/20250909/_25E_1757401612452_0.png_w360.jpg" alt="Серводвигатели с тормозом 25E" width="360" height="360"></span><span class="rel-card__name">Серводвигатели с тормозом 25E</span></a><a class="rel-card" href="Двигатель-25D-11Вт22Вт33Вт50Вт-48В-p6736069.html" title="Двигатель 25E _11Вт/22Вт/33Вт/50Вт 48В"><span class="rel-card__shot"><img loading="lazy" src="/images.51microshop.com/18628/product/20250909/_25D_11_22_33_50_48__1757401544226_0.png_w360.jpg" alt="Двигатель 25E _11Вт/22Вт/33Вт/50Вт 48В" width="360" height="360"></span><span class="rel-card__name">Двигатель 25E _11Вт/22Вт/33Вт/50Вт 48В</span></a><a class="rel-card" href="Серво-мотор-201030Вт-p6736062.html" title="Серводвигатель 20"><span class="rel-card__shot"><img loading="lazy" src="/images.51microshop.com/18628/product/20250909/_20_10_30__1757400612906_0.png_w360.jpg" alt="Серводвигатель 20" width="360" height="360"></span><span class="rel-card__name">Серводвигатель 20</span></a><a class="rel-card" href="Серво-мотор-15D-5Вт-48В-p6736016.html" title="Серводвигатель 15D"><span class="rel-card__shot"><img loading="lazy" src="/images.51microshop.com/18628/product/20250909/_15D_5_48__1757399490828_0.png_w360.jpg" alt="Серводвигатель 15D" width="360" height="360"></span><span class="rel-card__name">Серводвигатель 15D</span></a><a class="rel-card" href="Серво-интегрированная-машина-с-редуктором-p6736105.html" title="Серво-интегрированная машина с редуктором"><span class="rel-card__shot"><img loading="lazy" src="/assets/vendor/product-card/svg/arrow_breadcrumb.svg" alt="Серво-интегрированная машина с редуктором" width="360" height="360"></span><span class="rel-card__name">Серво-интегрированная машина с редуктором</span></a></div>
         </section>
 
         <!-- Карта мира + история бренда -->

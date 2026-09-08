@@ -84,15 +84,6 @@
 		</div>
 		<div class="nav_bar">
 			<ul class="nav_first clearfix list-inline">
-<li class="nav_list">
-	<a class="navigation" href="index.html" data-nav="Главная">
-		Главная
-		
-	</a>
-	
-</li>
-
-				
 <li class="nav_list more">
 	<a class="navigation" href="catalog.html" data-nav="Продукция">
 		Продукция
@@ -477,13 +468,6 @@
     <div class="wrapper">
         <ul class="clearfix list-unstyled">
 			
-<li >
-	<a class="phone_navigation" href="index.html" data-nav="Главная">
-		Главная
-	</a>
-	
-</li>
-
 <li  class="more click_more">
 	<a class="phone_navigation" href="pages/about-us-11931230.html" data-nav="О компании">
 		О компании
@@ -900,6 +884,25 @@
     body { background-color: #f2f3f2; }
     body, body * { font-family: 'Montserrat', sans-serif !important; }
     .areas-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; }
+
+    .rel__row { display: flex; gap: 14px; overflow-x: auto; padding: 2px 32px 10px; scroll-snap-type: x proximity; }
+    .rel__row::-webkit-scrollbar { height: 6px; }
+    .rel__row::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.18); border-radius: 3px; }
+    .rel__row::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); border-radius: 3px; }
+    .rel-card { flex: none; width: 190px; scroll-snap-align: start; display: flex; flex-direction: column; gap: 12px;
+                text-decoration: none; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+                border-radius: 14px; padding: 12px; transition: background .2s, border-color .2s, transform .2s; }
+    .rel-card:hover { background: rgba(0,174,239,0.10); border-color: rgba(0,174,239,0.45); transform: translateY(-3px); }
+    .rel-card__shot { display: block; background: #fff; border-radius: 10px; overflow: hidden; }
+    .rel-card__shot img { display: block; width: 100%; height: 132px; object-fit: contain; padding: 8px; box-sizing: border-box; }
+    .rel-card__name { font-size: 13px; font-weight: 600; color: #fff; line-height: 1.35;
+                      display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    @media (max-width: 700px) {
+      .rel__head { flex-direction: column; align-items: flex-start; gap: 14px; }
+      .rel__row { padding-left: 20px; padding-right: 20px; }
+      .rel-card { width: 158px; }
+    }
+
     @media (max-width: 1100px) { .areas-grid { grid-template-columns: repeat(4, 1fr); } }
     @media (max-width: 800px)  { .areas-grid { grid-template-columns: repeat(3, 1fr); } }
     @media (max-width: 560px)  { .areas-grid { grid-template-columns: repeat(2, 1fr); } }
@@ -914,7 +917,7 @@
                         <div class="product_nav__content">
                 <img
                     class="product_nav__img"
-                    src="//images.51microshop.com/18628/product/20250730/_ZZJ_800_1753839510443_0.jpg"
+                    src="/images.51microshop.com/18628/product/20250730/_ZZJ_800_1753839510443_0.jpg"
                     alt="Двигатель постоянного тока серии ZZJ-800" />
                 <div class="product_nav__desc">
                     <span class="product_item__top-art">
@@ -1010,7 +1013,7 @@
                     <div class="swiper dz-main-swiper" style="width:373px;height:373px;border-radius:12px;overflow:hidden;background:#f7f8fa;">
                         <div class="swiper-wrapper">
                             <div class="swiper-slide" style="display:flex;align-items:center;justify-content:center;">
-                                <img src="//images.51microshop.com/18628/product/20250730/_ZZJ_800_1753839510443_0.jpg" alt="Двигатель постоянного тока серии ZZJ-800" style="max-width:100%;max-height:373px;object-fit:contain;">
+                                <img src="/images.51microshop.com/18628/product/20250730/_ZZJ_800_1753839510443_0.jpg" alt="Двигатель постоянного тока серии ZZJ-800" style="max-width:100%;max-height:373px;object-fit:contain;">
                             </div>
                         </div>
                         <div class="swiper-pagination"></div>
@@ -1278,6 +1281,22 @@
                 </a>
             </div>
 
+        </section>
+
+
+        <!-- Другие модели категории -->
+        <section class="rel" style="margin-top:16px;background:#0d1f2d;border-radius:24px;overflow:hidden;padding:32px 0 28px;">
+            <div class="rel__head" style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px;padding:0 32px 22px;">
+                <div>
+                    <div style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:10px;">Каталог</div>
+                    <h2 style="margin:0;font-size:24px;font-weight:700;color:#fff;line-height:1.3;">Другие модели категории «Двигатель постоянного тока»</h2>
+                </div>
+                <a class="rel__all" href="/Постояннотоковый-двигатель-DC-motor-c242901.html" style="flex:none;display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-size:13px;font-weight:600;color:#00aeef;border:1px solid rgba(0,174,239,0.35);border-radius:999px;padding:11px 20px;">
+                    Вся категория — 8 моделей
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+                </a>
+            </div>
+            <div class="rel__row"><a class="rel-card" href="Средний-двигатель-постоянного-тока-серии-Z-p6650455.html" title="Средний двигатель постоянного тока серии Z"><span class="rel-card__shot"><img loading="lazy" src="/images.51microshop.com/18628/product/20250730/_Z_1753839764082_0.jpg_w360.jpg" alt="Средний двигатель постоянного тока серии Z" width="360" height="360"></span><span class="rel-card__name">Средний двигатель постоянного тока серии Z</span></a><a class="rel-card" href="Отдельно-возбуждаемый-постоянный-ток-двигатель-серии-ZJ500-1000-для-нефтяных-буровых-операций-p6650417.html" title="Разделённо возбуждаемый двигатель постоянного тока серии ZJ500-1000"><span class="rel-card__shot"><img loading="lazy" src="/images.51microshop.com/18628/product/20250730/_ZJ500_1000__1753839416825_0.jpg_w360.jpg" alt="Разделённо возбуждаемый двигатель постоянного тока серии ZJ500-1000" width="360" height="360"></span><span class="rel-card__name">Разделённо возбуждаемый двигатель постоянного тока серии ZJ500-1000</span></a><a class="rel-card" href="Двигатель-постоянного-тока-типа-ZFQZ-для-частых-запусков-и-торможений-p6650410.html" title="Частотно-стартерный тормозной двигатель постоянного тока серии ZFQZ"><span class="rel-card__shot"><img loading="lazy" src="/images.51microshop.com/18628/product/20250730/_ZFQZ__1753839336933_0.jpg_w360.jpg" alt="Частотно-стартерный тормозной двигатель постоянного тока серии ZFQZ" width="360" height="360"></span><span class="rel-card__name">Частотно-стартерный тормозной двигатель постоянного тока серии ZFQZ</span></a><a class="rel-card" href="Постояннотоковый-двигатель-Z710-p6650396.html" title="Двигатель постоянного тока серии Z710"><span class="rel-card__shot"><img loading="lazy" src="/images.51microshop.com/18628/product/20250730/_Z710_1753838585029_0.jpg_w360.jpg" alt="Двигатель постоянного тока серии Z710" width="360" height="360"></span><span class="rel-card__name">Двигатель постоянного тока серии Z710</span></a><a class="rel-card" href="Постояннотоковый-двигатель-серии-Z4-p6650365.html" title="Двигатель постоянного тока серии Z4"><span class="rel-card__shot"><img loading="lazy" src="/images.51microshop.com/18628/product/20250730/_Z4_1753838495850_0.jpg_w360.jpg" alt="Двигатель постоянного тока серии Z4" width="360" height="360"></span><span class="rel-card__name">Двигатель постоянного тока серии Z4</span></a><a class="rel-card" href="Постояннотоковый-двигатель-для-платформы-с-положительным-давлением-серии-HZJ-для-буровых-работ-p6650360.html" title="Двигатель постоянного тока с положительным давлением серии HZJ"><span class="rel-card__shot"><img loading="lazy" src="/images.51microshop.com/18628/product/20250730/_HZJ__1753838386742_0.jpg_w360.jpg" alt="Двигатель постоянного тока с положительным давлением серии HZJ" width="360" height="360"></span><span class="rel-card__name">Двигатель постоянного тока с положительным давлением серии HZJ</span></a><a class="rel-card" href="Постояннотоковый-двигатель-с-отдельным-возбуждением-серии-HJ08-для-нефтяных-буровых-установок-p6650347.html" title="Разделённо возбуждаемый двигатель постоянного тока серии HJ08"><span class="rel-card__shot"><img loading="lazy" src="/images.51microshop.com/18628/product/20250730/_HJ08__1753838144969_0.jpg_w360.jpg" alt="Разделённо возбуждаемый двигатель постоянного тока серии HJ08" width="360" height="360"></span><span class="rel-card__name">Разделённо возбуждаемый двигатель постоянного тока серии HJ08</span></a></div>
         </section>
 
         <!-- Карта мира + история бренда -->

@@ -488,25 +488,25 @@ function GetOptions(forcheck) {
                                     imgType = src;
                                     break;
                                 case '.pdf':
-                                    imgType = 'https://asssets.51microshop.com/assets/images/fileTypeImage/pdfimg.png';
+                                    imgType = '/asssets.51microshop.com/assets/images/fileTypeImage/pdfimg.png';
                                     break;
                                 case '.doc':
                                 case '.docx':
-                                    imgType = 'https://asssets.51microshop.com/assets/images/fileTypeImage/docimg.png';
+                                    imgType = '/asssets.51microshop.com/assets/images/fileTypeImage/docimg.png';
                                     break;
                                 case '.html':
                                 case '.htm':
-                                    imgType = 'https://asssets.51microshop.com/assets/images/fileTypeImage/htmlimg.png';
+                                    imgType = '/asssets.51microshop.com/assets/images/fileTypeImage/htmlimg.png';
                                     break;
                                 case '.xls':
                                 case '.xlsx':
-                                    imgType = 'https://asssets.51microshop.com/assets/images/fileTypeImage/xlsimg.png';
+                                    imgType = '/asssets.51microshop.com/assets/images/fileTypeImage/xlsimg.png';
                                     break;
                                 case '.txt':
-                                    imgType = 'https://asssets.51microshop.com/assets/images/fileTypeImage/txtimg.png';
+                                    imgType = '/asssets.51microshop.com/assets/images/fileTypeImage/txtimg.png';
                                     break;
                                 default:
-                                    imgType = 'https://asssets.51microshop.com/assets/images/fileTypeImage/cusimg.png';
+                                    imgType = '/asssets.51microshop.com/assets/images/fileTypeImage/cusimg.png';
                                     break;
                             }
 

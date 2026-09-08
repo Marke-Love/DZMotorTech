@@ -84,15 +84,6 @@
 		</div>
 		<div class="nav_bar">
 			<ul class="nav_first clearfix list-inline">
-<li class="nav_list">
-	<a class="navigation" href="index.html" data-nav="Главная">
-		Главная
-		
-	</a>
-	
-</li>
-
-				
 <li class="nav_list more">
 	<a class="navigation" href="catalog.html" data-nav="Продукция">
 		Продукция
@@ -477,13 +468,6 @@
     <div class="wrapper">
         <ul class="clearfix list-unstyled">
 			
-<li >
-	<a class="phone_navigation" href="index.html" data-nav="Главная">
-		Главная
-	</a>
-	
-</li>
-
 <li  class="more click_more">
 	<a class="phone_navigation" href="pages/about-us-11931230.html" data-nav="О компании">
 		О компании
@@ -900,6 +884,25 @@
     body { background-color: #f2f3f2; }
     body, body * { font-family: 'Montserrat', sans-serif !important; }
     .areas-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; }
+
+    .rel__row { display: flex; gap: 14px; overflow-x: auto; padding: 2px 32px 10px; scroll-snap-type: x proximity; }
+    .rel__row::-webkit-scrollbar { height: 6px; }
+    .rel__row::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.18); border-radius: 3px; }
+    .rel__row::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); border-radius: 3px; }
+    .rel-card { flex: none; width: 190px; scroll-snap-align: start; display: flex; flex-direction: column; gap: 12px;
+                text-decoration: none; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+                border-radius: 14px; padding: 12px; transition: background .2s, border-color .2s, transform .2s; }
+    .rel-card:hover { background: rgba(0,174,239,0.10); border-color: rgba(0,174,239,0.45); transform: translateY(-3px); }
+    .rel-card__shot { display: block; background: #fff; border-radius: 10px; overflow: hidden; }
+    .rel-card__shot img { display: block; width: 100%; height: 132px; object-fit: contain; padding: 8px; box-sizing: border-box; }
+    .rel-card__name { font-size: 13px; font-weight: 600; color: #fff; line-height: 1.35;
+                      display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    @media (max-width: 700px) {
+      .rel__head { flex-direction: column; align-items: flex-start; gap: 14px; }
+      .rel__row { padding-left: 20px; padding-right: 20px; }
+      .rel-card { width: 158px; }
+    }
+
     @media (max-width: 1100px) { .areas-grid { grid-template-columns: repeat(4, 1fr); } }
     @media (max-width: 800px)  { .areas-grid { grid-template-columns: repeat(3, 1fr); } }
     @media (max-width: 560px)  { .areas-grid { grid-template-columns: repeat(2, 1fr); } }
@@ -914,7 +917,7 @@
                         <div class="product_nav__content">
                 <img
                     class="product_nav__img"
-                    src="//images.51microshop.com/18628/product/20250730/_NEPX_1753840642003_0.jpg"
+                    src="/images.51microshop.com/18628/product/20250730/_NEPX_1753840642003_0.jpg"
                     alt="Взрывозащищённый трёхфазный асинхронный двигатель серии NEPX" />
                 <div class="product_nav__desc">
                     <span class="product_item__top-art">
@@ -1010,7 +1013,7 @@
                     <div class="swiper dz-main-swiper" style="width:373px;height:373px;border-radius:12px;overflow:hidden;background:#f7f8fa;">
                         <div class="swiper-wrapper">
                             <div class="swiper-slide" style="display:flex;align-items:center;justify-content:center;">
-                                <img src="//images.51microshop.com/18628/product/20250730/_NEPX_1753840642003_0.jpg" alt="Взрывозащищённый трёхфазный асинхронный двигатель серии NEPX" style="max-width:100%;max-height:373px;object-fit:contain;">
+                                <img src="/images.51microshop.com/18628/product/20250730/_NEPX_1753840642003_0.jpg" alt="Взрывозащищённый трёхфазный асинхронный двигатель серии NEPX" style="max-width:100%;max-height:373px;object-fit:contain;">
                             </div>
                         </div>
                         <div class="swiper-pagination"></div>
@@ -1282,6 +1285,22 @@
                 </a>
             </div>
 
+        </section>
+
+
+        <!-- Другие модели категории -->
+        <section class="rel" style="margin-top:16px;background:#0d1f2d;border-radius:24px;overflow:hidden;padding:32px 0 28px;">
+            <div class="rel__head" style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px;padding:0 32px 22px;">
+                <div>
+                    <div style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:10px;">Каталог</div>
+                    <h2 style="margin:0;font-size:24px;font-weight:700;color:#fff;line-height:1.3;">Другие модели категории «Низковольтный двигатель»</h2>
+                </div>
+                <a class="rel__all" href="/Низковольтный-двигатель-low-voltage-c242902.html" style="flex:none;display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-size:13px;font-weight:600;color:#00aeef;border:1px solid rgba(0,174,239,0.35);border-radius:999px;padding:11px 20px;">
+                    Вся категория — 18 моделей
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+                </a>
+            </div>
+            <div class="rel__row"><a class="rel-card" href="Серия-низковольтных-трехфазных-асинхронных-двигателей-с-одноступенчатой-энергоэффективностью-YE5-p6650786.html" title="Низковольтный трёхфазный асинхронный двигатель(первичная энергоэффективность)Серия YE5"><span class="rel-card__shot"><img loading="lazy" src="/images.51microshop.com/18628/product/20250730/_YE5_1753842898819_0.jpg_w360.jpg" alt="Низковольтный трёхфазный асинхронный двигатель(первичная энергоэффективность)Серия YE5" width="360" height="360"></span><span class="rel-card__name">Низковольтный трёхфазный асинхронный двигатель(первичная энергоэффективность)Серия YE5</span></a><a class="rel-card" href="Серия-низковольтных-трехфазных-асинхронных-двигателей-с-двухступенчатой-энергоэффективностью-YE4-p6650757.html" title="Низковольтный трехфазный асинхронный двигатель (вторичная энергоэффективность) серии YE4"><span class="rel-card__shot"><img loading="lazy" src="/images.51microshop.com/18628/product/20250730/_YE4_1753842635012_0.jpg_w360.jpg" alt="Низковольтный трехфазный асинхронный двигатель (вторичная энергоэффективность) серии YE4" width="360" height="360"></span><span class="rel-card__name">Низковольтный трехфазный асинхронный двигатель (вторичная энергоэффективность) серии YE4</span></a><a class="rel-card" href="Серия-низковольтных-трехфазных-асинхронных-двигателей-с-трехступенчатой-энергоэффективностью-YE3-p6650731.html" title="Низковольтный трёхфазный асинхронный двигатель(трёхуровневая энергоэффективность) Серии YE3"><span class="rel-card__shot"><img loading="lazy" src="/images.51microshop.com/18628/product/20250730/_YE3_1753842384869_0.jpg_w360.jpg" alt="Низковольтный трёхфазный асинхронный двигатель(трёхуровневая энергоэффективность) Серии YE3" width="360" height="360"></span><span class="rel-card__name">Низковольтный трёхфазный асинхронный двигатель(трёхуровневая энергоэффективность) Серии YE3</span></a><a class="rel-card" href="Серия-низковольтных-трехфазных-асинхронных-двигателей-с-регулировкой-скорости-частотным-методом-Y2VP-p6650623.html" title="Низковольтный трёхфазный асинхронный двигатель с регулируемой частотой Серии Y2VP"><span class="rel-card__shot"><img loading="lazy" src="/images.51microshop.com/18628/product/20250730/_Y2VP_1753841693365_0.jpg_w360.jpg" alt="Низковольтный трёхфазный асинхронный двигатель с регулируемой частотой Серии Y2VP" width="360" height="360"></span><span class="rel-card__name">Низковольтный трёхфазный асинхронный двигатель с регулируемой частотой Серии Y2VP</span></a><a class="rel-card" href="Серия-двухступенчатых-энергоэффективных-пылево-взрывобезопасных-низковольтных-трехфазных-асинхронных-двигателей-YFB4-p6650615.html" title="Пылезащищённый низковольтный трёхфазный индукторный двигатель(двухступенчатый энергоэффективный)серии YFB4"><span class="rel-card__shot"><img loading="lazy" src="/images.51microshop.com/18628/product/20250730/_YFB4_1753841585718_0.jpg_w360.jpg" alt="Пылезащищённый низковольтный трёхфазный индукторный двигатель(двухступенчатый энергоэффективный)серии YFB4" width="360" height="360"></span><span class="rel-card__name">Пылезащищённый низковольтный трёхфазный индукторный двигатель(двухступенчатый энергоэффективный)серии YFB4</span></a><a class="rel-card" href="Серия-трехступенчатых-энергоэффективных-пылезащищенных-низковольтных-трехфазных-асинхронных-двигателей-YFB3-p6650611.html" title="Пылезащищённый низковольтный трёхфазный индукторный двигатель(трёхступенчатый энергоэффективный) Серии YFB3"><span class="rel-card__shot"><img loading="lazy" src="/images.51microshop.com/18628/product/20250730/_YFB3_1753841505470_0.jpg_w360.jpg" alt="Пылезащищённый низковольтный трёхфазный индукторный двигатель(трёхступенчатый энергоэффективный) Серии YFB3" width="360" height="360"></span><span class="rel-card__name">Пылезащищённый низковольтный трёхфазный индукторный двигатель(трёхступенчатый энергоэффективный) Серии YFB3</span></a><a class="rel-card" href="Серия-одноступенных-энергоэффективных-взрывобезопасных-низковольтных-трехфазных-асинхронных-двигателей-YBX5-p6650605.html" title="Взрывозащищённый низковольтный трёхфазный асинхронный двигатель( первичная энергоэффективность) Серии YBX5"><span class="rel-card__shot"><img loading="lazy" src="/images.51microshop.com/18628/product/20250730/_YBX5_1753841392987_0.jpg_w360.jpg" alt="Взрывозащищённый низковольтный трёхфазный асинхронный двигатель( первичная энергоэффективность) Серии YBX5" width="360" height="360"></span><span class="rel-card__name">Взрывозащищённый низковольтный трёхфазный асинхронный двигатель( первичная энергоэффективность) Серии YBX5</span></a><a class="rel-card" href="Серия-трехступенчатых-энергоэффективных-взрывобезопасных-низковольтных-трехфазных-асинхронных-двигателей-YBX3-p6650590.html" title="Взрывозащищённый низковольтный трёхфазный индукторный двигатель(трёхступенчатая энергоэффективность) Серии YBX3"><span class="rel-card__shot"><img loading="lazy" src="/images.51microshop.com/18628/product/20250730/_YBX3_1753841182475_0.jpg_w360.jpg" alt="Взрывозащищённый низковольтный трёхфазный индукторный двигатель(трёхступенчатая энергоэффективность) Серии YBX3" width="360" height="360"></span><span class="rel-card__name">Взрывозащищённый низковольтный трёхфазный индукторный двигатель(трёхступенчатая энергоэффективность) Серии YBX3</span></a><a class="rel-card" href="Серия-двухступенчатых-энергоэффективных-взрывобезопасных-низковольтных-трехфазных-асинхронных-двигателей-YBE4-p6650580.html" title="Взрывозащищённый низковольтный трёхфазный индукторный двигатель( двухступенчатый энергоэффективный)Серии YBE4"><span class="rel-card__shot"><img loading="lazy" src="/images.51microshop.com/18628/product/20250730/_YBE4_1753841027252_0.jpg_w360.jpg" alt="Взрывозащищённый низковольтный трёхфазный индукторный двигатель( двухступенчатый энергоэффективный)Серии YBE4" width="360" height="360"></span><span class="rel-card__name">Взрывозащищённый низковольтный трёхфазный индукторный двигатель( двухступенчатый энергоэффективный)Серии YBE4</span></a><a class="rel-card" href="Серия-взрывобезопасных-низковольтных-трехфазных-двигателей-с-регулировкой-скорости-частотным-методом-YBBP-p6650565.html" title="Регулируемый по частоте, взрывозащищённый низковольтный трёхфазный двигатель Серия YBBP"><span class="rel-card__shot"><img loading="lazy" src="/images.51microshop.com/18628/product/20250730/_YBBP_1753840754611_0.jpg_w360.jpg" alt="Регулируемый по частоте, взрывозащищённый низковольтный трёхфазный двигатель Серия YBBP" width="360" height="360"></span><span class="rel-card__name">Регулируемый по частоте, взрывозащищённый низковольтный трёхфазный двигатель Серия YBBP</span></a><a class="rel-card" href="Ультравысокоефективный-трехфазный-асинхронный-двигатель-NEPM-p6650536.html" title="Сверхвысокоэффективный трёхфазный асинхронный двигатель серии NEPM"><span class="rel-card__shot"><img loading="lazy" src="/images.51microshop.com/18628/product/20250730/_NEPM_1753840536992_0.jpg_w360.jpg" alt="Сверхвысокоэффективный трёхфазный асинхронный двигатель серии NEPM" width="360" height="360"></span><span class="rel-card__name">Сверхвысокоэффективный трёхфазный асинхронный двигатель серии NEPM</span></a><a class="rel-card" href="Трехфазный-асинхронный-двигатель-конструкции-NEMA-D-p6650528.html" title="Двигатель трёхфазный асинхронный серии NEMA D"><span class="rel-card__shot"><img loading="lazy" src="/images.51microshop.com/18628/product/20250730/_NEMA_D_1753840404262_0.jpg_w360.jpg" alt="Двигатель трёхфазный асинхронный серии NEMA D" width="360" height="360"></span><span class="rel-card__name">Двигатель трёхфазный асинхронный серии NEMA D</span></a><a class="rel-card" href="Частотно-регулируемый-низковольтный-двигатель-YE3P-p6650745.html" title="Частотно-регулируемый низковольтный двигатель серии YE3P"><span class="rel-card__shot"><img loading="lazy" src="/assets/images/products/6650745-1.jpg" alt="Частотно-регулируемый низковольтный двигатель серии YE3P" width="360" height="360"></span><span class="rel-card__name">Частотно-регулируемый низковольтный двигатель серии YE3P</span></a><a class="rel-card" href="Частотно-регулируемый-низковольтный-двигатель-YE4P-p6650778.html" title="Частотно-регулируемый низковольтный двигатель серии YE4P"><span class="rel-card__shot"><img loading="lazy" src="/assets/images/products/6650778-1.jpg" alt="Частотно-регулируемый низковольтный двигатель серии YE4P" width="360" height="360"></span><span class="rel-card__name">Частотно-регулируемый низковольтный двигатель серии YE4P</span></a><a class="rel-card" href="Частотно-регулируемый-низковольтный-двигатель-YE5P-p6650794.html" title="Частотно-регулируемый низковольтный двигатель серии YE5P"><span class="rel-card__shot"><img loading="lazy" src="/assets/images/products/6650794-1.jpg" alt="Частотно-регулируемый низковольтный двигатель серии YE5P" width="360" height="360"></span><span class="rel-card__name">Частотно-регулируемый низковольтный двигатель серии YE5P</span></a><a class="rel-card" href="Инверторный-двигатель-YE5P-IE5-p7098111.html" title="Инверторный двигатель YE5P, класс энергоэффективности IE5"><span class="rel-card__shot"><img loading="lazy" src="/assets/images/products/7098111-1.jpg" alt="Инверторный двигатель YE5P, класс энергоэффективности IE5" width="360" height="360"></span><span class="rel-card__name">Инверторный двигатель YE5P, класс энергоэффективности IE5</span></a><a class="rel-card" href="Инверторный-двигатель-YE3P-IE3-p7108991.html" title="Инверторный двигатель YE3P, класс энергоэффективности IE3"><span class="rel-card__shot"><img loading="lazy" src="/assets/images/products/7108991-1.jpg" alt="Инверторный двигатель YE3P, класс энергоэффективности IE3" width="360" height="360"></span><span class="rel-card__name">Инверторный двигатель YE3P, класс энергоэффективности IE3</span></a></div>
         </section>
 
         <!-- Карта мира + история бренда -->
