@@ -1537,7 +1537,7 @@
 /* Края ленты гасим не маской, а двумя градиентными накладками сверху.
    Маска пересчитывалась бы на каждом кадре вместе с движущейся строкой —
    именно от этого прокрутка и подрагивала. Накладки рисуются один раз. */
-.dzn-marquee { position: relative; display: flex; overflow: hidden; }
+.dzn-marquee { position: relative; display: flex; overflow: hidden; pointer-events: none; }
 
 .dzn-marquee::before,
 .dzn-marquee::after {
@@ -1574,8 +1574,6 @@
 
 @keyframes dzn-marquee { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(-50%, 0, 0); } }
 
-.dzn-marquee:hover .dzn-marquee__row { animation-play-state: paused; }
-
 /* Логотипы подготовлены заранее: белый силуэт на прозрачном фоне,
    поэтому никаких плашек и фильтров не нужно — знак ложится прямо
    на карточку, как в исходном шаблоне. */
@@ -1584,10 +1582,7 @@
   width: auto;
   height: 30px;
   opacity: 0.5;
-  transition: opacity 0.2s var(--h-ease), transform 0.2s var(--h-ease);
 }
-
-.dzn-marquee img:hover { opacity: 1; transform: translateY(-2px); }
 
 /* --- адаптив ------------------------------------------------------------------ */
 
