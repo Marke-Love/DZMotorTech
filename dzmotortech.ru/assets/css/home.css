@@ -637,6 +637,263 @@
 
 .dzh .dzh__cta:hover svg { transform: translateX(3px); }
 
+/* --- Блок «Замена импортных двигателей» ------------------------------------ */
+
+/* Фотография с вырезанными углами: в верхний вырез садится строка с рубрикой,
+   в нижний правый — плашка с цифрами. Форму задаёт clipPath в самой разметке,
+   поэтому здесь только раскладка поверх неё. */
+.dzh-swap {
+  /* В шаблоне акцент был красный. Здесь — фирменный голубой; для мелкого текста
+     берём затемнённый оттенок, иначе на светлом фоне он почти не читается. */
+  /* Только фирменные цвета: голубой из палитры сайта и тёмно-синий из логотипа.
+     Голубой — для крупного текста, на мелком он на белом почти не читается,
+     поэтому мелкие значения идут тёмно-синим. */
+  --s-accent: var(--h-accent);
+  --s-navy: #012068;
+
+  padding: clamp(44px, 5vw, 78px) 0;
+  background: var(--h-surface);
+  color: var(--h-ink);
+}
+
+.dzh-swap__frame { position: relative; }
+
+.dzh-swap__shot { margin: 0; line-height: 0; }
+.dzh-swap__shot svg { display: block; width: 100%; height: auto; }
+
+/* Верхняя строка ложится в вырез над фотографией. */
+.dzh-swap__top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 84%;
+  height: 13.5%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-right: clamp(12px, 2vw, 28px);
+  z-index: 2;
+}
+
+.dzh-swap__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  font-size: clamp(11px, 1vw, 13px);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--h-steel-500);
+}
+
+.dzh-swap__star {
+  font-size: 1.35em;
+  line-height: 1;
+  color: var(--s-accent);
+  animation: dzh-swap-spin 7s linear infinite;
+}
+
+@keyframes dzh-swap-spin { to { transform: rotate(360deg); } }
+
+.dzh-swap__tags {
+  display: flex;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.dzh-swap__tags li {
+  padding: 6px 12px;
+  border: 1px solid var(--h-steel-300);
+  border-radius: 8px;
+  background: var(--h-surface);
+  font-size: clamp(10px, 0.9vw, 12px);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--h-ink);
+  white-space: nowrap;
+}
+
+/* Плашка с цифрами — в нижнем правом вырезе. */
+.dzh-swap__badge {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 21%;
+  height: 27%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  text-align: right;
+  padding-left: clamp(8px, 1.2vw, 16px);
+  z-index: 2;
+}
+
+.dzh-swap__big {
+  margin: 0;
+  font-size: clamp(16px, 2.2vw, 32px);
+  font-weight: 700;
+  line-height: 1.05;
+  color: var(--h-steel-500);
+  text-transform: uppercase;
+  white-space: nowrap;      /* «121 модель» должно читаться одной строкой */
+}
+
+.dzh-swap__big b { color: var(--s-accent); font-weight: 800; }
+
+.dzh-swap__note {
+  margin: 6px 0 0;
+  font-size: clamp(10px, 0.95vw, 13px);
+  color: var(--h-steel-500);
+}
+
+.dzh-swap__note b { color: var(--s-navy); }
+
+/* Строка фактов под фотографией. */
+.dzh-swap__facts {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+  margin-top: clamp(14px, 1.6vw, 22px);
+  font-size: clamp(12px, 1vw, 14px);
+  color: var(--h-steel-500);
+}
+
+.dzh-swap__facts b { color: var(--s-navy); font-weight: 700; }
+
+.dzh-swap__sep { width: 1px; height: 14px; background: var(--h-steel-300); }
+
+/* Текстовая часть. */
+.dzh-swap__body {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  gap: clamp(24px, 4vw, 56px);
+  margin-top: clamp(22px, 2.6vw, 38px);
+}
+
+.dzh-swap__title {
+  margin: 0 0 clamp(18px, 2vw, 30px);
+  font-size: clamp(26px, 3.4vw, 46px);
+  line-height: 1.1;
+}
+
+.dzh-swap__title em { font-style: normal; color: var(--s-accent); }
+
+.dzh-swap__cols {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(18px, 2.4vw, 32px);
+}
+
+.dzh-swap__cols p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.65;
+  text-align: justify;
+  hyphens: auto;
+  color: var(--h-ink);
+}
+
+.dzh-swap__aside { text-align: right; }
+
+.dzh-swap__brand {
+  margin: 0;
+  font-size: clamp(18px, 1.8vw, 24px);
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  color: var(--s-navy);
+}
+
+.dzh-swap__role { margin: 6px 0 0; font-size: 13px; color: var(--h-steel-500); }
+
+.dzh-swap__ask {
+  margin: clamp(20px, 2.4vw, 34px) 0 0;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.45;
+  color: var(--h-ink);
+}
+
+.dzh-swap__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 18px;
+  padding: 14px 24px;
+  border: 1px solid #24395f;
+  border-radius: 12px;
+  background: #1a2b4a;
+  box-shadow: 0 10px 26px rgba(26, 43, 74, 0.28);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  transition: gap 0.28s var(--h-ease), background-color 0.2s var(--h-ease);
+}
+
+.dzh-swap__cta:hover { gap: 18px; background: #24395f; color: #fff; }
+
+/* Появление: базовое состояние видимое, анимация включается классом от скрипта,
+   чтобы блок не пропал, если скрипт не отработает. */
+.dzh-swap.is-armed .dzh-swap__rise,
+.dzh-swap.is-armed .dzh-swap__fade { opacity: 0; }
+
+.dzh-swap.is-in .dzh-swap__rise {
+  animation: dzh-swap-rise 0.55s var(--h-ease) var(--d, 0s) both;
+}
+
+.dzh-swap.is-in .dzh-swap__fade {
+  animation: dzh-swap-fade 0.7s var(--h-ease) var(--d, 0s) both;
+}
+
+@keyframes dzh-swap-rise {
+  from { opacity: 0; transform: translateY(-16px); filter: blur(8px); }
+  to   { opacity: 1; transform: none; filter: blur(0); }
+}
+
+@keyframes dzh-swap-fade {
+  from { opacity: 0; filter: blur(10px); }
+  to   { opacity: 1; filter: blur(0); }
+}
+
+@media (max-width: 1080px) {
+  .dzh-swap__cols { grid-template-columns: minmax(0, 1fr); }
+}
+
+@media (max-width: 900px) {
+  /* На узком экране вырезы теряют смысл: строка и плашка встают обычным потоком. */
+  .dzh-swap__img { clip-path: none; }
+  .dzh-swap__shot svg { border-radius: var(--h-radius); overflow: hidden; }
+  .dzh-swap__top,
+  .dzh-swap__badge {
+    position: static;
+    width: auto;
+    height: auto;
+    padding: 0;
+    align-items: flex-start;
+    text-align: left;
+  }
+  .dzh-swap__top { margin-bottom: 14px; flex-wrap: wrap; }
+  .dzh-swap__badge { flex-direction: row; align-items: baseline; gap: 12px; margin-top: 14px; }
+  .dzh-swap__body { grid-template-columns: minmax(0, 1fr); }
+  .dzh-swap__aside { text-align: left; }
+  .dzh-swap__cta { margin-left: 0; }
+}
+
+@media (max-width: 560px) {
+  .dzh-swap__cols p { text-align: left; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dzh-swap__star { animation: none; }
+}
+
 /* --- Блок «Сертификаты» --------------------------------------------------- */
 
 /* Раньше здесь была карусель из шести сканов без подписей: посетитель видел
