@@ -1,3 +1,19 @@
+/* Первый экран каталога временно скрыт по просьбе заказчика: страница
+   начинается сразу с категорий. Разметка на месте — вернуть можно, убрав это
+   правило. */
+.dzc-hero { display: none; }
+
+/* Раз первый экран скрыт, секция категорий идёт сразу за хлебными крошками —
+   её верхний отступ рассчитан на соседство с героем и оставляет пустую полосу. */
+.dzc-hero + .dzc-section { padding-top: clamp(18px, 1.8vw, 28px); }
+
+/* Хлебные крошки на странице каталога скрыты: путь «Главная — Каталог» ничего
+   не добавляет, когда каталог и так второй пункт меню. Разметка на месте. */
+.dzc-crumbs[hidden] { display: none !important; }
+
+/* Без крошек заголовок оказывается вплотную к шапке — возвращаем воздух. */
+.dzc-crumbs[hidden] + .dzc-hero + .dzc-section { padding-top: clamp(30px, 3vw, 48px); }
+
 /* ==========================================================================
    Каталог продукции Dazhong Motor — самостоятельные стили страницы.
    Всё под префиксом .dzc-, чтобы не конфликтовать с bootstrap 3.3.5
@@ -337,7 +353,7 @@
 
 .dzc-tiles {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 16px;
 }
 
@@ -787,7 +803,7 @@
   .dzc-hero__actions .dzc-btn { padding: 16px 20px 16px 24px; font-size: 12px; gap: 16px; }
 
   .dzc-why { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .dzc-tiles { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .dzc-tiles { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }
 
 @media (max-width: 900px) {

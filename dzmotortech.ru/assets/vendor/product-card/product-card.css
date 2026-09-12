@@ -596,3 +596,14 @@ div.breadcrumbs a.long,div.breadcrumbs span.long{max-width:none;overflow:hidden}
   .page_detail .chars__cell:first-child{width:auto;font-size:15px;color:rgba(34,34,34,.55)}
   .page_detail .chars__cell span{border-bottom:0}
 }
+
+/* Блок «Карта реализованных проектов» скрыт по просьбе заказчика.
+   Разметка на месте: чтобы вернуть, достаточно убрать это правило
+   и атрибут hidden у секции. Нужен !important — у секции инлайновый display:grid. */
+.dzp-worldmap[hidden] { display: none !important; }
+
+/* Вместе с картой ушёл её отступ, и форма заявки села вплотную к блоку
+   «другие модели». Возвращаем зазор — те же 16px, что между остальными
+   тёмными панелями этой группы, чтобы расстояния были одинаковые.
+   !important нужен потому, что отступы у этих секций заданы инлайново. */
+.dzp-worldmap[hidden] + section { margin-top: 16px !important; }

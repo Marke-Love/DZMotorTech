@@ -1,3 +1,7 @@
+/* Скрытые секции: платформа местами задаёт display у section, поэтому
+   атрибут hidden подкрепляем правилом. */
+[hidden] { display: none !important; }
+
 /* ==========================================================================
    Главная страница. Блоки главной переписываются по одному, поэтому файл
    растёт секциями: сначала общие токены с префиксом dzh-, ниже — блоки.
@@ -636,6 +640,117 @@
 .dzh .dzh__cta:hover { background: #24395f; color: #fff; transform: translateY(-1px); }
 
 .dzh .dzh__cta:hover svg { transform: translateX(3px); }
+
+/* --- Четыре главных направления в первом экране ---------------------------- */
+
+/* Формат из шаблона feature-grid: слева снимок двигателя с вырезанным фоном,
+   справа название и описание, стрелка в правом нижнем углу. Фон у снимков
+   убран заранее — на карточке лежит прозрачный PNG, а не фотография с белым
+   прямоугольником. */
+.dzh-pick__head {
+  max-width: 62ch;
+  margin: 0 auto clamp(22px, 2.6vw, 36px);
+  text-align: center;
+}
+
+/* Селектор с двумя классами: у платформы есть .home_custom_design h2 {color:#111},
+   и одного класса не хватает — заголовок уходит в чёрный на тёмном фоне. */
+.dzh .dzh-pick__h {
+  margin: 0;
+  font-size: clamp(24px, 2.8vw, 38px);
+  line-height: 1.12;
+  text-align: center;
+  color: #fff;
+}
+
+.dzh-pick__lede {
+  margin: 14px 0 0;
+  font-size: clamp(14px, 1.1vw, 16px);
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.66);
+}
+
+.dzh-pick {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(14px, 1.5vw, 22px);
+}
+
+.dzh-pick__card {
+  display: flex;
+  align-items: flex-start;
+  gap: clamp(14px, 1.6vw, 24px);
+  padding: clamp(18px, 1.8vw, 26px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.04);
+  transition: background-color 0.3s var(--h-ease), border-color 0.3s var(--h-ease),
+    transform 0.3s var(--h-ease), box-shadow 0.3s var(--h-ease);
+}
+
+.dzh-pick__card:hover,
+.dzh-pick__card:focus-visible {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(0, 174, 239, 0.45);
+  transform: translateY(-4px);
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.3);
+}
+
+.dzh-pick__shot {
+  flex: none;
+  width: clamp(84px, 8vw, 112px);
+  height: auto;
+  object-fit: contain;
+}
+
+.dzh-pick__body {
+  display: block;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.dzh-pick__ttl {
+  display: block;
+  font-size: clamp(16px, 1.4vw, 19px);
+  font-weight: 700;
+  line-height: 1.25;
+  color: #fff;
+}
+
+.dzh-pick__desc {
+  display: block;
+  margin-top: 8px;
+  font-size: clamp(13px, 1.02vw, 14.5px);
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.62);
+}
+
+.dzh-pick__arrow {
+  display: block;
+  margin: 14px 0 0 auto;
+  color: rgba(255, 255, 255, 0.45);
+  transition: transform 0.3s var(--h-ease), color 0.3s var(--h-ease);
+}
+
+.dzh-pick__card:hover .dzh-pick__arrow,
+.dzh-pick__card:focus-visible .dzh-pick__arrow {
+  transform: translateX(5px);
+  color: var(--h-accent);
+}
+
+@media (max-width: 860px) {
+  .dzh-pick { grid-template-columns: minmax(0, 1fr); }
+}
+
+@media (max-width: 480px) {
+  .dzh-pick__card { flex-direction: column; }
+  .dzh-pick__shot { width: 96px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dzh-pick__card,
+  .dzh-pick__arrow { transition: none; }
+}
 
 /* --- Блок «Замена импортных двигателей» ------------------------------------ */
 
@@ -2030,9 +2145,9 @@
    .dzn, то есть на русской главной; остальные страницы не затронуты.
    ========================================================================== */
 
-body:has(.dzn) { position: relative; }
+body:has(.dzn:not([hidden])) { position: relative; }
 
-body:has(.dzn) header#header {
+body:has(.dzn:not([hidden])) header#header {
   position: absolute;
   top: 0;
   left: 0;
@@ -2043,54 +2158,56 @@ body:has(.dzn) header#header {
 }
 
 /* Экран начинается под шапкой, поэтому отступ сверху включает её высоту. */
-body:has(.dzn) .dzn { padding-top: calc(100px + clamp(40px, 4.4vw, 76px)); }
+body:has(.dzn:not([hidden])) .dzn { padding-top: calc(100px + clamp(40px, 4.4vw, 76px)); }
 
-body:has(.dzn) header#header .nav_bar .nav_first > li.nav_list > a.navigation { color: #fff; }
+body:has(.dzn:not([hidden])) header#header .nav_bar .nav_first > li.nav_list > a.navigation { color: #fff; }
 
-body:has(.dzn) header#header .nav_bar .nav_first > li.nav_list > a.navigation:hover { color: var(--h-accent, #00aeef); }
+body:has(.dzn:not([hidden])) header#header .nav_bar .nav_first > li.nav_list > a.navigation:hover { color: var(--h-accent, #00aeef); }
 
 /* Активный пункт был тёмно-синей плашкой — на тёмной шапке её не видно. */
 /* Тот же голубой, что у кнопки «наверх», — rgba(0,174,239,.9). */
-body:has(.dzn) header#header .nav_bar .nav_first > li.nav_list > a.navigation[data-nav="Продукция"] {
+body:has(.dzn:not([hidden])) header#header .nav_bar .nav_first > li.nav_list > a.navigation[data-nav="Продукция"] {
   background: rgba(0, 174, 239, 0.9);
   color: #fff;
   box-shadow: 0 4px 16px rgba(0, 174, 239, 0.35);
 }
 
-body:has(.dzn) header#header .nav_bar .nav_first > li.nav_list > a.navigation[data-nav="Продукция"]:hover {
+body:has(.dzn:not([hidden])) header#header .nav_bar .nav_first > li.nav_list > a.navigation[data-nav="Продукция"]:hover {
   background: rgba(0, 174, 239, 1);
   color: #fff;
 }
 
-body:has(.dzn) header#header .r_icon .header_language { background: rgba(255, 255, 255, 0.12); }
+body:has(.dzn:not([hidden])) header#header .r_icon .header_language { background: rgba(255, 255, 255, 0.12); }
 
-body:has(.dzn) header#header .ls-pill-opt { color: rgba(255, 255, 255, 0.75); }
+body:has(.dzn:not([hidden])) header#header .ls-pill-opt { color: rgba(255, 255, 255, 0.75); }
 
-body:has(.dzn) header#header .ls-pill-opt.ls-active { background: #fff; color: #0d1f2d !important; }
+body:has(.dzn:not([hidden])) header#header .ls-pill-opt.ls-active { background: #fff; color: #0d1f2d !important; }
 
-body:has(.dzn) header#header .ls-pill-sep { background: rgba(255, 255, 255, 0.2); }
+body:has(.dzn:not([hidden])) header#header .ls-pill-sep { background: rgba(255, 255, 255, 0.2); }
 
 /* Выпадающие разделы остаются светлыми — там свой фон и тёмный текст. */
-body:has(.dzn) header#header .nav_children_wrap a { color: inherit; }
+body:has(.dzn:not([hidden])) header#header .nav_children_wrap a { color: inherit; }
 
 @media (max-width: 991px) {
   /* На узких экранах работает своя шапка платформы: она закреплена сверху,
      а телу страницы добавлен отступ под неё. Убираем отступ, чтобы кадр
      уходил под шапку, и красим её тем же градиентом. */
-  body:has(.dzn) header#header { position: static; background: none; }
+  body:has(.dzn:not([hidden])) header#header { position: static; background: none; }
 
-  body:has(.dzn) { padding-top: 0 !important; }
+  body:has(.dzn:not([hidden])) { padding-top: 0 !important; }
 
   /* Белый фон и тень заданы в additive.css через !important — перебиваем. */
-  body:has(.dzn) .ueeshop_responsive_header .header {
+  body:has(.dzn:not([hidden])) .ueeshop_responsive_header .header {
     background: linear-gradient(180deg, rgba(8, 9, 10, 0.92) 0%, rgba(8, 9, 10, 0.5) 62%, rgba(8, 9, 10, 0) 100%) !important;
     box-shadow: none !important;
   }
 
   /* Значок меню там белый по исходнику, а additive.css его инвертирует
      под светлую шапку. На тёмной шапке инверсия не нужна. */
-  body:has(.dzn) .ueeshop_responsive_header .header .func .menu_btn,
-  body:has(.dzn) .ueeshop_responsive_header .header .func .menu_btn.on { filter: none !important; }
+  body:has(.dzn:not([hidden])) .ueeshop_responsive_header .header .func .menu_btn,
+  body:has(.dzn:not([hidden])) .ueeshop_responsive_header .header .func .menu_btn.on { filter: none !important; }
 
-  body:has(.dzn) .dzn { padding-top: calc(50px + clamp(34px, 6vw, 68px)); }
+  body:has(.dzn:not([hidden])) .dzn { padding-top: calc(50px + clamp(34px, 6vw, 68px)); }
 }
+
+

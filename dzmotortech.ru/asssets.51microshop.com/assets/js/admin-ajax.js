@@ -56,7 +56,9 @@ var basepath = '';
             element = document.getElementById(location.href.split('#')[1].replace(/\d+$/, 0));
         if (element) {
             setTimeout(function () {
-                element.style = "border: 2px solid red;"
+                // Красную рамку рисовал редактор старой платформы, чтобы подсветить
+                // редактируемый блок. На живом сайте она не нужна — оставляем только
+                // плавную прокрутку к якорю.
                 element.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' });
             }, 350);
         }
