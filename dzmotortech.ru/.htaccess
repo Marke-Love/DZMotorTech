@@ -1,3 +1,12 @@
 RewriteEngine On
+
+# www -> без www
 RewriteCond %{HTTP_HOST} ^www\.dzmotortech\.ru$ [NC]
 RewriteRule ^(.*)$ https://dzmotortech.ru/$1 [L,R=301]
+
+# /path/index.html -> /path/   (чтобы одна страница не считалась двумя)
+# Условие смотрит на исходный запрос браузера: сервер внутри себя всё равно
+# подставляет index.html как индексный файл, и без этой проверки правило
+# зациклится.
+RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\s/+(.*/)?index\.html[\s?] [NC]
+RewriteRule ^(.*/)?index\.html$ /%1 [R=301,L]
