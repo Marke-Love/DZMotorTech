@@ -58,7 +58,10 @@
 .dzc-p-hero__media {
   position: absolute;
   inset: 0;
-  background: url("/assets/images/profile/intro.jpg") center / cover no-repeat;
+  /* image-set: браузер берёт webp, если умеет, иначе jpg */
+  background: image-set(url("/assets/images/profile/intro.webp") type("image/webp"),
+                        url("/assets/images/profile/intro.jpg")  type("image/jpeg"))
+              center / cover no-repeat, url("/assets/images/profile/intro.jpg") center / cover no-repeat;
   opacity: 0.28;
 }
 
