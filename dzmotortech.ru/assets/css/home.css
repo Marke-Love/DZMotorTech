@@ -594,24 +594,16 @@
   border: 1px solid var(--h-steel-300);
   border-radius: 18px;
   background: var(--h-surface);
-  transition: border-color 0.2s var(--h-ease), transform 0.2s var(--h-ease),
-    box-shadow 0.2s var(--h-ease);
 }
 
-.dzh-partners__card:hover {
-  border-color: var(--h-ink);
-  transform: translateY(-3px);
-  box-shadow: 0 18px 30px -22px rgba(13, 31, 45, 0.6);
-}
+/* Плитки партнёров — не ссылки и никуда не ведут, поэтому на наведение
+   не реагируют: подъём и увеличение логотипа обещали бы переход. */
 
 .dzh-partners__card img {
   width: 100%;
   height: 56px;
   object-fit: contain;
-  transition: transform 0.2s var(--h-ease);
 }
-
-.dzh-partners__card:hover img { transform: scale(1.04); }
 
 .dzh-partners__card figcaption {
   font-size: 13px;
@@ -1095,7 +1087,8 @@
 .dzh-certs__card {
   scroll-snap-align: start;
   display: grid;
-  grid-template-rows: auto 1fr;
+  grid-template-rows: auto;
+  cursor: pointer;
   margin: 0;
   border: 1px solid var(--h-steel-300);
   border-radius: 16px;
@@ -1112,12 +1105,18 @@
 }
 
 /* Пропорция бланка 576×780 — та же, что в карточках на странице сертификатов. */
-.dzh-certs__shot { aspect-ratio: 576 / 780; background: #e4e7e9; overflow: hidden; }
+/* Скан целиком — ссылка на страницу документов. */
+.dzh-certs__link { display: block; height: 100%; }
+
+.dzh-certs__shot { display: block; aspect-ratio: 576 / 780; background: #e4e7e9; overflow: hidden; }
 
 .dzh-certs__shot img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top center; }
 
+/* На главной показываем только сканы: подпись с названием стандарта скрыта.
+   Сам текст остаётся в разметке и в alt у картинки — его читают поисковики
+   и программы для незрячих, а развёрнутые описания есть на странице документов. */
 .dzh-certs__body {
-  display: grid;
+  display: none;
   gap: 6px;
   align-content: start;
   min-height: 92px;
