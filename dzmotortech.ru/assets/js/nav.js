@@ -29,15 +29,8 @@
     highlight.setAttribute('aria-hidden', 'true');
     list.appendChild(highlight);
 
-    function isButton(li) {
-      // Пункт-кнопка «Продукция» уже залит цветом — подсветка ему не нужна.
-      var link = li.querySelector(':scope > a.navigation');
-      var title = (link && link.getAttribute('data-nav')) || '';
-      return /Продукция|Product/.test(title);
-    }
-
     function moveHighlight(li) {
-      if (!li || isButton(li)) return hideHighlight();
+      if (!li) return hideHighlight();
       var box = li.getBoundingClientRect();
       var host = list.getBoundingClientRect();
       highlight.style.width = box.width + 'px';

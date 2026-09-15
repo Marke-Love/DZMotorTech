@@ -62,6 +62,266 @@
 
 .dzh .dzh__eyebrow::before { content: ""; width: 28px; height: 1px; background: currentColor; }
 
+/* --- Плашка «Подбор аналога» ------------------------------------------------
+
+   Тёмная карточка, из-под которой снизу выглядывает цветная полоса с
+   действием, — приём из присланного шаблона. Полоса лежит ниже карточки по
+   z-index и подтянута под неё отрицательным отступом: видно только нижний
+   край. Вся полоса — ссылка, открывающая окно заявки.
+   ------------------------------------------------------------------------- */
+
+.dzh-analog {
+  padding: clamp(16px, 1.8vw, 26px) 0 0;
+  background: var(--h-paper);
+}
+
+/* Свой слой для плашки: внутри карточка лежит выше полосы, но вся пара
+   остаётся ниже выпадающих списков шапки — у их пунктов z-index: 1, и без
+   этой изоляции карточка (z-index: 2) перекрывала бы открытое меню. */
+.dzh-analog__wrap { position: relative; z-index: 0; }
+
+.dzh-analog__card {
+  position: relative;
+  z-index: 2;
+  padding: clamp(20px, 2.2vw, 30px);
+  border-radius: 26px;
+  background: radial-gradient(130% 150% at 18% 0%, #16293a 0%, var(--h-ink) 55%, var(--h-ink-deep) 100%);
+  color: #fff;
+  box-shadow: 0 24px 56px rgba(4, 16, 26, 0.26);
+}
+
+.dzh-analog__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  font-size: 13.5px;
+  color: rgba(255, 255, 255, 0.68);
+}
+
+.dzh-analog__status,
+.dzh-analog__meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin: 0;
+}
+
+.dzh-analog__dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--h-accent);
+  box-shadow: 0 0 0 4px rgba(0, 174, 239, 0.16);
+  animation: dzh-analog-pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes dzh-analog-pulse {
+  50% { box-shadow: 0 0 0 7px rgba(0, 174, 239, 0.06); }
+}
+
+.dzh-analog__body {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: clamp(16px, 1.9vw, 26px);
+  align-items: center;
+  margin-top: clamp(16px, 1.8vw, 22px);
+}
+
+.dzh-analog__pic { display: block; }
+
+/* У снимка вырезан фон, поэтому ни рамки, ни обрезки по краям: двигатель
+   лежит прямо на тёмной карточке. */
+.dzh-analog__shot {
+  display: block;
+  width: clamp(150px, 18vw, 272px);
+  height: clamp(104px, 11.5vw, 168px);
+  object-fit: contain;
+}
+
+.dzh .dzh-analog__h {
+  margin: 0;
+  font-size: clamp(20px, 2.1vw, 30px);
+  color: #fff;
+}
+
+.dzh-analog__hl { color: var(--h-accent); }
+
+.dzh-analog__lede {
+  margin: 9px 0 0;
+  max-width: 68ch;
+  font-size: clamp(14px, 1.05vw, 15.5px);
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+/* --- полоса с действием --------------------------------------------------- */
+
+.dzh .dzh-analog__bar {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  /* Верхняя часть полосы прячется под карточкой: на столько же поднимаем
+     блок и на столько же увеличиваем верхний внутренний отступ. */
+  margin-top: calc(-1 * clamp(20px, 2.2vw, 28px));
+  padding: calc(clamp(20px, 2.2vw, 28px) + 13px) 20px 14px;
+  border-radius: 0 0 24px 24px;
+  background: var(--h-accent);
+  font-size: clamp(13px, 1.05vw, 15px);
+  font-weight: 700;
+  color: #06202c;
+  box-shadow: 0 26px 46px -24px rgba(0, 174, 239, 0.8);
+  transition: gap 0.28s var(--h-ease), background-color 0.2s var(--h-ease);
+}
+
+.dzh .dzh-analog__bar:hover,
+.dzh .dzh-analog__bar:focus-visible { gap: 20px; background: #33c1f3; color: #06202c; }
+
+.dzh-analog__bar b { font-weight: 700; }
+
+.dzh-analog__bar span { font-weight: 500; color: rgba(6, 32, 44, 0.66); }
+
+@media (max-width: 620px) {
+  .dzh-analog__body { grid-template-columns: minmax(0, 1fr); }
+  .dzh-analog__pic { width: 100%; }
+  .dzh-analog__shot { width: 100%; height: 128px; }
+  .dzh-analog__top { flex-wrap: wrap; gap: 8px 14px; }
+  .dzh-analog__bar span { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dzh-analog__dot { animation: none; }
+}
+
+/* --- Блок «Наша продукция» -------------------------------------------------
+
+   Сетка разделов каталога перед блоком «О нас»: название и снимок.
+   Двенадцать ячеек — десять разделов и широкая плашка с обращением
+   в конце: в ряду шесть карточек, и без неё во второй строке зияла бы дыра.
+   ------------------------------------------------------------------------- */
+
+.dzh-prod {
+  /* Верхний отступ небольшой: сверху вплотную стоит плашка подбора аналога. */
+  padding: clamp(18px, 2vw, 30px) 0 clamp(36px, 4vw, 62px);
+  background: var(--h-paper);
+  color: var(--h-ink);
+}
+
+.dzh-prod__head {
+  display: grid;
+  gap: 10px;
+  max-width: 760px;
+  margin-bottom: clamp(18px, 2.2vw, 28px);
+}
+
+.dzh .dzh-prod__h { font-size: clamp(23px, 2.5vw, 36px); color: var(--h-ink); }
+
+.dzh-prod__grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: clamp(10px, 1.1vw, 16px);
+}
+
+.dzh-prod__card {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: 4px;
+  min-height: clamp(190px, 17vw, 244px);
+  padding: clamp(14px, 1.3vw, 18px);
+  border: 1px solid var(--h-steel-300);
+  border-radius: 18px;
+  background: var(--h-surface);
+  color: var(--h-ink);
+  transition: border-color 0.2s var(--h-ease), box-shadow 0.2s var(--h-ease),
+              transform 0.2s var(--h-ease);
+}
+
+a.dzh-prod__card:hover,
+a.dzh-prod__card:focus-visible {
+  border-color: var(--h-accent);
+  box-shadow: 0 14px 30px rgba(13, 31, 45, 0.1);
+  transform: translateY(-2px);
+  color: var(--h-ink);
+}
+
+.dzh-prod__ttl {
+  font-size: clamp(14px, 1.05vw, 16px);
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+
+/* Высота снимка задана числом: проценты внутри grid-ячейки Chrome считает
+   неопределёнными и подставляет натуральный размер картинки. */
+.dzh-prod__shot {
+  align-self: end;
+  justify-self: center;
+  width: 100%;
+  height: clamp(92px, 8.4vw, 124px);
+  margin-top: 10px;
+  object-fit: contain;
+  transition: transform 0.25s var(--h-ease);
+}
+
+a.dzh-prod__card:hover .dzh-prod__shot { transform: scale(1.04); }
+
+/* --- широкая плашка вместо двух последних ячеек --------------------------- */
+
+.dzh-prod__card--cta {
+  grid-column: span 2;
+  /* Содержимое по центру плашки: без снимка низ карточки иначе пустует. */
+  grid-template-rows: auto auto auto;
+  align-content: center;
+  border-color: #24395f;
+  background: #1a2b4a;
+  color: #fff;
+}
+
+.dzh-prod__card--cta .dzh-prod__ttl { font-size: clamp(16px, 1.25vw, 19px); color: #fff; }
+
+.dzh-prod__lede {
+  margin-top: 4px;
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.dzh .dzh-prod__btn {
+  align-self: start;
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 18px;
+  padding: 12px 20px;
+  border-radius: 12px;
+  background: var(--h-accent);
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #06202c;
+  transition: gap 0.28s var(--h-ease), background-color 0.2s var(--h-ease);
+}
+
+.dzh .dzh-prod__btn:hover,
+.dzh .dzh-prod__btn:focus { gap: 16px; background: #33c1f3; color: #06202c; }
+
+@media (max-width: 1180px) {
+  .dzh-prod__grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+@media (max-width: 860px) {
+  .dzh-prod__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+@media (max-width: 620px) {
+  .dzh-prod__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .dzh-prod__card { min-height: 170px; }
+  .dzh-prod__shot { height: 84px; }
+}
+
 /* --- Блок «О нас» --------------------------------------------------------- */
 
 .dzh-about {
@@ -576,41 +836,69 @@
 
 .dzh-partners__lede { margin: 0; font-size: 15.5px; line-height: 1.68; color: #46545e; }
 
-.dzh-partners__grid {
+/* Логотипы едут тремя лентами: верхняя и нижняя — влево, средняя — вправо,
+   с разной скоростью. Внутри каждой ленты список повторён дважды, поэтому
+   сдвиг ровно на одну копию выглядит бесконечным кругом.
+
+   Ленты ни на что не реагируют: партнёры — не ссылки, а остановка под
+   курсором обещала бы переход. */
+.dzh-partners__rows {
+  /* Шаг между логотипами по горизонтали — он же участвует в расчёте цикла. */
+  --p-gap: clamp(26px, 3vw, 50px);
+
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 14px;
+  gap: clamp(16px, 2vw, 30px);
+  /* Полоса уже страницы и стоит по центру: логотипы без плиток выглядят
+     легче, и растянутая на весь экран лента смотрелась бы разреженной. */
+  width: min(100%, 1040px);
+  margin: clamp(4px, 0.8vw, 12px) auto clamp(6px, 1vw, 16px);
+  /* Края растворяются в фоне секции, чтобы логотипы не обрывались резко. */
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 11%, #000 89%, transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0, #000 11%, #000 89%, transparent 100%);
+  pointer-events: none;
+}
+
+.dzh-partners__row { overflow: hidden; }
+
+.dzh-partners__track {
+  display: flex;
+  width: max-content;
+  gap: var(--p-gap);
+  animation: dzh-partners-run var(--dur, 52s) linear infinite;
+  will-change: transform;
+}
+
+/* Средняя лента идёт в обратную сторону. */
+.dzh-partners__row--back .dzh-partners__track { animation-direction: reverse; }
+
+/* Половина дорожки — это одна копия списка плюс половина промежутка между
+   копиями, поэтому в конце цикла кадр совпадает с началом. */
+@keyframes dzh-partners-run {
+  from { transform: translateX(0); }
+  to { transform: translateX(calc(-50% - var(--p-gap) / 2)); }
+}
+
+/* Плитки убраны: едут сами логотипы на прозрачном фоне. Ширина ячейки
+   фиксирована, чтобы шаг между логотипами оставался ровным при разной
+   ширине самих изображений. */
+.dzh-partners__card {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: clamp(102px, 10.5vw, 146px);
+  height: clamp(38px, 4vw, 56px);
   margin: 0;
   padding: 0;
-  list-style: none;
+  border: 0;
+  background: none;
 }
 
-.dzh-partners__card {
-  display: grid;
-  grid-template-rows: 1fr auto;
-  gap: 12px;
-  margin: 0;
-  padding: 20px 18px 16px;
-  border: 1px solid var(--h-steel-300);
-  border-radius: 18px;
-  background: var(--h-surface);
-}
-
-/* Плитки партнёров — не ссылки и никуда не ведут, поэтому на наведение
-   не реагируют: подъём и увеличение логотипа обещали бы переход. */
-
+/* Высота задана числом, а не процентом: проценты внутри grid-ячейки
+   Chrome считает неопределёнными и подставляет натуральный размер картинки. */
 .dzh-partners__card img {
   width: 100%;
-  height: 56px;
+  height: clamp(30px, 3.3vw, 46px);
   object-fit: contain;
-}
-
-.dzh-partners__card figcaption {
-  font-size: 13px;
-  font-weight: 600;
-  line-height: 1.3;
-  text-align: center;
-  color: var(--h-ink);
 }
 
 .dzh .dzh__cta {
@@ -1150,12 +1438,10 @@
 /* --- адаптив -------------------------------------------------------------- */
 
 @media (max-width: 1100px) {
-  .dzh-partners__grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
   .dzh-certs__track { grid-auto-columns: calc((100% - 4.2 * 14px) / 4.2); }
 }
 
 @media (max-width: 900px) {
-  .dzh-partners__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .dzh-certs__track { grid-auto-columns: calc((100% - 3.2 * 14px) / 3.2); }
 }
 
@@ -1167,8 +1453,7 @@
 }
 
 @media (max-width: 620px) {
-  .dzh-partners__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
-  .dzh-partners__card { padding: 16px 14px 13px; }
+  .dzh-partners__card { width: clamp(92px, 30vw, 120px); height: 40px; }
   .dzh-certs__track { grid-auto-columns: calc((100% - 2.2 * 10px) / 2.2); gap: 10px; }
   /* На узкой карточке кнопка 44px закрывала бы слишком много скана. */
   .dzh-certs__nav button { width: 38px; height: 38px; top: calc(50% - 52px); }
@@ -1183,6 +1468,10 @@
 
 @media (prefers-reduced-motion: reduce) {
   .dzh * { transition-duration: 0.01ms !important; }
+
+  /* Тем, кто просил систему меньше двигать интерфейс, ленты партнёров
+     показываем неподвижными. */
+  .dzh-partners__track { animation: none; }
 }
 
 /* --- Блок «Области применения» -------------------------------------------
@@ -2162,19 +2451,6 @@ body:has(.dzn:not([hidden])) .dzn { padding-top: calc(100px + clamp(40px, 4.4vw,
 body:has(.dzn:not([hidden])) header#header .nav_bar .nav_first > li.nav_list > a.navigation { color: #fff; }
 
 body:has(.dzn:not([hidden])) header#header .nav_bar .nav_first > li.nav_list > a.navigation:hover { color: var(--h-accent, #00aeef); }
-
-/* Активный пункт был тёмно-синей плашкой — на тёмной шапке её не видно. */
-/* Тот же голубой, что у кнопки «наверх», — rgba(0,174,239,.9). */
-body:has(.dzn:not([hidden])) header#header .nav_bar .nav_first > li.nav_list > a.navigation[data-nav="Продукция"] {
-  background: rgba(0, 174, 239, 0.9);
-  color: #fff;
-  box-shadow: 0 4px 16px rgba(0, 174, 239, 0.35);
-}
-
-body:has(.dzn:not([hidden])) header#header .nav_bar .nav_first > li.nav_list > a.navigation[data-nav="Продукция"]:hover {
-  background: rgba(0, 174, 239, 1);
-  color: #fff;
-}
 
 body:has(.dzn:not([hidden])) header#header .r_icon .header_language { background: rgba(255, 255, 255, 0.12); }
 

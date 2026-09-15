@@ -1017,7 +1017,13 @@ span.state_icon.GHS {
 
 
 header#header {
-    z-index: 9
+    /* z-index у static-элемента не работал, поэтому выпадающие списки шапки
+       перекрывались содержимым страниц — на карточках товара у блоков свой
+       z-index: 2. Даём шапке собственный слой выше содержимого. Правило из
+       product-card.css, которое опускает шапку под модальное окно количества,
+       весит больше и продолжает работать. */
+    position: relative;
+    z-index: 20
 }
 
 .qctable {
@@ -1362,15 +1368,19 @@ input[name="ckb_cartitem"] {
 	display: none;
 }
 
-/* Language switcher pill */
+/* Language switcher pill.
+   В десктопной шапке плашка стоит вертикально: два языка друг под другом
+   занимают вдвое меньше ширины, а её в шапке не хватает. В мобильной шапке
+   (.ls-mobile-pill ниже) она остаётся горизонтальной — там свободна строка. */
 #header .header_box .r_icon .header_language {
   display: flex !important;
-  align-items: center !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
   gap: 0 !important;
   background: #f0f4fb !important;
   border: 1.5px solid #c8d8f0 !important;
-  border-radius: 24px !important;
-  padding: 4px 6px !important;
+  border-radius: 12px !important;
+  padding: 3px !important;
   font-size: 13px !important;
   font-weight: 600 !important;
   line-height: 1 !important;
@@ -1379,6 +1389,20 @@ input[name="ckb_cartitem"] {
   position: relative !important;
   color: inherit !important;
 }
+
+#header .header_box .r_icon .header_language .ls-pill-opt {
+  justify-content: flex-start;
+  padding: 4px 8px;
+  border-radius: 9px;
+  font-size: 12px;
+}
+
+#header .header_box .r_icon .header_language .ls-pill-sep {
+  width: auto;
+  height: 1px;
+  margin: 2px 4px;
+}
+
 .ls-pill-opt {
   display: flex;
   align-items: center;
@@ -1599,7 +1623,10 @@ body.page-en #header .header_box .nav_bar {
 }
 body.page-en #header .header_box .nav_bar ul.nav_first {
   display: flex !important;
-  justify-content: space-around !important;
+  /* Было space-around: у него крайние промежутки вдвое меньше внутренних.
+     Общее правило ниже раскладывает пункты по space-evenly — расстояния
+     в строке получаются одинаковыми, как в русской версии. */
+  justify-content: space-evenly !important;
   width: 100% !important;
 }
 body.page-en #header .header_box .r_icon {
@@ -1625,46 +1652,226 @@ body.page-en #header .header_box .r_icon {
 }
 
 
-/* 6. Меню «Продукция» — главный пункт шапки.
+/* 6. Меню «Продукция» — первый пункт шапки.
    Ведёт прямо в каталог, поэтому выпадающий список ему не нужен: он перекрывал
-   страницу и уводил мимо каталога. Пункт вынесен первым и оформлен кнопкой,
-   чтобы сразу считывался как основное действие. */
-#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) .nav_children_wrap,
-#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) .nav_children_wrap {
-  display: none !important;
+   страницу и уводил мимо каталога. Оформление — как у остальных пунктов. */
+/* 6b. «Продукция» — широкое меню с разделами каталога.
+   Раньше список был спрятан: он открывался узкой колонкой с третьим уровнем
+   и перекрывал страницу. Теперь это панель в две колонки с подписью под
+   каждым разделом; третий уровень (отдельные серии) скрыт — их место в
+   самом каталоге.
+
+   Подписи заданы через content в CSS, а не в разметке: меню повторяется на
+   каждой из полутора тысяч страниц, и текст в одном файле проще держать в
+   актуальном состоянии. Порядок разделов — тоже отсюда (order), он совпадает
+   с порядком в каталоге. */
+
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) > .nav_children_wrap,
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) > .nav_children_wrap {
+  left: 0;
+  width: min(880px, 92vw);
+  padding: 14px;
+  border-radius: 16px;
+  border: 1px solid #e4e7e9;
+  box-shadow: 0 24px 48px rgba(13, 31, 45, 0.14);
 }
 
-#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]),
-#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) {
-  /* Пункт стоит первым в самой разметке (tools/reorder_nav.py); здесь только
-     выравнивание кнопки по центру шапки. */
-  display: flex;
-  align-items: center;
+.dz-nav-js .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) > .nav_children_wrap,
+.dz-nav-js .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) > .nav_children_wrap {
+  /* Панель широкая и выравнивается по левому краю пункта, а не по центру:
+     базовый сдвиг на -50% увёл бы её за край экрана. */
+  transform: translateX(var(--dz-dx, 0px)) translateY(-8px) scale(0.98);
 }
 
-#header .header_box .nav_bar .nav_first > li.nav_list > a.navigation[data-nav="Продукция"],
-#header .header_box .nav_bar .nav_first > li.nav_list > a.navigation[data-nav="Product"] {
-  /* у остальных пунктов line-height: 100px — для кнопки его нужно сбросить */
-  line-height: 1;
-  padding: 12px 24px;
-  border-radius: 999px;
-  background: #1a2b4a;
-  color: #fff;
-  font-weight: 600;
-  text-decoration: none;
-  box-shadow: 0 6px 16px -8px rgba(26, 43, 74, 0.85);
-  transition: background-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
+.dz-nav-js .nav_first > li.nav_list.dz-open:has(> a.navigation[data-nav="Продукция"]) > .nav_children_wrap,
+.dz-nav-js .nav_first > li.nav_list.dz-open:has(> a.navigation[data-nav="Product"]) > .nav_children_wrap {
+  transform: translateY(0) scale(1);
 }
 
-#header .header_box .nav_bar .nav_first > li.nav_list > a.navigation[data-nav="Продукция"]:hover,
-#header .header_box .nav_bar .nav_first > li.nav_list > a.navigation[data-nav="Product"]:hover,
-#header .header_box .nav_bar .nav_first > li.nav_list > a.navigation[data-nav="Продукция"]:focus-visible,
-#header .header_box .nav_bar .nav_first > li.nav_list > a.navigation[data-nav="Product"]:focus-visible {
-  background: #24395f;
-  color: #fff;
-  text-decoration: none;
-  transform: translateY(-1px);
-  box-shadow: 0 10px 20px -10px rgba(26, 43, 74, 0.75);
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) .nav_second,
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) .nav_second {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2px 10px;
+}
+
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list,
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list { padding: 0; }
+
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list > a.navigation,
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list > a.navigation {
+  display: block;
+  padding: 9px 14px 11px;
+  border-radius: 10px;
+  font-size: 14.5px;
+  font-weight: 700;
+  line-height: 1.3;
+  color: #0d1f2d;
+  white-space: normal;
+  overflow: visible;
+  text-overflow: clip;
+  transition: background-color 0.16s ease;
+}
+
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list > a.navigation:hover,
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list > a.navigation:focus-visible,
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list > a.navigation:hover,
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list > a.navigation:focus-visible {
+  background: #f2f3f2;
+  color: #0d1f2d;
+}
+
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list > a.navigation::after,
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list > a.navigation::after {
+  display: block;
+  margin-top: 3px;
+  font-size: 12.5px;
+  font-weight: 400;
+  line-height: 1.4;
+  color: #7b8891;
+}
+
+/* На узких экранах панель на 880px уезжала бы за правый край: там меню
+   начинается ближе к логотипу, а места справа почти нет. Сужаем — колонки
+   остаются две. */
+@media (max-width: 1279px) {
+  #header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) > .nav_children_wrap,
+  #header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) > .nav_children_wrap {
+    width: min(600px, 92vw);
+  }
+
+  #header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list > a.navigation,
+  #header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list > a.navigation {
+    padding: 8px 10px 10px;
+    font-size: 13.5px;
+  }
+}
+
+/* Третий уровень не показываем: в панели и так десять разделов. */
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) ul.nav_third,
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) ul.nav_third { display: none !important; }
+
+/* Порядок разделов — как в каталоге. */
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list:has(> a[href$="#c242903"]),
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list:has(> a[href$="#c242903"]) { order: 1; }
+
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list:has(> a[href$="#c242901"]),
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list:has(> a[href$="#c242901"]) { order: 2; }
+
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list:has(> a[href$="#c242902"]),
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list:has(> a[href$="#c242902"]) { order: 3; }
+
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list:has(> a[href$="#c242904"]),
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list:has(> a[href$="#c242904"]) { order: 4; }
+
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list:has(> a[href$="#c242905"]),
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list:has(> a[href$="#c242905"]) { order: 5; }
+
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list:has(> a[href$="#c267313"]),
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list:has(> a[href$="#c267313"]) { order: 6; }
+
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list:has(> a[href$="#c267300"]),
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list:has(> a[href$="#c267300"]) { order: 7; }
+
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list:has(> a[href$="#c242906"]),
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list:has(> a[href$="#c242906"]) { order: 8; }
+
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list:has(> a[href$="#c245137"]),
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list:has(> a[href$="#c245137"]) { order: 9; }
+
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list:has(> a[href$="#c242907"]),
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list:has(> a[href$="#c242907"]) { order: 10; }
+
+/* Подписи под названиями разделов. */
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list > a[href$="#c242903"]::after,
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list > a[href$="#c242903"]::after { content: "8 моделей · 160 кВт – 10 МВт"; }
+
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list > a[href$="#c242901"]::after,
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list > a[href$="#c242901"]::after { content: "8 моделей · прокат, буровые"; }
+
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list > a[href$="#c242902"]::after,
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list > a[href$="#c242902"]::after { content: "18 моделей · IE3 – IE5"; }
+
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list > a[href$="#c242904"]::after,
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list > a[href$="#c242904"]::after { content: "6 моделей · КПД выше 95 %"; }
+
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list > a[href$="#c242905"]::after,
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list > a[href$="#c242905"]::after { content: "16 моделей · под механизм"; }
+
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list > a[href$="#c267313"]::after,
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list > a[href$="#c267313"]::after { content: "13 моделей · суда и насосы"; }
+
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list > a[href$="#c267300"]::after,
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list > a[href$="#c267300"]::after { content: "43 модели · Ex d, Ex e, Ex tD"; }
+
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list > a[href$="#c242906"]::after,
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list > a[href$="#c242906"]::after { content: "5 моделей · 0,2–200 кВт"; }
+
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list > a[href$="#c245137"]::after,
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list > a[href$="#c245137"]::after { content: "19 моделей · 3–200 Вт"; }
+
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list > a[href$="#c242907"]::after,
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list > a[href$="#c242907"]::after { content: "4 модели · до 20 МВА"; }
+
+/* Те же подписи на английских страницах. */
+body.page-en #header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list > a[href$="#c242903"]::after,
+body.page-en #header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list > a[href$="#c242903"]::after { content: "8 models · 160 kW – 10 MW"; }
+
+body.page-en #header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list > a[href$="#c242901"]::after,
+body.page-en #header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list > a[href$="#c242901"]::after { content: "8 models · rolling mills, drilling"; }
+
+body.page-en #header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list > a[href$="#c242902"]::after,
+body.page-en #header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list > a[href$="#c242902"]::after { content: "18 models · IE3 – IE5"; }
+
+body.page-en #header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list > a[href$="#c242904"]::after,
+body.page-en #header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list > a[href$="#c242904"]::after { content: "6 models · efficiency above 95 %"; }
+
+body.page-en #header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list > a[href$="#c242905"]::after,
+body.page-en #header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list > a[href$="#c242905"]::after { content: "16 models · built for the machine"; }
+
+body.page-en #header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list > a[href$="#c267313"]::after,
+body.page-en #header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list > a[href$="#c267313"]::after { content: "13 models · vessels and pumps"; }
+
+body.page-en #header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list > a[href$="#c267300"]::after,
+body.page-en #header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list > a[href$="#c267300"]::after { content: "43 models · Ex d, Ex e, Ex tD"; }
+
+body.page-en #header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list > a[href$="#c242906"]::after,
+body.page-en #header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list > a[href$="#c242906"]::after { content: "5 models · 0.2–200 kW"; }
+
+body.page-en #header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list > a[href$="#c245137"]::after,
+body.page-en #header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list > a[href$="#c245137"]::after { content: "19 models · 3–200 W"; }
+
+body.page-en #header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list > a[href$="#c242907"]::after,
+body.page-en #header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list > a[href$="#c242907"]::after { content: "4 models · up to 20 MVA"; }
+
+/* 6c. Стрелка у пунктов меню с выпадающим списком.
+   Значок рисуется маской по цвету текста, поэтому подхватывает и обычный
+   цвет пункта, и цвет при наведении. Пункты без списка («Контакты») стрелку
+   не получают — за это отвечает :has. */
+#header .nav_bar .nav_first > li.nav_list:has(> .nav_children_wrap) > a.navigation::after {
+  content: "";
+  display: inline-block;
+  width: 11px;
+  height: 11px;
+  margin-left: 7px;
+  vertical-align: middle;
+  background-color: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") center / contain no-repeat;
+  transition: transform 0.22s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/* Список открыт — стрелка смотрит вверх. Класс dz-open ставит nav.js;
+   :hover дублирует его на случай, если скрипт не загрузился. */
+#header .nav_bar .nav_first > li.nav_list.dz-open:has(> .nav_children_wrap) > a.navigation::after,
+#header .nav_bar .nav_first > li.nav_list:has(> .nav_children_wrap):hover > a.navigation::after {
+  transform: rotate(180deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #header .nav_bar .nav_first > li.nav_list:has(> .nav_children_wrap) > a.navigation::after {
+    transition: none;
+  }
 }
 
 /* 7. «Новости и события» убраны из меню шапки — и в десктопной строке, и в
@@ -1812,4 +2019,435 @@ body #footer .footer_sub_nav li a:hover {
 
 body #footer .footer_bottom {
   color: rgba(255, 255, 255, 0.5);
+}
+
+/* Заголовки колонок подвала — просто подписи, а не ссылки: они дублируют
+   пункты меню, а внутри колонки и так есть нужные разделы. Разметку не
+   трогаем (подвал приходит из платформы на каждой странице), гасим реакцию
+   на курсор. Значок раскрытия колонки на мобильных — отдельный элемент
+   .ft_icon, он продолжает работать. */
+body #footer .footer_a_tt {
+  pointer-events: none;
+  cursor: default;
+}
+
+body #footer .footer_a_tt:hover {
+  color: inherit;
+}
+
+/* Телефон и кнопка «Связаться с нами» в правой части шапки.
+   Стоят колонкой: в строку они не помещаются — меню и переключатель языка
+   занимают почти всю ширину. Ниже 1280px группа прячется: там шапка и так
+   идёт впритык, а на мобильных работает своя шапка платформы. */
+/* Правая часть шапки: между телефоном с кнопкой и переключателем языка нужен
+   такой же воздух, как между пунктами меню, — иначе группа выглядит слипшейся
+   и прижатой к краю. Платформа задаёт .r_icon > div { padding: 0 5px }, поэтому
+   свои отступы обнуляем и расстояние держим одним gap на контейнере. */
+#header .header_box .r_icon { gap: 22px; }
+
+#header .header_box .r_icon > div { padding: 0; }
+
+#header .header_box .r_icon .dzh-topcontact {
+  display: flex;
+  flex-direction: column;
+  /* Кнопка тянется на всю ширину группы, то есть до края номера телефона над
+     ней. Иначе в английской версии («Contact us» вдвое короче «Связаться с
+     нами») правый край получался рваным. */
+  align-items: stretch;
+  gap: 7px;
+  margin: 0;
+}
+
+#header .header_box .r_icon .dzh-topphone {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+  color: #00aeef;
+  text-decoration: none;
+  transition: color 0.2s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+#header .header_box .r_icon .dzh-topphone:hover,
+#header .header_box .r_icon .dzh-topphone:focus {
+  color: #0090cc;
+  text-decoration: none;
+}
+
+#header .header_box .r_icon .dzh-topphone svg { flex: none; }
+
+#header .header_box .r_icon .dzh-topcta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 9px 16px;
+  border: 1px solid #1a2b4a;
+  border-radius: 10px;
+  background: #1a2b4a;
+  font-size: 12.5px;
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+  color: #fff;
+  text-decoration: none;
+  transition: background-color 0.2s cubic-bezier(0.22, 0.61, 0.36, 1),
+              transform 0.2s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+#header .header_box .r_icon .dzh-topcta:hover,
+#header .header_box .r_icon .dzh-topcta:focus {
+  background: #24395f;
+  border-color: #24395f;
+  color: #fff;
+  text-decoration: none;
+  transform: translateY(-1px);
+}
+
+@media (max-width: 1279px) {
+  #header .header_box .r_icon .dzh-topcontact { display: none; }
+}
+
+/* ==========================================================================
+   Всплывающее окно заявки (префикс dzm-).
+   Разметку собирает assets/js/lead-modal.js при первом открытии — так окно не
+   дублируется в разметке каждой страницы. Кнопка-триггер помечена атрибутом
+   data-lead-modal и без скрипта просто ведёт на страницу контактов.
+   ========================================================================== */
+
+.dzm-back {
+  position: fixed;
+  inset: 0;
+  /* Выше плашки про cookie (z-index 999999) — иначе она накрывает кнопку
+     отправки у тех, кто ещё не отвечал на вопрос про согласие. */
+  z-index: 1000001;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: clamp(16px, 4vh, 56px) 16px;
+  background: rgba(8, 22, 32, 0.62);
+  overflow-y: auto;
+  opacity: 0;
+  transition: opacity 0.22s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.dzm-back.is-open { opacity: 1; }
+
+/* Атрибут hidden браузер применяет через display: none в своей таблице стилей,
+   а она слабее любого правила автора: display: flex выше перебивал бы её, и
+   закрытое окно продолжало бы висеть прозрачным слоем поверх страницы.
+   На главной это не проявлялось — там подключён home.css со своим
+   [hidden] { display: none !important }, на остальных страницах его нет. */
+.dzm-back[hidden] { display: none !important; }
+
+.dzm {
+  position: relative;
+  width: 100%;
+  max-width: 780px;
+  margin: auto;
+  padding: clamp(24px, 3vw, 40px);
+  border-radius: 24px;
+  background: #fff;
+  color: #0d1f2d;
+  box-shadow: 0 40px 90px rgba(4, 16, 26, 0.45);
+  font-family: 'Montserrat', Arial, sans-serif;
+  transform: translateY(14px) scale(0.985);
+  transition: transform 0.24s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.dzm-back.is-open .dzm { transform: none; }
+
+.dzm *, .dzm *::before, .dzm *::after { box-sizing: border-box; }
+
+.dzm__close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  border: 1px solid #e4e7e9;
+  border-radius: 50%;
+  background: #fff;
+  color: #7b8891;
+  cursor: pointer;
+  transition: color 0.18s ease, border-color 0.18s ease;
+}
+
+.dzm__close:hover { color: #0d1f2d; border-color: #c6ccd0; }
+
+.dzm__title {
+  margin: 0 0 6px;
+  font-size: clamp(22px, 2.2vw, 28px);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: #0d1f2d;
+}
+
+.dzm__lede {
+  margin: 0 0 24px;
+  max-width: 52ch;
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: #7b8891;
+}
+
+.dzm__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px 18px;
+}
+
+.dzm__field { display: grid; gap: 7px; }
+
+.dzm__field--wide { grid-column: 1 / -1; }
+
+.dzm__field label {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 700;
+  color: #0d1f2d;
+}
+
+.dzm__req { color: #d3423c; }
+
+.dzm__input {
+  width: 100%;
+  height: 50px;
+  padding: 0 16px;
+  border: 1px solid #c6ccd0;
+  border-radius: 12px;
+  background: #fff;
+  font-family: inherit;
+  font-size: 15px;
+  color: #0d1f2d;
+  box-shadow: none;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.dzm__input::placeholder { color: #9aa5ad; }
+
+.dzm__input:focus {
+  border-color: #00aeef;
+  box-shadow: 0 0 0 3px rgba(0, 174, 239, 0.16);
+  outline: none;
+}
+
+textarea.dzm__input {
+  height: auto;
+  min-height: 110px;
+  padding: 14px 16px;
+  line-height: 1.6;
+  resize: vertical;
+}
+
+/* Вложения: настоящий input спрятан, кликабельна вся плашка. */
+.dzm__file { position: absolute; width: 1px; height: 1px; opacity: 0; overflow: hidden; }
+
+.dzm__drop {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 50px;
+  padding: 8px 16px;
+  border: 1px dashed #c6ccd0;
+  border-radius: 12px;
+  background: #f7f8f9;
+  font-weight: 400;
+  cursor: pointer;
+  transition: border-color 0.18s ease, background-color 0.18s ease;
+}
+
+.dzm__drop:hover { border-color: #00aeef; background: #fff; }
+
+.dzm__drop b { font-size: 14px; font-weight: 700; color: #1a2b4a; white-space: nowrap; }
+
+.dzm__drop span {
+  min-width: 0;
+  font-size: 13px;
+  color: #7b8891;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dzm__consent {
+  display: grid;
+  grid-template-columns: 18px minmax(0, 1fr);
+  gap: 11px;
+  align-items: start;
+  margin: 20px 0 0;
+  font-size: 12.5px;
+  font-weight: 400;
+  line-height: 1.55;
+  color: #7b8891;
+  cursor: pointer;
+}
+
+.dzm__consent input { width: 18px; height: 18px; margin: 1px 0 0; accent-color: #00aeef; cursor: pointer; }
+
+.dzm__consent a { color: #0d1f2d; border-bottom: 1px solid #c6ccd0; text-decoration: none; }
+
+.dzm__consent a:hover { color: #00aeef; border-color: #00aeef; }
+
+.dzm__submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  margin-top: 20px;
+  padding: 16px 26px;
+  border: 1px solid #1a2b4a;
+  border-radius: 12px;
+  background: #1a2b4a;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #fff;
+  cursor: pointer;
+  transition: gap 0.28s ease, background-color 0.2s ease;
+}
+
+.dzm__submit:hover { gap: 18px; background: #24395f; border-color: #24395f; }
+
+.dzm__submit[disabled] { opacity: 0.6; cursor: progress; }
+
+.dzm__note {
+  display: grid;
+  grid-template-columns: 22px minmax(0, 1fr);
+  gap: 12px;
+  align-items: start;
+  margin-bottom: 18px;
+  padding: 16px 18px;
+  border-radius: 14px;
+  font-size: 14.5px;
+  line-height: 1.55;
+}
+
+/* То же самое для сообщения об ошибке: без этого правила оно показывалось
+   сразу при открытии окна на всех страницах, кроме главной. */
+.dzm__note[hidden] { display: none !important; }
+
+.dzm__note p { margin: 0; }
+
+.dzm__note--bad { border: 1px solid #f5c6c2; background: #fdecea; color: #b3261e; }
+
+/* Экран «спасибо» вместо формы. */
+.dzm__done { display: grid; justify-items: center; gap: 14px; padding: clamp(18px, 3vw, 34px) 0; text-align: center; }
+
+.dzm__done svg { color: #2e9e4a; }
+
+.dzm__done h3 { margin: 0; font-size: 22px; font-weight: 800; color: #0d1f2d; }
+
+.dzm__done p { margin: 0; max-width: 42ch; font-size: 14.5px; line-height: 1.6; color: #7b8891; }
+
+.dzm__done button {
+  margin-top: 6px;
+  padding: 13px 28px;
+  border: 1px solid #c6ccd0;
+  border-radius: 12px;
+  background: #fff;
+  font-family: inherit;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #0d1f2d;
+  cursor: pointer;
+  transition: border-color 0.18s ease, color 0.18s ease;
+}
+
+.dzm__done button:hover { border-color: #1a2b4a; }
+
+/* Пока окно открыто, страница под ним не прокручивается. */
+body.dzm-locked { overflow: hidden; }
+
+@media (max-width: 620px) {
+  .dzm__grid { grid-template-columns: minmax(0, 1fr); }
+  .dzm { border-radius: 18px; }
+  /* Заголовок не должен подъезжать под крестик. */
+  .dzm__title { padding-right: 44px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dzm-back, .dzm { transition: none; }
+}
+
+/* Равные промежутки по всей шапке.
+   Платформа задаёт меню жёсткую ширину calc(100% - 565px) и расставляет
+   пункты по space-between внутри неё. Из-за этого расстояния между пунктами
+   получались одни, а от логотипа до первого пункта и от последнего до
+   телефона — другие, заметно больше.
+
+   Решение: меню растягивается на всё свободное место, а пункты внутри
+   раскладываются по space-evenly — тогда свободная ширина делится на пять
+   одинаковых частей: перед первым пунктом, между пунктами и после
+   последнего. Логотип и правая группа стоят вплотную к краям этих частей,
+   поэтому все шесть промежутков в строке равны.
+
+   Селекторы начинаются с body: css.css подключён после additive.css и при
+   равной силе перебивал бы эти правила. */
+body #header .header_box .nav_bar {
+  flex: 1 1 auto;
+  width: auto;
+  max-width: none;
+  margin: 0;
+}
+
+body #header .header_box .nav_bar .nav_first {
+  display: flex;
+  flex-wrap: nowrap;
+  width: 100%;
+  justify-content: space-evenly;
+  /* Те же 10px, что у пунктов: иначе крайние промежутки окажутся на эти
+     10px уже внутренних. */
+  padding: 0 10px;
+  margin: 0;
+}
+
+body #header .header_box .nav_bar li.nav_list {
+  padding: 0 10px;
+  margin: 0;
+}
+
+/* Bootstrap вешает на список clearfix — псевдоэлементы ::before и ::after с
+   content: " ". В обычной вёрстке они невидимы, но во flex-контейнере это
+   полноценные элементы нулевой ширины: они вставали по краям и забирали себе
+   по одной доле свободного места. Из-за этого крайние промежутки выходили
+   ровно вдвое больше промежутков между пунктами. Убираем их. */
+body #header .header_box .nav_bar .nav_first::before,
+body #header .header_box .nav_bar .nav_first::after {
+  display: none;
+}
+
+/* Два источника «мёртвого» места по краям строки, из-за которых крайние
+   промежутки всё ещё выходили больше внутренних:
+   1) блоку логотипа задана min-width: 275px, а сама картинка уже — справа
+      оставалось 29px пустоты плюс 5px внешнего отступа;
+   2) в правой группе остался пустой список (значок поиска скрыт), и
+      space-evenly раздавал ему часть свободного места.
+   Логотип прижимаем к своей картинке, пустой список убираем, правую группу
+   выравниваем по правому краю. */
+body #header .header_box .logo_box {
+  min-width: 0;
+  max-width: none;
+  width: auto;
+  margin-right: 0;
+}
+
+body #header .header_box .r_icon ul.cart_user {
+  display: none;
+}
+
+body #header .header_box .r_icon {
+  justify-content: flex-end;
+  min-width: 0;
 }
