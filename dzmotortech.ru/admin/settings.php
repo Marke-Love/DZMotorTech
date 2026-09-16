@@ -13,6 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !verify_csrf()) {
     $flashType = 'error';
 } elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'save') {
     $notifyEmail = trim((string) ($_POST['notify_email'] ?? ''));
+    $mailTransport = ($_POST['mail_transport'] ?? 'mail') === 'smtp' ? 'smtp' : 'mail';
     $smtpHost = trim((string) ($_POST['smtp_host'] ?? ''));
     $smtpPort = trim((string) ($_POST['smtp_port'] ?? ''));
     $smtpSecure = trim((string) ($_POST['smtp_secure'] ?? ''));
@@ -29,6 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !verify_csrf()) {
         $flashType = 'error';
     } else {
         set_setting('notify_email', $notifyEmail);
+        set_setting('mail_transport', $mailTransport);
         set_setting('smtp_host', $smtpHost);
         set_setting('smtp_port', $smtpPort);
         set_setting('smtp_secure', $smtpSecure);
@@ -44,12 +46,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !verify_csrf()) {
     }
 } elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'test') {
     try {
-        $smtp = get_smtp_settings();
-        $mailer = new SmtpMailer($smtp);
-        $mailer->send(
+        send_site_mail(
             get_setting('notify_email'),
             'Тестовое письмо из админки DZ Motor Tech',
-            "Это тестовое письмо, отправленное со страницы настроек почты.\nЕсли вы его получили, SMTP настроен верно."
+            "Это тестовое письмо, отправленное со страницы настроек почты.\nЕсли вы его получили, отправка писем работает."
         );
         $flash = 'Тестовое письмо отправлено на ' . get_setting('notify_email') . '.';
     } catch (Throwable $e) {
@@ -67,6 +67,8 @@ $smtpUsername = get_setting('smtp_username', '') ?: $smtpDefaults['username'];
 $smtpFromEmail = get_setting('smtp_from_email', '') ?: $smtpDefaults['from_email'];
 $smtpFromName = get_setting('smtp_from_name', '') ?: $smtpDefaults['from_name'];
 $hasStoredPassword = get_setting('smtp_password', '') !== '';
+$mailTransport = get_mail_transport();
+$hostingFrom = hosting_from_email($smtpFromEmail);
 
 $activeNav = 'settings';
 $pageTitle = 'Настройки почты';
@@ -88,7 +90,34 @@ require __DIR__ . '/includes/layout_top.php';
 			<input type="email" id="notify_email" name="notify_email" value="<?= e($notifyEmail) ?>" required>
 		</div>
 
-		<h3>SMTP-сервер для отправки писем</h3>
+		<h3>Способ отправки</h3>
+		<div class="admin-form-row">
+			<label for="mail_transport">Как отправлять письма о заявках</label>
+			<select id="mail_transport" name="mail_transport">
+				<option value="mail" <?= $mailTransport === 'mail' ? 'selected' : '' ?>>Обычная отправка с хостинга (без логина и пароля)</option>
+				<option value="smtp" <?= $mailTransport === 'smtp' ? 'selected' : '' ?>>Через SMTP-сервер</option>
+			</select>
+		</div>
+		<?php if ($mailTransport === 'mail'): ?>
+			<p>Письма уходят с адреса <strong><?= e($hostingFrom) ?></strong>. Нажмите «Ответить» в письме — ответ уйдёт клиенту, если он оставил email.</p>
+		<?php endif; ?>
+
+		<div class="row">
+			<div class="col-sm-6">
+				<div class="admin-form-row">
+					<label for="smtp_from_email">Email отправителя (From)</label>
+					<input type="email" id="smtp_from_email" name="smtp_from_email" value="<?= e($smtpFromEmail) ?>" placeholder="noreply@dzmotortech.ru">
+				</div>
+			</div>
+			<div class="col-sm-6">
+				<div class="admin-form-row">
+					<label for="smtp_from_name">Имя отправителя (From)</label>
+					<input type="text" id="smtp_from_name" name="smtp_from_name" value="<?= e($smtpFromName) ?>">
+				</div>
+			</div>
+		</div>
+
+		<h3>SMTP-сервер (нужен, только если выбран SMTP)</h3>
 		<div class="row">
 			<div class="col-sm-6">
 				<div class="admin-form-row">
@@ -129,28 +158,13 @@ require __DIR__ . '/includes/layout_top.php';
 				</div>
 			</div>
 		</div>
-		<div class="row">
-			<div class="col-sm-6">
-				<div class="admin-form-row">
-					<label for="smtp_from_email">Email отправителя (From)</label>
-					<input type="email" id="smtp_from_email" name="smtp_from_email" value="<?= e($smtpFromEmail) ?>">
-				</div>
-			</div>
-			<div class="col-sm-6">
-				<div class="admin-form-row">
-					<label for="smtp_from_name">Имя отправителя (From)</label>
-					<input type="text" id="smtp_from_name" name="smtp_from_name" value="<?= e($smtpFromName) ?>">
-				</div>
-			</div>
-		</div>
-
 		<button type="submit" class="btn">Сохранить</button>
 	</form>
 </div>
 
 <div class="admin-card">
 	<h3>Проверка отправки</h3>
-	<p>Отправит тестовое письмо на текущий адрес уведомлений (<?= e($notifyEmail) ?>) с уже сохранёнными SMTP-настройками.</p>
+	<p>Отправит тестовое письмо на текущий адрес уведомлений (<?= e($notifyEmail) ?>) выбранным и уже сохранённым способом отправки.</p>
 	<form method="post">
 		<?= csrf_field() ?>
 		<input type="hidden" name="action" value="test">

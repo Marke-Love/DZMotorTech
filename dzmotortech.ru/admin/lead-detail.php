@@ -37,14 +37,16 @@ require __DIR__ . '/includes/layout_top.php';
 		<dt>Компания</dt><dd><?= e($lead['company'] ?? '-') ?></dd>
 		<dt>Телефон</dt><dd><?php if (($lead['phone'] ?? '') !== ''): ?><a href="tel:<?= e($lead['phone']) ?>"><?= e($lead['phone']) ?></a><?php else: ?>—<?php endif; ?></dd>
 		<dt>Email</dt><dd><?php if (($lead['email'] ?? '') !== ''): ?><a href="mailto:<?= e($lead['email']) ?>"><?= e($lead['email']) ?></a><?php else: ?>—<?php endif; ?></dd>
-		<dt>Тип задачи</dt><dd><?= e($lead['task_type'] ?? '-') ?></dd>
 		<dt>Мощность/напряжение</dt><dd><?= e($lead['power'] ?? '-') ?></dd>
 		<dt>Комментарий</dt><dd><?= nl2br(e($lead['message'] ?? '-')) ?></dd>
 		<dt>IP</dt><dd><?= e($lead['ip'] ?? '-') ?></dd>
 		<?php if (array_key_exists('utm_source', $lead)): ?>
-			<?php $sourceLines = lead_source_lines((string) ($lead['direction'] ?? '-'), $lead); ?>
-			<dt>Откуда заявка</dt>
-			<dd><?php foreach ($sourceLines as $line): ?><?= e($line) ?><br><?php endforeach; ?></dd>
+			<?php
+			// Первая строка — само направление, оно выводится отдельно жирным.
+			$sourceLines = array_slice(lead_source_lines((string) ($lead['direction'] ?? '-'), $lead), 1);
+			?>
+			<dt>Направление</dt>
+			<dd><strong><?= e(($lead['direction'] ?? '') !== '' ? $lead['direction'] : '—') ?></strong><br><?php foreach ($sourceLines as $line): ?><?= e($line) ?><br><?php endforeach; ?></dd>
 		<?php endif; ?>
 		<dt>Вложения</dt>
 		<dd>

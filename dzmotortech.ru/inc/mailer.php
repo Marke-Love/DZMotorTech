@@ -152,6 +152,74 @@ function get_smtp_settings(): array
 }
 
 /**
+ * Способ отправки писем: 'mail' — обычная отправка средствами хостинга (функция
+ * mail(), без логина и пароля), 'smtp' — через внешний SMTP-сервер.
+ * По умолчанию — 'mail': рабочая почта на VK WorkSpace, SMTP там не настроен.
+ */
+function get_mail_transport(): string
+{
+    return get_setting('mail_transport', 'mail') === 'smtp' ? 'smtp' : 'mail';
+}
+
+/**
+ * Адрес отправителя для обычной отправки. Письмо уходит с сервера хостинга,
+ * поэтому адрес должен быть на домене сайта: чужой домен (например, яндекс)
+ * почтовые службы сочтут подделкой. Если в настройках указан адрес на другом
+ * домене, берём noreply@ домена сайта.
+ */
+function hosting_from_email(string $configured): string
+{
+    $host = (string) (parse_url((string) (app_config()['site']['ru_base'] ?? ''), PHP_URL_HOST) ?: 'dzmotortech.ru');
+    $host = preg_replace('/^www\./', '', $host);
+    $configured = trim($configured);
+    if ($configured !== '' && filter_var($configured, FILTER_VALIDATE_EMAIL)
+        && strtolower(substr($configured, -strlen('@' . $host))) === strtolower('@' . $host)) {
+        return $configured;
+    }
+    return 'noreply@' . $host;
+}
+
+/**
+ * Отправляет письмо выбранным способом.
+ *
+ * @throws RuntimeException если письмо не удалось передать на отправку
+ */
+function send_site_mail(string $toEmail, string $subject, string $body, string $replyTo = ''): void
+{
+    $settings = get_smtp_settings();
+
+    if (get_mail_transport() === 'smtp') {
+        (new SmtpMailer($settings))->send($toEmail, $subject, $body);
+        return;
+    }
+
+    $fromEmail = hosting_from_email((string) ($settings['from_email'] ?? ''));
+    $fromName = (string) ($settings['from_name'] ?? '') !== '' ? (string) $settings['from_name'] : 'DZ Motor Tech';
+
+    $headers = [
+        'From: =?UTF-8?B?' . base64_encode($fromName) . '?= <' . $fromEmail . '>',
+        'MIME-Version: 1.0',
+        'Content-Type: text/plain; charset=UTF-8',
+        'Content-Transfer-Encoding: base64',
+    ];
+    $replyTo = trim(str_replace(["\r", "\n"], '', $replyTo));
+    if ($replyTo !== '' && filter_var($replyTo, FILTER_VALIDATE_EMAIL)) {
+        $headers[] = 'Reply-To: <' . $replyTo . '>';
+    }
+
+    $ok = mail(
+        $toEmail,
+        '=?UTF-8?B?' . base64_encode($subject) . '?=',
+        chunk_split(base64_encode($body)),
+        implode("\r\n", $headers),
+        '-f' . $fromEmail
+    );
+    if (!$ok) {
+        throw new RuntimeException('Хостинг не принял письмо к отправке (функция mail() вернула ошибку).');
+    }
+}
+
+/**
  * Строки о происхождении заявки — для письма и для комментария, если в базе
  * ещё нет отдельных колонок.
  */
@@ -216,8 +284,6 @@ function send_lead_notification(array $lead): void
         'Компания: ' . $dash($lead['company'] ?? ''),
         'Телефон: ' . $dash($lead['phone'] ?? ''),
         'Email: ' . $dash($lead['email'] ?? ''),
-        'Тип задачи: ' . $dash($lead['task_type'] ?? ''),
-        'Мощность/напряжение: ' . $dash($lead['power'] ?? ''),
         'Комментарий: ' . $dash($lead['message'] ?? ''),
         'Вложений: ' . (int) ($lead['attachments_count'] ?? 0)
             . ((int) ($lead['attachments_count'] ?? 0) > 0 ? ' (файлы — в карточке заявки в админке)' : ''),
@@ -231,6 +297,6 @@ function send_lead_notification(array $lead): void
 
     $body = implode("\n", $bodyLines);
 
-    $mailer = new SmtpMailer($smtp);
-    $mailer->send($toEmail, $subject, $body);
+    // Ответ из почты уходит сразу клиенту, если он оставил email.
+    send_site_mail($toEmail, $subject, $body, (string) ($lead['email'] ?? ''));
 }

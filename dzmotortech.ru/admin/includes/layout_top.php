@@ -18,7 +18,6 @@
 	<nav class="admin-nav">
 		<a href="leads.php" class="<?= ($activeNav ?? '') === 'leads' ? 'active' : '' ?>">Заявки</a>
 		<a href="settings.php" class="<?= ($activeNav ?? '') === 'settings' ? 'active' : '' ?>">Настройки почты</a>
-		<a href="content.php" class="<?= ($activeNav ?? '') === 'content' ? 'active' : '' ?>">Контент</a>
 	</nav>
 	<div class="admin-logout"><?= e($admin['username'] ?? '') ?> · <a href="logout.php">Выйти</a></div>
 </header>

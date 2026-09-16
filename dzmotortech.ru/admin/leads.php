@@ -8,9 +8,10 @@ const PAGE_SIZE = 20;
 
 $filters = [
     'name' => trim((string) ($_GET['name'] ?? '')),
+    'company' => trim((string) ($_GET['company'] ?? '')),
     'email' => trim((string) ($_GET['email'] ?? '')),
     'phone' => trim((string) ($_GET['phone'] ?? '')),
-    'task_type' => trim((string) ($_GET['task_type'] ?? '')),
+    'direction' => trim((string) ($_GET['direction'] ?? '')),
     'date_from' => trim((string) ($_GET['date_from'] ?? '')),
     'date_to' => trim((string) ($_GET['date_to'] ?? '')),
 ];
@@ -22,6 +23,10 @@ if ($filters['name'] !== '') {
     $where[] = 'name LIKE :name';
     $params['name'] = '%' . $filters['name'] . '%';
 }
+if ($filters['company'] !== '') {
+    $where[] = 'company LIKE :company';
+    $params['company'] = '%' . $filters['company'] . '%';
+}
 if ($filters['email'] !== '') {
     $where[] = 'email LIKE :email';
     $params['email'] = '%' . $filters['email'] . '%';
@@ -30,9 +35,9 @@ if ($filters['phone'] !== '') {
     $where[] = 'phone LIKE :phone';
     $params['phone'] = '%' . $filters['phone'] . '%';
 }
-if ($filters['task_type'] !== '') {
-    $where[] = 'task_type = :task_type';
-    $params['task_type'] = $filters['task_type'];
+if ($filters['direction'] !== '') {
+    $where[] = 'direction = :direction';
+    $params['direction'] = $filters['direction'];
 }
 if ($filters['date_from'] !== '') {
     $where[] = 'created_at >= :date_from';
@@ -65,8 +70,8 @@ $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
 $stmt->execute();
 $leads = $stmt->fetchAll();
 
-$taskTypesStmt = $pdo->query('SELECT DISTINCT task_type FROM leads WHERE task_type IS NOT NULL AND task_type <> "" ORDER BY task_type');
-$taskTypes = $taskTypesStmt->fetchAll(PDO::FETCH_COLUMN);
+$directionsStmt = $pdo->query('SELECT DISTINCT direction FROM leads WHERE direction IS NOT NULL AND direction <> "" ORDER BY direction');
+$directions = $directionsStmt->fetchAll(PDO::FETCH_COLUMN);
 
 function build_query(array $overrides = []): string
 {
@@ -82,38 +87,46 @@ require __DIR__ . '/includes/layout_top.php';
 
 <div class="admin-card">
 	<form method="get" class="admin-filters">
-		<div class="admin-form-row">
-			<label>Имя</label>
-			<input type="text" name="name" value="<?= e($filters['name']) ?>">
+		<div class="admin-filters__row">
+			<div class="admin-form-row">
+				<label>Имя</label>
+				<input type="text" name="name" value="<?= e($filters['name']) ?>">
+			</div>
+			<div class="admin-form-row">
+				<label>Компания</label>
+				<input type="text" name="company" value="<?= e($filters['company']) ?>">
+			</div>
+			<div class="admin-form-row">
+				<label>Email</label>
+				<input type="text" name="email" value="<?= e($filters['email']) ?>">
+			</div>
+			<div class="admin-form-row">
+				<label>Телефон</label>
+				<input type="text" name="phone" value="<?= e($filters['phone']) ?>">
+			</div>
+			<div class="admin-form-row">
+				<label>Направление</label>
+				<select name="direction">
+					<option value="">Все</option>
+					<?php foreach ($directions as $dir): ?>
+						<option value="<?= e($dir) ?>" <?= $dir === $filters['direction'] ? 'selected' : '' ?>><?= e($dir) ?></option>
+					<?php endforeach; ?>
+				</select>
+			</div>
 		</div>
-		<div class="admin-form-row">
-			<label>Email</label>
-			<input type="text" name="email" value="<?= e($filters['email']) ?>">
-		</div>
-		<div class="admin-form-row">
-			<label>Телефон</label>
-			<input type="text" name="phone" value="<?= e($filters['phone']) ?>">
-		</div>
-		<div class="admin-form-row">
-			<label>Тип задачи</label>
-			<select name="task_type">
-				<option value="">Все</option>
-				<?php foreach ($taskTypes as $tt): ?>
-					<option value="<?= e($tt) ?>" <?= $tt === $filters['task_type'] ? 'selected' : '' ?>><?= e($tt) ?></option>
-				<?php endforeach; ?>
-			</select>
-		</div>
-		<div class="admin-form-row">
-			<label>С даты</label>
-			<input type="date" name="date_from" value="<?= e($filters['date_from']) ?>">
-		</div>
-		<div class="admin-form-row">
-			<label>По дату</label>
-			<input type="date" name="date_to" value="<?= e($filters['date_to']) ?>">
-		</div>
-		<div class="admin-form-row">
-			<button type="submit" class="btn">Фильтровать</button>
-			<a href="leads.php" class="btn btn-secondary">Сбросить</a>
+		<div class="admin-filters__row">
+			<div class="admin-form-row">
+				<label>С даты</label>
+				<input type="date" name="date_from" value="<?= e($filters['date_from']) ?>">
+			</div>
+			<div class="admin-form-row">
+				<label>По дату</label>
+				<input type="date" name="date_to" value="<?= e($filters['date_to']) ?>">
+			</div>
+			<div class="admin-form-row">
+				<button type="submit" class="btn">Фильтровать</button>
+				<a href="leads.php" class="btn btn-secondary">Сбросить</a>
+			</div>
 		</div>
 	</form>
 </div>
@@ -129,7 +142,6 @@ require __DIR__ . '/includes/layout_top.php';
 				<th>Компания</th>
 				<th>Телефон</th>
 				<th>Email</th>
-				<th>Тип задачи</th>
 				<th>Направление</th>
 				<th></th>
 				<th></th>
@@ -145,7 +157,6 @@ require __DIR__ . '/includes/layout_top.php';
 				<td><?= e($lead['company'] ?? '') ?></td>
 				<td><?= e($lead['phone']) ?></td>
 				<td><?= e($lead['email']) ?></td>
-				<td><?= e($lead['task_type'] ?? '') ?></td>
 				<td><?= e($lead['direction'] ?? '') ?><?= !empty($lead['utm_campaign']) ? '<br><small>' . e($lead['utm_campaign']) . '</small>' : '' ?></td>
 				<td><a href="lead-detail.php?id=<?= (int) $lead['id'] ?>">Открыть</a></td>
 				<td>
@@ -159,7 +170,7 @@ require __DIR__ . '/includes/layout_top.php';
 			</tr>
 			<?php endforeach; ?>
 			<?php if (!$leads): ?>
-			<tr><td colspan="10">Заявок не найдено.</td></tr>
+			<tr><td colspan="9">Заявок не найдено.</td></tr>
 			<?php endif; ?>
 		</tbody>
 	</table>
