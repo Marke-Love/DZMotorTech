@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 require_once __DIR__ . '/includes/auth.php';
+require_once __DIR__ . '/../inc/mailer.php'; // lead_source_lines()
 $admin = require_login();
 
 $id = (int) ($_GET['id'] ?? 0);
@@ -34,12 +35,17 @@ require __DIR__ . '/includes/layout_top.php';
 		<dt>Язык</dt><dd><?= e(strtoupper($lead['lang'])) ?></dd>
 		<dt>ФИО</dt><dd><?= e($lead['name']) ?></dd>
 		<dt>Компания</dt><dd><?= e($lead['company'] ?? '-') ?></dd>
-		<dt>Телефон</dt><dd><a href="tel:<?= e($lead['phone']) ?>"><?= e($lead['phone']) ?></a></dd>
-		<dt>Email</dt><dd><a href="mailto:<?= e($lead['email']) ?>"><?= e($lead['email']) ?></a></dd>
+		<dt>Телефон</dt><dd><?php if (($lead['phone'] ?? '') !== ''): ?><a href="tel:<?= e($lead['phone']) ?>"><?= e($lead['phone']) ?></a><?php else: ?>—<?php endif; ?></dd>
+		<dt>Email</dt><dd><?php if (($lead['email'] ?? '') !== ''): ?><a href="mailto:<?= e($lead['email']) ?>"><?= e($lead['email']) ?></a><?php else: ?>—<?php endif; ?></dd>
 		<dt>Тип задачи</dt><dd><?= e($lead['task_type'] ?? '-') ?></dd>
 		<dt>Мощность/напряжение</dt><dd><?= e($lead['power'] ?? '-') ?></dd>
 		<dt>Комментарий</dt><dd><?= nl2br(e($lead['message'] ?? '-')) ?></dd>
 		<dt>IP</dt><dd><?= e($lead['ip'] ?? '-') ?></dd>
+		<?php if (array_key_exists('utm_source', $lead)): ?>
+			<?php $sourceLines = lead_source_lines((string) ($lead['direction'] ?? '-'), $lead); ?>
+			<dt>Откуда заявка</dt>
+			<dd><?php foreach ($sourceLines as $line): ?><?= e($line) ?><br><?php endforeach; ?></dd>
+		<?php endif; ?>
 		<dt>Вложения</dt>
 		<dd>
 			<?php if ($attachments): ?>

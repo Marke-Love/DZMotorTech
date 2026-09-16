@@ -271,3 +271,7 @@
 @media (prefers-reduced-motion: reduce) {
   .dzk * { transition-duration: 0.01ms !important; }
 }
+
+/* Подсказка «телефон или email» под парой полей: подтягиваем к ним, чтобы
+   читалась как пояснение к обоим. */
+.dzk-either { margin-top: -8px; }

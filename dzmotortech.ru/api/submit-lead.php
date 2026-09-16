@@ -15,18 +15,120 @@ const ALLOWED_MIME_TYPES = [
     'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
 ];
 
-function fail_redirect(string $lang): void
+// Посадочные страницы рекламных кампаний: по адресу страницы определяем
+// направление заявки, чтобы в письме и админке было видно, откуда она.
+const LEAD_DIRECTIONS = [
+    '/zamena-dvigateley-abb-siemens' => 'Замена ABB и Siemens',
+    '/vysokovoltnye-dvigateli-6-10-kv' => 'Высоковольтные двигатели 6 и 10 кВ',
+];
+const DEFAULT_DIRECTION = 'Общая форма сайта';
+
+/** Обрезает строку до $max символов, не ломая UTF-8. */
+function clip(string $value, int $max): string
 {
-    $config = app_config();
-    $base = $lang === 'en' ? $config['site']['en_base'] : $config['site']['ru_base'];
-    redirect($base . '/pages/contactus.html?sent=0');
+    $value = trim(str_replace(["\r", "\n", "\0"], ' ', $value));
+    if (function_exists('mb_substr')) {
+        return mb_substr($value, 0, $max, 'UTF-8');
+    }
+    return substr($value, 0, $max);
 }
 
-function success_redirect(string $lang): void
+function post_str(string $key, int $max = 255): string
 {
+    return clip((string) ($_POST[$key] ?? ''), $max);
+}
+
+/** Схема и хост сайта без пути: https://dzmotortech.ru */
+function site_root(): string
+{
+    $base = (string) (app_config()['site']['ru_base'] ?? '');
+    $parts = parse_url($base);
+    if (!$parts || empty($parts['host'])) {
+        return rtrim($base, '/');
+    }
+    $root = ($parts['scheme'] ?? 'https') . '://' . $parts['host'];
+    if (!empty($parts['port'])) {
+        $root .= ':' . $parts['port'];
+    }
+    return $root;
+}
+
+/**
+ * Куда вернуть посетителя после отправки. Принимаем только путь на этом же
+ * сайте («/…»), иначе форму можно было бы использовать для перенаправления
+ * на чужой адрес.
+ */
+function safe_return_path(string $raw): string
+{
+    $raw = trim($raw);
+    if ($raw === '' || $raw[0] !== '/' || strpos($raw, '//') === 0 || strpos($raw, '\\') !== false) {
+        return '';
+    }
+    if (preg_match('/[\x00-\x1F\x7F]/', $raw)) {
+        return '';
+    }
+    return clip($raw, 300);
+}
+
+function result_redirect(string $lang, bool $ok, string $returnTo): void
+{
+    $flag = 'sent=' . ($ok ? '1' : '0');
+
+    if ($returnTo !== '') {
+        $hash = '';
+        $hashPos = strpos($returnTo, '#');
+        if ($hashPos !== false) {
+            $hash = substr($returnTo, $hashPos);
+            $returnTo = substr($returnTo, 0, $hashPos);
+        }
+        $glue = strpos($returnTo, '?') === false ? '?' : '&';
+        redirect(site_root() . $returnTo . $glue . $flag . $hash);
+    }
+
     $config = app_config();
     $base = $lang === 'en' ? $config['site']['en_base'] : $config['site']['ru_base'];
-    redirect($base . '/pages/contactus.html?sent=1');
+    redirect($base . '/pages/contactus.html?' . $flag);
+}
+
+/** Путь страницы без домена: для письма и админки достаточно «/страница/?метки». */
+function page_path(string $raw): string
+{
+    $raw = clip($raw, 500);
+    if ($raw === '') {
+        return '';
+    }
+    $parts = parse_url($raw);
+    if ($parts === false) {
+        return '';
+    }
+    $path = $parts['path'] ?? '/';
+    if (isset($parts['query']) && $parts['query'] !== '') {
+        $path .= '?' . $parts['query'];
+    }
+    return clip($path, 500);
+}
+
+function detect_direction(string $formPage, string $landingPage, string $explicit): string
+{
+    foreach ([$formPage, $landingPage] as $page) {
+        foreach (LEAD_DIRECTIONS as $prefix => $label) {
+            if ($page !== '' && strpos($page, $prefix) === 0) {
+                return $label;
+            }
+        }
+    }
+    return $explicit !== '' ? $explicit : DEFAULT_DIRECTION;
+}
+
+/** Есть ли в таблице колонки источника (миграция 2026-09-16 выполнена). */
+function leads_has_source_columns(PDO $pdo): bool
+{
+    try {
+        $stmt = $pdo->query("SHOW COLUMNS FROM leads LIKE 'utm_source'");
+        return $stmt !== false && $stmt->fetch() !== false;
+    } catch (Throwable $e) {
+        return false;
+    }
 }
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -35,28 +137,58 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 $lang = ($_POST['lang'] ?? 'ru') === 'en' ? 'en' : 'ru';
+$returnTo = safe_return_path((string) ($_POST['return_to'] ?? ''));
 
 // Honeypot: real users never fill this hidden field. Pretend success to bots.
 if (!empty($_POST['website'])) {
-    success_redirect($lang);
+    result_redirect($lang, true, $returnTo);
 }
 
-$name = trim((string) ($_POST['txt_name'] ?? ''));
-$company = trim((string) ($_POST['txt_company'] ?? ''));
-$phone = trim((string) ($_POST['txt_tele'] ?? ''));
-$email = trim((string) ($_POST['txt_email'] ?? ''));
-$taskType = trim((string) ($_POST['txt_task_type'] ?? ''));
-$power = trim((string) ($_POST['txt_power'] ?? ''));
+$name = post_str('txt_name');
+$company = post_str('txt_company');
+$phone = post_str('txt_tele', 64);
+$email = post_str('txt_email');
+$taskType = post_str('txt_task_type');
+$power = post_str('txt_power');
 $message = trim((string) ($_POST['message'] ?? ''));
 $consent = isset($_POST['privacy_consent']);
 
-// комментарий необязателен: заявку принимаем и без него
-if ($name === '' || $phone === '' || $email === '' || !$consent) {
-    fail_redirect($lang);
+// На посадочных страницах одно поле «Телефон или email»: раскладываем его
+// по нужной колонке по наличию «@».
+$contact = post_str('txt_contact');
+if ($contact !== '') {
+    if (strpos($contact, '@') !== false) {
+        if ($email === '') {
+            $email = $contact;
+        }
+    } elseif ($phone === '') {
+        $phone = clip($contact, 64);
+    }
 }
-if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    fail_redirect($lang);
+
+// Обязательны имя, согласие и хотя бы один способ связи.
+if ($name === '' || !$consent || ($phone === '' && $email === '')) {
+    result_redirect($lang, false, $returnTo);
 }
+if ($email !== '' && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    result_redirect($lang, false, $returnTo);
+}
+if ($phone !== '' && preg_match_all('/\d/', $phone) < 5) {
+    result_redirect($lang, false, $returnTo);
+}
+
+// --- Источник заявки ---
+$source = [
+    'utm_source' => post_str('utm_source'),
+    'utm_medium' => post_str('utm_medium'),
+    'utm_campaign' => post_str('utm_campaign'),
+    'utm_content' => post_str('utm_content'),
+    'utm_term' => post_str('utm_term'),
+    'yclid' => (string) preg_replace('/[^A-Za-z0-9_\-]/', '', post_str('yclid', 64)),
+    'landing_page' => page_path((string) ($_POST['landing_page'] ?? '')),
+    'form_page' => page_path((string) ($_POST['form_page'] ?? '')),
+];
+$direction = detect_direction($source['form_page'], $source['landing_page'], post_str('lead_direction'));
 
 // --- Save attachments (if any) ---
 $savedAttachments = [];
@@ -100,11 +232,10 @@ if ($uploadedFiles && isset($uploadedFiles['error']) && is_array($uploadedFiles[
 
 // --- Insert lead first to get an id, then move files into leads_uploads/{id}/ ---
 $pdo = get_pdo();
-$stmt = $pdo->prepare(
-    'INSERT INTO leads (lang, name, company, phone, email, task_type, power, message, attachments, ip)
-     VALUES (:lang, :name, :company, :phone, :email, :task_type, :power, :message, :attachments, :ip)'
-);
-$stmt->execute([
+
+// Телефон и email в таблице объявлены NOT NULL: пустой способ связи пишем
+// пустой строкой, а не NULL, — так работает и старая, и новая схема.
+$baseRow = [
     'lang' => $lang,
     'name' => $name,
     'company' => $company !== '' ? $company : null,
@@ -115,7 +246,34 @@ $stmt->execute([
     'message' => $message,
     'attachments' => '[]',
     'ip' => $_SERVER['REMOTE_ADDR'] ?? null,
-]);
+];
+
+if (leads_has_source_columns($pdo)) {
+    $stmt = $pdo->prepare(
+        'INSERT INTO leads (lang, name, company, phone, email, task_type, power, message, attachments, ip,
+                            direction, utm_source, utm_medium, utm_campaign, utm_content, utm_term, yclid,
+                            landing_page, form_page)
+         VALUES (:lang, :name, :company, :phone, :email, :task_type, :power, :message, :attachments, :ip,
+                 :direction, :utm_source, :utm_medium, :utm_campaign, :utm_content, :utm_term, :yclid,
+                 :landing_page, :form_page)'
+    );
+    $row = $baseRow + ['direction' => $direction];
+    foreach ($source as $key => $value) {
+        $row[$key] = $value !== '' ? $value : null;
+    }
+    $stmt->execute($row);
+} else {
+    // Миграция ещё не выполнена: сохраняем заявку в прежнем виде, а сведения
+    // об источнике дописываем в комментарий, чтобы они не потерялись.
+    $sourceNote = lead_source_lines($direction, $source);
+    $baseRow['message'] = trim($message . "\n\n---\n" . implode("\n", $sourceNote));
+
+    $stmt = $pdo->prepare(
+        'INSERT INTO leads (lang, name, company, phone, email, task_type, power, message, attachments, ip)
+         VALUES (:lang, :name, :company, :phone, :email, :task_type, :power, :message, :attachments, :ip)'
+    );
+    $stmt->execute($baseRow);
+}
 $leadId = (int) $pdo->lastInsertId();
 
 $attachmentsMeta = [];
@@ -142,6 +300,7 @@ if ($savedAttachments) {
 // --- Notify by email (best effort, never blocks the lead from being saved) ---
 try {
     send_lead_notification([
+        'id' => $leadId,
         'lang' => $lang,
         'name' => $name,
         'company' => $company,
@@ -151,9 +310,11 @@ try {
         'power' => $power,
         'message' => $message,
         'attachments_count' => count($attachmentsMeta),
+        'direction' => $direction,
+        'source' => $source,
     ]);
 } catch (Throwable $e) {
     error_log('Lead notification email failed: ' . $e->getMessage());
 }
 
-success_redirect($lang);
+result_redirect($lang, true, $returnTo);

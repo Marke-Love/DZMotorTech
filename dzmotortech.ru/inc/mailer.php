@@ -151,26 +151,84 @@ function get_smtp_settings(): array
     return $smtp;
 }
 
+/**
+ * Строки о происхождении заявки — для письма и для комментария, если в базе
+ * ещё нет отдельных колонок.
+ */
+function lead_source_lines(string $direction, array $source): array
+{
+    $get = static function (string $key) use ($source): string {
+        return trim((string) ($source[$key] ?? ''));
+    };
+
+    $utmSource = $get('utm_source');
+    $utmMedium = strtolower($get('utm_medium'));
+    $yandex = ['yandex', 'ya', 'yandex_direct', 'yandexdirect', 'direct', 'ya.direct'];
+
+    if ($get('yclid') !== ''
+        || (in_array(strtolower($utmSource), $yandex, true) && in_array($utmMedium, ['', 'cpc', 'ppc', 'paid'], true))) {
+        $sourceLabel = 'Яндекс Директ';
+    } elseif ($utmSource !== '') {
+        $sourceLabel = $utmSource . ($utmMedium !== '' ? ' / ' . $utmMedium : '');
+    } else {
+        $sourceLabel = 'не определён (переход без UTM-меток)';
+    }
+
+    $dash = static function (string $value): string {
+        return $value !== '' ? $value : '-';
+    };
+
+    return [
+        'Направление: ' . $direction,
+        'Источник: ' . $sourceLabel,
+        'Кампания: ' . $dash($get('utm_campaign')),
+        'Объявление: ' . $dash($get('utm_content')),
+        'Поисковый запрос: ' . $dash($get('utm_term')),
+        'utm_source / utm_medium: ' . $dash($utmSource) . ' / ' . $dash($get('utm_medium')),
+        'yclid: ' . $dash($get('yclid')),
+        'Посадочная страница: ' . $dash($get('landing_page')),
+        'Страница с формой: ' . $dash($get('form_page')),
+    ];
+}
+
 function send_lead_notification(array $lead): void
 {
     $smtp = get_smtp_settings();
     $toEmail = get_setting('notify_email', $smtp['from_email']);
 
-    $subject = sprintf('Новая заявка с сайта (%s): %s', strtoupper($lead['lang']), $lead['name']);
+    $direction = (string) ($lead['direction'] ?? '');
+    $subject = sprintf(
+        'Новая заявка (%s)%s: %s',
+        strtoupper($lead['lang']),
+        $direction !== '' ? ' — ' . $direction : '',
+        $lead['name']
+    );
+
+    $dash = static function ($value): string {
+        $value = trim((string) $value);
+        return $value !== '' ? $value : '-';
+    };
+
     $bodyLines = [
-        'Новая заявка с формы обратной связи.',
+        'Новая заявка с сайта' . (!empty($lead['id']) ? ' №' . (int) $lead['id'] : '') . '.',
         '',
         'Имя: ' . $lead['name'],
-        'Компания: ' . ($lead['company'] ?: '-'),
-        'Телефон: ' . $lead['phone'],
-        'Email: ' . $lead['email'],
-        'Тип задачи: ' . ($lead['task_type'] ?: '-'),
-        'Мощность/напряжение: ' . ($lead['power'] ?: '-'),
-        'Комментарий: ' . ($lead['message'] ?: '-'),
-        'Вложений: ' . (int) ($lead['attachments_count'] ?? 0),
-        'Язык страницы: ' . $lead['lang'],
-        'Дата: ' . date('Y-m-d H:i:s'),
+        'Компания: ' . $dash($lead['company'] ?? ''),
+        'Телефон: ' . $dash($lead['phone'] ?? ''),
+        'Email: ' . $dash($lead['email'] ?? ''),
+        'Тип задачи: ' . $dash($lead['task_type'] ?? ''),
+        'Мощность/напряжение: ' . $dash($lead['power'] ?? ''),
+        'Комментарий: ' . $dash($lead['message'] ?? ''),
+        'Вложений: ' . (int) ($lead['attachments_count'] ?? 0)
+            . ((int) ($lead['attachments_count'] ?? 0) > 0 ? ' (файлы — в карточке заявки в админке)' : ''),
+        '',
+        '— Откуда заявка —',
     ];
+    $bodyLines = array_merge($bodyLines, lead_source_lines($direction !== '' ? $direction : '-', (array) ($lead['source'] ?? [])));
+    $bodyLines[] = '';
+    $bodyLines[] = 'Язык страницы: ' . $lead['lang'];
+    $bodyLines[] = 'Дата: ' . date('Y-m-d H:i:s');
+
     $body = implode("\n", $bodyLines);
 
     $mailer = new SmtpMailer($smtp);

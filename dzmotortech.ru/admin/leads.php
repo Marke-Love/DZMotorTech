@@ -130,6 +130,7 @@ require __DIR__ . '/includes/layout_top.php';
 				<th>Телефон</th>
 				<th>Email</th>
 				<th>Тип задачи</th>
+				<th>Направление</th>
 				<th></th>
 				<th></th>
 			</tr>
@@ -145,6 +146,7 @@ require __DIR__ . '/includes/layout_top.php';
 				<td><?= e($lead['phone']) ?></td>
 				<td><?= e($lead['email']) ?></td>
 				<td><?= e($lead['task_type'] ?? '') ?></td>
+				<td><?= e($lead['direction'] ?? '') ?><?= !empty($lead['utm_campaign']) ? '<br><small>' . e($lead['utm_campaign']) . '</small>' : '' ?></td>
 				<td><a href="lead-detail.php?id=<?= (int) $lead['id'] ?>">Открыть</a></td>
 				<td>
 					<form method="post" action="delete-lead.php" onsubmit="return confirm('Удалить эту заявку без возможности восстановления?');">
@@ -157,7 +159,7 @@ require __DIR__ . '/includes/layout_top.php';
 			</tr>
 			<?php endforeach; ?>
 			<?php if (!$leads): ?>
-			<tr><td colspan="9">Заявок не найдено.</td></tr>
+			<tr><td colspan="10">Заявок не найдено.</td></tr>
 			<?php endif; ?>
 		</tbody>
 	</table>

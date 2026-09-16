@@ -11,12 +11,23 @@ CREATE TABLE IF NOT EXISTS leads (
     email VARCHAR(255) NOT NULL,
     task_type VARCHAR(255) NULL,
     power VARCHAR(255) NULL,
+    direction VARCHAR(255) NULL,
+    utm_source VARCHAR(255) NULL,
+    utm_medium VARCHAR(255) NULL,
+    utm_campaign VARCHAR(255) NULL,
+    utm_content VARCHAR(255) NULL,
+    utm_term VARCHAR(255) NULL,
+    yclid VARCHAR(64) NULL,
+    landing_page VARCHAR(500) NULL,
+    form_page VARCHAR(500) NULL,
     message TEXT NULL,
     attachments TEXT NULL,
     ip VARCHAR(64) NULL,
     INDEX idx_created_at (created_at),
     INDEX idx_name (name),
-    INDEX idx_email (email)
+    INDEX idx_email (email),
+    INDEX idx_direction (direction),
+    INDEX idx_utm_campaign (utm_campaign)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS settings (

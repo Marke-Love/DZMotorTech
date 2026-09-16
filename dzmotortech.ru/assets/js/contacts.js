@@ -1,8 +1,13 @@
 /* Страница «Контакты»: имена выбранных файлов, подстановка из адреса
-   и ответ после отправки формы.
+   и отправка формы без перезагрузки.
 
    Разметка работает и без скрипта: поле выбора файлов остаётся обычным
-   input, а сообщения об отправке скрыты атрибутом hidden. */
+   input, форма уходит обычным POST, а сообщения об отправке показываются по
+   параметру ?sent= после возврата со страницы обработчика.
+
+   Проверка «телефон или email», метки источника и цели Метрики — в общем
+   скрипте заявок lead-modal.js (window.dzLead). Он подключён ниже этого
+   файла, поэтому обращаемся к нему в момент отправки, а не при загрузке. */
 (function () {
   'use strict';
 
@@ -33,15 +38,49 @@
       });
     }
 
-    var sent = param('sent');
     var ok = document.querySelector('[data-dzk-ok]');
     var bad = document.querySelector('[data-dzk-bad]');
-    if (sent === '1' && ok) {
-      ok.hidden = false;
+    var button = form.querySelector('.dzk-submit');
+
+    function showDone() {
+      if (ok) ok.hidden = false;
       form.hidden = true;
-    } else if (sent === '0' && bad) {
-      bad.hidden = false;
+      if (ok) ok.scrollIntoView({ block: 'center', behavior: 'smooth' });
     }
+
+    function showFail() {
+      if (bad) {
+        bad.hidden = false;
+        bad.scrollIntoView({ block: 'center', behavior: 'smooth' });
+      }
+    }
+
+    var sent = param('sent');
+    if (sent === '1') {
+      showDone();
+    } else if (sent === '0') {
+      showFail();
+    }
+
+    /* Сюда событие доходит, только если общий скрипт уже проверил поля
+       (он слушает отправку на фазе перехвата и останавливает неверную). */
+    form.addEventListener('submit', function (event) {
+      var lead = window.dzLead;
+      if (!lead || !window.fetch || !window.FormData) return;   // обычная отправка страницей
+      event.preventDefault();
+
+      if (bad) bad.hidden = true;
+      if (button) button.disabled = true;
+
+      lead.submit(form).then(function (success) {
+        if (button) button.disabled = false;
+        if (success) {
+          showDone();
+        } else {
+          showFail();
+        }
+      });
+    });
   }
 
   if (document.readyState === 'loading') {
