@@ -2491,3 +2491,41 @@ body #header .header_box .r_icon {
   line-height: 1.5;
   color: #7b8891;
 }
+
+/* 16. Значки мессенджеров (Telegram, MAX) — подвал, «Контакты», посадочные.
+   Круглые кнопки в фирменных цветах, обе — ссылки на чаты. */
+.dz-msgr { display: inline-flex; align-items: center; gap: 10px; vertical-align: middle; }
+
+.dz-msgr__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  color: #fff !important;
+  text-decoration: none !important;
+  transition: transform 0.16s ease, box-shadow 0.16s ease;
+}
+
+.dz-msgr__btn svg { display: block; }
+
+.dz-msgr__btn--tg { background: #27a7e7; }
+
+.dz-msgr__btn--max { background: linear-gradient(135deg, #3e8bff 0%, #7a3dff 100%); }
+
+a.dz-msgr__btn:hover,
+a.dz-msgr__btn:focus-visible { transform: translateY(-2px); box-shadow: 0 6px 14px rgba(39, 167, 231, 0.35); }
+
+/* В подвале у ссылок списка свои отступы и inline-block из css.css
+   платформы — у значков их гасим, иначе самолётик съезжает. */
+#footer .footer_sub_nav li.dz-foot-msgr { padding-top: 2px; margin-bottom: 22px; }
+
+#footer .footer_sub_nav li.dz-foot-msgr .dz-msgr__btn {
+  display: inline-flex;
+  width: 34px;
+  height: 34px;
+  margin: 0;
+  padding: 0;
+  line-height: 1;
+}

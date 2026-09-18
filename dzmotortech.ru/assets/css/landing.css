@@ -669,6 +669,12 @@ textarea.ln-input { min-height: 84px; line-height: 1.5; resize: vertical; }
 
 .ln-office svg { margin-top: 2px; color: var(--ln-accent); }
 
+.ln-office li.ln-office__msgr { display: block; padding-top: 4px; }
+
+.ln-office .dz-msgr svg { margin-top: 0; color: #fff; }
+
+.ln-office .dz-msgr__btn { border-bottom: 0; }
+
 .ln-office a { justify-self: start; color: var(--ln-ink); text-decoration: none; border-bottom: 1px solid var(--ln-steel-300); }
 
 .ln-office a:hover { color: var(--ln-accent); border-color: var(--ln-accent); }

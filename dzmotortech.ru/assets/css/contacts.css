@@ -118,6 +118,18 @@
 /* Несколько контактных лиц в одной строке — каждый со своей строчки. */
 .dzk-rows .dzk-rows__stack { display: grid; gap: 5px; }
 
+/* Значки мессенджеров: общие правила строк (span — блок, svg — акцентный
+   цвет, ссылка — подчёркивание) их ломали. */
+.dzk-rows span.dz-msgr { display: inline-flex; margin-top: 6px; }
+
+.dzk-rows .dz-msgr span.dz-msgr__btn { display: inline-flex; margin-top: 0; }
+
+.dzk-rows .dz-msgr svg { margin-top: 0; color: #fff; }
+
+.dzk-rows a.dz-msgr__btn,
+.dzk-rows a.dz-msgr__btn:hover,
+.dzk-rows a.dz-msgr__btn:focus { border-bottom: 0; color: #fff; }
+
 /* Имя и номер стоят в одной строке: общее правило display:block для span
    внутри строки к этой подписи применяться не должно. */
 .dzk-rows .dzk-rows__who { display: inline; color: var(--k-steel-500); }
