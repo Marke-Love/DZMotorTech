@@ -133,3 +133,70 @@
     init();
   }
 }());
+
+/* Переключатель языка RU/EN и метки страниц для CSS. Раньше жили в
+   cookie-consent.js, но этот файл режут блокировщики рекламы (списки
+   против cookie-баннеров), и у таких посетителей вместо переключателя
+   оставалась надпись «Русский». */
+// Language switcher pill (desktop + mobile)
+(function () {
+  var path = window.location.pathname;
+  var isEn = path.indexOf('/en') === 0;
+
+  /* Флаги нарисованы как SVG, а не взяты из эмодзи (🇷🇺/🇬🇧): на части
+     Windows-систем шрифт не собирает пару emoji-букв в картинку флага и
+     вместо флага показываются голые буквы "RU"/"GB". SVG рендерится
+     одинаково везде. */
+  var FLAG_RU =
+    '<svg viewBox="0 0 30 20" aria-hidden="true"><rect width="30" height="20" fill="#fff"/>' +
+    '<rect y="6.67" width="30" height="6.66" fill="#0039a6"/>' +
+    '<rect y="13.33" width="30" height="6.67" fill="#d52b1e"/></svg>';
+  var FLAG_GB =
+    '<svg viewBox="0 0 30 20" aria-hidden="true"><rect width="30" height="20" fill="#012169"/>' +
+    '<path d="M0,0 30,20M30,0 0,20" stroke="#fff" stroke-width="4"/>' +
+    '<path d="M0,0 30,20M30,0 0,20" stroke="#c8102e" stroke-width="1.6"/>' +
+    '<rect x="12" width="6" height="20" fill="#fff"/><rect y="7" width="30" height="6" fill="#fff"/>' +
+    '<rect x="13" width="4" height="20" fill="#c8102e"/><rect y="8" width="30" height="4" fill="#c8102e"/></svg>';
+
+  function pillHTML(active) {
+    return '<a class="ls-pill-opt' + (!active ? ' ls-active' : '') + '" href="/"><span class="ls-flag">' + FLAG_RU + '</span> RU</a>' +
+           '<div class="ls-pill-sep"></div>' +
+           '<a class="ls-pill-opt' + (active ? ' ls-active' : '') + '" href="/en/"><span class="ls-flag">' + FLAG_GB + '</span> EN</a>';
+  }
+
+  function initSwitcher() {
+    // Desktop header
+    var el = document.querySelector('#header .header_language');
+    if (el) el.innerHTML = pillHTML(isEn);
+
+    // Mobile header
+    var func = document.querySelector('.ueeshop_responsive_header .header .func');
+    if (func && !func.querySelector('.ls-mobile-pill')) {
+      var pill = document.createElement('div');
+      pill.className = 'ls-mobile-pill';
+      pill.innerHTML = pillHTML(isEn);
+      func.insertBefore(pill, func.firstChild);
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initSwitcher);
+  } else {
+    initSwitcher();
+  }
+})();
+
+// Mark application page for scoped CSS
+(function () {
+  if (window.location.pathname.indexOf('%D0%BF%D1%80%D0%B8%D0%BC%D0%B5%D0%BD%D0%B5%D0%BD%D0%B8%D0%B5') !== -1 ||
+      window.location.pathname.indexOf('применение') !== -1) {
+    document.body.classList.add('page-application');
+  }
+})();
+
+// Mark EN pages for scoped CSS
+(function () {
+  if (window.location.pathname.indexOf('/en') === 0) {
+    document.body.classList.add('page-en');
+  }
+})();
