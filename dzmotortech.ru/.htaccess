@@ -4,6 +4,14 @@ RewriteEngine On
 RewriteCond %{HTTP_HOST} ^www\.dzmotortech\.ru$ [NC]
 RewriteRule ^(.*)$ https://dzmotortech.ru/$1 [L,R=301]
 
+# Старые адреса блога -> новые (301).
+# Скрипт вызывается только если файла и папки с таким именем нет, поэтому
+# на обычные страницы правило не влияет. Кириллицу в адресах разбирает PHP:
+# в правилах .htaccess она ломается на повторном кодировании.
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ /redirects.php [L]
+
 # /path/index.html -> /path/   (чтобы одна страница не считалась двумя)
 # Условие смотрит на исходный запрос браузера: сервер внутри себя всё равно
 # подставляет index.html как индексный файл, и без этой проверки правило
