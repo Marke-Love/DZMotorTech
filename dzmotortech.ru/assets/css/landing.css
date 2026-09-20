@@ -610,6 +610,73 @@ textarea.ln-input { min-height: 84px; line-height: 1.5; resize: vertical; }
 
 .ln-link:hover { color: #0077a8 !important; }
 
+/* --- частые вопросы, сноски ---------------------------------------------------- */
+
+.ln-faq { display: grid; gap: 10px; }
+
+.ln-faq__item {
+  padding: 4px 20px;
+  border: 1px solid var(--ln-steel-300);
+  border-radius: 16px;
+  background: var(--ln-surface);
+}
+
+.ln-section--white .ln-faq__item { background: var(--ln-paper); border-color: transparent; }
+
+.ln-faq__item summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 0;
+  font-size: 16.5px;
+  font-weight: 700;
+  line-height: 1.35;
+  cursor: pointer;
+  list-style: none;
+}
+
+.ln-faq__item summary::-webkit-details-marker { display: none; }
+
+/* Плюс, который превращается в минус у раскрытого вопроса. */
+.ln-faq__item summary::after {
+  content: "";
+  flex: none;
+  width: 18px;
+  height: 18px;
+  background:
+    linear-gradient(var(--ln-accent), var(--ln-accent)) center / 100% 2.4px no-repeat,
+    linear-gradient(var(--ln-accent), var(--ln-accent)) center / 2.4px 100% no-repeat;
+  transition: transform 0.2s var(--ln-ease);
+}
+
+.ln-faq__item[open] summary::after { transform: rotate(90deg); background-size: 100% 2.4px, 0 0; }
+
+.ln-faq__item p {
+  margin: 0;
+  padding: 0 0 18px;
+  max-width: 92ch;
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--ln-steel-700);
+}
+
+.ln-note-small {
+  margin: 18px 0 0;
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--ln-steel-500);
+}
+
+.ln-legal {
+  margin: 14px 0 0;
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--ln-steel-500);
+}
+
+.ln-legal a { color: var(--ln-steel-700); }
+
 /* --- доверие ----------------------------------------------------------------- */
 
 .ln-trust { background: var(--ln-ink); color: #fff; }

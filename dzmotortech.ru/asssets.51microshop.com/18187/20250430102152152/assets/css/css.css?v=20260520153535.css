@@ -145,7 +145,7 @@ li.nav_second_list.more:hover .nav_third{display:block}
 .wrapper .list-unstyled>li .phone_navigation{display:block;width:100%;height:60px;line-height:60px;font-size:16px;text-decoration:none;color:#333;text-overflow:ellipsis;white-space:nowrap;overflow:hidden}
 .wrapper .list-unstyled>li .third_nav a{height:44px;line-height:44px;text-indent:20px}
 .wrapper .wrapper-top>.list-unstyled{transition:all .3s}
-.wrapper .list-unstyled>li>.nav_left_div{position:fixed;top:0;right:-75%;display:block;width:75%;height:100%;margin:0;z-index:10001;overflow-y:auto;overflow-x:hidden;background:url(/asssets.51microshop.com/18187/20250430102152152/assets/images/responsive_header/header_bg.png) top center no-repeat #fff;margin-top:50px;border-top:1px solid #ddd;transition:all .3s ease 0s}
+.wrapper .list-unstyled>li>.nav_left_div{position:fixed;top:0;right:-75%;display:block;width:75%;height:100%;margin:0;z-index:10001;overflow-y:auto;overflow-x:hidden;background:#fff;margin-top:50px;border-top:1px solid #ddd;transition:all .3s ease 0s}
 .wrapper .list-unstyled>li.more.click_more.on>.nav_left_div{right:0}
 .wrapper .nav_left_div .cate_close{width:100%;text-align:left}
 .wrapper .nav_left_div .cate_close span{display:inline-block;width:16px;height:16px;background:url(../images/back_btn.png) no-repeat center center/50%;margin:15px 0 15px 4%}

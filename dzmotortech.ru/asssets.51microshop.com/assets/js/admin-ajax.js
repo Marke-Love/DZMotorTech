@@ -192,31 +192,9 @@ $(document).ready(function () {
             $obj.submit();
         })
     });
-    var text = 0;
-    $.ajax({
-        type: "POST",
-        url: "/Submit/ajaxrequest.ashx?cmd=GetShopCartItemNumber",
-        beforeSend: function (XMLHttpRequest) {
-        },
-        success: function (data, textStatus) {
+    // Запрос числа товаров в корзине убран: корзины на сайте нет,
+    // обработчик /Submit/ajaxrequest.ashx отсутствует и отвечал ошибкой.
 
-            text = data;
-            if (data == 0 && $.cookie('_ysv') != undefined && $.cookie('_ysv').length == 36) {
-                var date = new Date();
-                date.setTime(date.getTime() + 60 * 60 * 24 * 1000 * 365 * 2);
-                $.cookie("_ysv", guidnew(), {
-                    path: '/',
-                    expires: date,
-                    domain: getDomain()
-                });
-            }
-        },
-        complete: function (XMLHttpRequest, textStatus) {
-        },
-        error: function () {
-        }
-    });
-    $(".total_num").text(text).attr("data-num", text);
 });
 
 function convertLanguage(key, value) {
