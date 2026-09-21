@@ -87,7 +87,7 @@ function result_redirect(string $lang, bool $ok, string $returnTo): void
 
     $config = app_config();
     $base = $lang === 'en' ? $config['site']['en_base'] : $config['site']['ru_base'];
-    redirect($base . '/pages/contactus.html?' . $flag);
+    redirect($base . '/contacts/?' . $flag);
 }
 
 /** Путь страницы без домена: для письма и админки достаточно «/страница/?метки». */

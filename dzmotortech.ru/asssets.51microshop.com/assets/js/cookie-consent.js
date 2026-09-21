@@ -7,8 +7,8 @@
 
   var isEn = window.location.pathname.indexOf('/en/') === 0;
   var privacyUrl = isEn
-    ? '/en/pages/privacy-policy-11909901.html'
-    : '/pages/privacy-policy.html';
+    ? '/en/legal/privacy-policy.html'
+    : '/legal/privacy-policy.html';
 
   var banner = document.createElement('div');
   banner.id = 'cookie-consent-banner';
@@ -102,8 +102,7 @@
 
 // Mark application page for scoped CSS
 (function () {
-  if (window.location.pathname.indexOf('%D0%BF%D1%80%D0%B8%D0%BC%D0%B5%D0%BD%D0%B5%D0%BD%D0%B8%D0%B5') !== -1 ||
-      window.location.pathname.indexOf('применение') !== -1) {
+  if (window.location.pathname.indexOf('/applications/') === 0) {
     document.body.classList.add('page-application');
   }
 })();

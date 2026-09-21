@@ -20,7 +20,7 @@
 
    3. Окно заявки. Любая ссылка или кнопка с data-lead-modal открывает окно
       вместо перехода на страницу контактов; без скрипта ссылка ведёт на
-      contactus.html, поэтому в разметке у неё остаётся настоящий href. */
+      /contacts/, поэтому в разметке у неё остаётся настоящий href. */
 (function () {
   'use strict';
 
@@ -290,7 +290,7 @@
     message: 'Message',
     messagePh: 'Power, voltage, speed, mounting, Ex rating, deadline or the model you are replacing',
     file: 'Nameplate photo, datasheet or specification', fileBtn: 'Choose file', fileEmpty: 'No file chosen',
-    consent: 'I agree to the <a href="/en/pages/privacy-policy-11909901.html" target="_blank" rel="noopener">privacy policy</a> and to the processing of my personal data',
+    consent: 'I agree to the <a href="/en/legal/privacy-policy.html" target="_blank" rel="noopener">privacy policy</a> and to the processing of my personal data',
     submit: 'Send request', sending: 'Sending…',
     close: 'Close',
     bad: 'The request could not be sent. Please check the fields and try again, or call us.',
@@ -307,7 +307,7 @@
     message: 'Сообщение',
     messagePh: 'Мощность, напряжение, обороты, монтаж, взрывозащита, срок или модель, которую меняете',
     file: 'Фото шильдика, паспорт или ТЗ', fileBtn: 'Выберите файл', fileEmpty: 'Файл не выбран',
-    consent: 'Я согласен(-а) с <a href="/pages/privacy-policy.html" target="_blank" rel="noopener">политикой конфиденциальности</a> и <a href="/pages/personal-data-policy.html" target="_blank" rel="noopener">политикой обработки персональных данных</a>',
+    consent: 'Я согласен(-а) с <a href="/legal/privacy-policy.html" target="_blank" rel="noopener">политикой конфиденциальности</a> и <a href="/legal/personal-data-policy.html" target="_blank" rel="noopener">политикой обработки персональных данных</a>',
     submit: 'Отправить заявку', sending: 'Отправляем…',
     close: 'Закрыть',
     bad: 'Не удалось отправить заявку. Проверьте поля и попробуйте снова или позвоните нам.',
