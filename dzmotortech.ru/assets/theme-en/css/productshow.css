@@ -38,7 +38,7 @@ h1.show_product1{margin:0;font-weight:400;letter-spacing:0;font-size:24px;color:
 .product_titles i,.product_titles span{display:inline-block;zoom:1;*display:inline;line-height:24px;height:24px;vertical-align:middle}
 .add_cart_ico{min-width:150px!important;font-size:14px!important;text-transform:uppercase;padding:12px 20px!important;margin:2px}
 .product_titles span{font-size:13px;color:#000}
-.product_titles i{background:url(/asssets.51microshop.com/18628/20250728092424858/assets/images/cuistm_bgg.jpg) center center no-repeat;width:9px;height:7px;margin-right:10px}
+.product_titles i{background:url(/assets/theme-en/images/cuistm_bgg.jpg) center center no-repeat;width:9px;height:7px;margin-right:10px}
 .title_doc{padding:20px 0 0 0;display:none}
 .products_03_bk{padding:10px 0 0 0}
 .div_prod_repag{text-align:center;font-size:12px;line-height:30px}
@@ -138,7 +138,7 @@ h1.show_product1{font-size:20px}
 .dl-horizontal dd{margin-left:133px}
 }
 .model_lodding{position:relative}
-.model_lodding:after{content:" ";position:absolute;left:0;right:0;bottom:0;top:0;background:rgba(255,255,255,.6) url(../../../../assets/images/loading1.gif) center center no-repeat;z-index:99}
+.model_lodding:after{content:" ";position:absolute;left:0;right:0;bottom:0;top:0;background:rgba(255,255,255,.6) url(/assets/images/loading1.gif) center center no-repeat;z-index:99}
 .review_bar{padding:20px 0}
 .review_bar h3{color:#3d3d3d;font-size:24px;margin:0}
 .reviewpic_list .list-inline>div{position:relative;border:1px solid #ccc;display:inline-block;width:40px;height:40px;margin-left:5px;background-color:#fff;margin-bottom:5px}

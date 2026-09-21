@@ -717,7 +717,7 @@ function getblogreview() {
                         html += '</div>';
                         html += '<div class="panel-body">';
                         html += '<div class="user_img" title="' + obj.reviewer + '">';
-                        html += '<img class="img-circle" src="/asssets.51microshop.com/assets/images/user.jpg" alt="' + obj.reviewer + '">';
+                        html += '<img class="img-circle" src="/assets/images/user.jpg" alt="' + obj.reviewer + '">';
                         html += '<div>' + obj.reviewer + '</div>';
                         html += '</div>';
                         html += obj.content;

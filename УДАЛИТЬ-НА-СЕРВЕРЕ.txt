@@ -438,6 +438,10 @@
 /tags/_d0_a3_d0_bd_d0_b8_d0_b2_d0_b5_d1_80_d1_81_d0_b0_d0_bb_d1_8c_d0_bd_d1_8b_d0_b9-_d1_81_d0_b5_d1_80_d0_b2_d0_be-_d0_b4_d0_b2_d0_b8_d0_b3_d0_b0_d1_82_d0_b5_d0_bb_d1_8c-_d0_bd_d0_b8_d0_b7_d0_ba_d0_be_d0_b9-_d0_bc_d0_be_d1_89_d0_bd_d0_be_d1_.html
 /tags/_d0_a3_d0_bd_d0_b8_d0_b2_d0_b5_d1_80_d1_81_d0_b0_d0_bb_d1_8c_d0_bd_d1_8b_d0_b9-_d1_81_d0_b5_d1_80_d0_b2_d0_be-_d0_b4_d0_b2_d0_b8_d0_b3_d0_b0_d1_82_d0_b5_d0_bb_d1_8c-_d0_bf_d0_be_d0_b2_d1_8b_d1_88_d0_b5_d0_bd_d0_bd_d0_be_d0_b9-_d0_bc_d0_.html
 
+== Папки платформы (переименованы: стили и скрипты -> /assets/, картинки и PDF -> /media/) ==
+/asssets.51microshop.com/
+/images.51microshop.com/
+
 == Файлы разработки, которые больше не лежат в папке сайта ==
 /tools/
 /sql/

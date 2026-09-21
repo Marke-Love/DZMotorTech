@@ -488,25 +488,25 @@ function GetOptions(forcheck) {
                                     imgType = src;
                                     break;
                                 case '.pdf':
-                                    imgType = '/asssets.51microshop.com/assets/images/fileTypeImage/pdfimg.png';
+                                    imgType = '/assets/images/fileTypeImage/pdfimg.png';
                                     break;
                                 case '.doc':
                                 case '.docx':
-                                    imgType = '/asssets.51microshop.com/assets/images/fileTypeImage/docimg.png';
+                                    imgType = '/assets/images/fileTypeImage/docimg.png';
                                     break;
                                 case '.html':
                                 case '.htm':
-                                    imgType = '/asssets.51microshop.com/assets/images/fileTypeImage/htmlimg.png';
+                                    imgType = '/assets/images/fileTypeImage/htmlimg.png';
                                     break;
                                 case '.xls':
                                 case '.xlsx':
-                                    imgType = '/asssets.51microshop.com/assets/images/fileTypeImage/xlsimg.png';
+                                    imgType = '/assets/images/fileTypeImage/xlsimg.png';
                                     break;
                                 case '.txt':
-                                    imgType = '/asssets.51microshop.com/assets/images/fileTypeImage/txtimg.png';
+                                    imgType = '/assets/images/fileTypeImage/txtimg.png';
                                     break;
                                 default:
-                                    imgType = '/asssets.51microshop.com/assets/images/fileTypeImage/cusimg.png';
+                                    imgType = '/assets/images/fileTypeImage/cusimg.png';
                                     break;
                             }
 

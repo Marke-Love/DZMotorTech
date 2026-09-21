@@ -4,6 +4,17 @@ RewriteEngine On
 RewriteCond %{HTTP_HOST} ^www\.dzmotortech\.ru$ [NC]
 RewriteRule ^(.*)$ https://dzmotortech.ru/$1 [L,R=301]
 
+# Файлы платформы 51microshop переехали: картинки и PDF — в /media/,
+# стили, скрипты и темы — в /assets/. Старые адреса картинок помнят поисковики
+# и мессенджеры, поэтому ведём их на новое место.
+RewriteRule ^images\.51microshop\.com/18628/(.*)$ /media/ru/$1 [R=301,L]
+RewriteRule ^images\.51microshop\.com/18187/(.*)$ /media/en/$1 [R=301,L]
+RewriteRule ^images\.51microshop\.com/0/(.*)$ /media/$1 [R=301,L]
+RewriteRule ^asssets\.51microshop\.com/18628/20250728092424858/assets/(.*)$ /assets/theme-ru/$1 [R=301,L]
+RewriteRule ^asssets\.51microshop\.com/18187/20250430102152152/assets/(.*)$ /assets/theme-en/$1 [R=301,L]
+RewriteRule ^asssets\.51microshop\.com/npm/(.*)$ /assets/vendor/$1 [R=301,L]
+RewriteRule ^asssets\.51microshop\.com/assets/(.*)$ /assets/$1 [R=301,L]
+
 # Старые адреса блога -> новые (301).
 # Скрипт вызывается только если файла и папки с таким именем нет, поэтому
 # на обычные страницы правило не влияет. Кириллицу в адресах разбирает PHP:
