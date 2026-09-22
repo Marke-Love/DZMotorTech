@@ -43,6 +43,12 @@
         originals.forEach(function (card) {
           var copy = card.cloneNode(true);
           copy.setAttribute('aria-hidden', 'true');
+          /* ...и не должны получать фокус с клавиатуры: ссылки внутри копий
+             скрыты от скринридера, а Tab на них попадал бы «в пустоту». */
+          copy.setAttribute('inert', '');
+          copy.querySelectorAll('a, button, [tabindex]').forEach(function (el) {
+            el.setAttribute('tabindex', '-1');
+          });
           fragment.appendChild(copy);
         });
         return fragment;

@@ -61,6 +61,13 @@
 }
 
 .dzh .dzh__eyebrow::before { content: ""; width: 28px; height: 1px; background: currentColor; }
+/* На светлых блоках фирменный голубой слишком бледный для мелкого текста:
+   берём оттенок темнее (контраст 4.8:1). На тёмных блоках остаётся голубой. */
+.dzh-prod .dzh__eyebrow,
+.dzh-cats .dzh__eyebrow,
+.dzh-apps .dzh__eyebrow,
+.dzh-partners .dzh__eyebrow,
+.dzh-certs .dzh__eyebrow { color: #0073a0; }
 
 /* --- Плашка «Подбор аналога» ------------------------------------------------
 
@@ -182,7 +189,7 @@
 
 .dzh-analog__bar b { font-weight: 700; }
 
-.dzh-analog__bar span { font-weight: 500; color: rgba(6, 32, 44, 0.66); }
+.dzh-analog__bar span { font-weight: 500; color: rgba(6, 32, 44, 0.85); }  /* 0.66 давало контраст 3.5:1 на голубом */
 
 @media (max-width: 620px) {
   .dzh-analog__body { grid-template-columns: minmax(0, 1fr); }

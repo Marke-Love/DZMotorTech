@@ -1422,7 +1422,7 @@ input[name="ckb_cartitem"] {
   pointer-events: none;
 }
 .ls-pill-opt:not(.ls-active) {
-  color: #7a9cc8 !important;
+  color: #48699a !important;  /* контраст 5:1 на фоне переключателя */
   background: transparent;
 }
 .ls-pill-opt:not(.ls-active):hover {
@@ -2098,14 +2098,14 @@ body #footer .footer_a_tt:hover {
   font-weight: 700;
   line-height: 1;
   white-space: nowrap;
-  color: #00aeef;
+  color: #0077a6;  /* #00aeef на белом давал контраст 2.5:1, этот — 5:1 */
   text-decoration: none;
   transition: color 0.2s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
 #header .header_box .r_icon .dzh-topphone:hover,
 #header .header_box .r_icon .dzh-topphone:focus {
-  color: #0090cc;
+  color: #005f85;
   text-decoration: none;
 }
 
