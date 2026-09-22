@@ -30,7 +30,7 @@ class SmtpMailer
     /**
      * @throws RuntimeException on any SMTP failure
      */
-    public function send(string $toEmail, string $subject, string $body): void
+    public function send(string $toEmail, string $subject, string $body, array $attachments = []): void
     {
         $transport = $this->secure === 'ssl' ? 'ssl://' : 'tcp://'; // 'tls' upgrades via STARTTLS below; 'none' stays plain
         $errno = 0;
@@ -66,8 +66,8 @@ class SmtpMailer
         $this->command($socket, 'RCPT TO:<' . $toEmail . '>', 250);
         $this->command($socket, 'DATA', 354);
 
-        $headers = $this->buildHeaders($toEmail, $subject);
-        $encodedBody = chunk_split(base64_encode($body));
+        [$contentHeaders, $encodedBody] = build_mail_body($body, $attachments);
+        $headers = $this->buildHeaders($toEmail, $subject, $contentHeaders);
         $message = $headers . "\r\n" . $encodedBody;
         // Escape lines that start with a lone dot, per SMTP DATA rules.
         $message = preg_replace('/^\./m', '..', $message);
@@ -79,7 +79,7 @@ class SmtpMailer
         fclose($socket);
     }
 
-    private function buildHeaders(string $toEmail, string $subject): string
+    private function buildHeaders(string $toEmail, string $subject, array $contentHeaders): string
     {
         $encodedSubject = '=?UTF-8?B?' . base64_encode($subject) . '?=';
         $encodedFromName = '=?UTF-8?B?' . base64_encode($this->fromName) . '?=';
@@ -88,8 +88,7 @@ class SmtpMailer
             'To: <' . $toEmail . '>',
             'Subject: ' . $encodedSubject,
             'MIME-Version: 1.0',
-            'Content-Type: text/plain; charset=UTF-8',
-            'Content-Transfer-Encoding: base64',
+            ...$contentHeaders,
             'Date: ' . date('r'),
         ];
         return implode("\r\n", $lines) . "\r\n";
@@ -180,28 +179,74 @@ function hosting_from_email(string $configured): string
 }
 
 /**
+ * Собирает тело письма. Без вложений — обычный текст, с вложениями —
+ * multipart/mixed: текст первой частью, файлы следом.
+ *
+ * @param array $attachments список ['path' => путь к файлу, 'name' => имя для получателя]
+ * @return array [заголовки Content-*, закодированное тело]
+ */
+function build_mail_body(string $body, array $attachments): array
+{
+    $text = chunk_split(base64_encode($body));
+    $files = array_filter($attachments, static function ($file): bool {
+        return is_array($file) && isset($file['path']) && is_file((string) $file['path']);
+    });
+    if (!$files) {
+        return [['Content-Type: text/plain; charset=UTF-8', 'Content-Transfer-Encoding: base64'], $text];
+    }
+
+    $boundary = '=_dz_' . bin2hex(random_bytes(12));
+    $parts = [
+        "--$boundary\r\n"
+        . "Content-Type: text/plain; charset=UTF-8\r\n"
+        . "Content-Transfer-Encoding: base64\r\n\r\n"
+        . $text,
+    ];
+    foreach ($files as $file) {
+        $path = (string) $file['path'];
+        $name = str_replace(["\r", "\n", '"'], '', (string) ($file['name'] ?? basename($path)));
+        $mime = function_exists('mime_content_type') ? (mime_content_type($path) ?: '') : '';
+        if ($mime === '') {
+            $mime = 'application/octet-stream';
+        }
+        // Имя дважды: в старом виде (=?UTF-8?B?…?=) и по RFC 2231 — так кириллица
+        // в названии файла читается и в Outlook, и в веб-почте.
+        $encodedName = '=?UTF-8?B?' . base64_encode($name) . '?=';
+        $parts[] = "--$boundary\r\n"
+            . "Content-Type: $mime; name=\"$encodedName\"\r\n"
+            . "Content-Transfer-Encoding: base64\r\n"
+            . "Content-Disposition: attachment; filename=\"$encodedName\"; filename*=UTF-8''" . rawurlencode($name) . "\r\n\r\n"
+            . chunk_split(base64_encode((string) file_get_contents($path)));
+    }
+
+    return [
+        ["Content-Type: multipart/mixed; boundary=\"$boundary\""],
+        implode('', $parts) . "--$boundary--\r\n",
+    ];
+}
+
+/**
  * Отправляет письмо выбранным способом.
  *
  * @throws RuntimeException если письмо не удалось передать на отправку
  */
-function send_site_mail(string $toEmail, string $subject, string $body, string $replyTo = ''): void
+function send_site_mail(string $toEmail, string $subject, string $body, string $replyTo = '', array $attachments = []): void
 {
     $settings = get_smtp_settings();
 
     if (get_mail_transport() === 'smtp') {
-        (new SmtpMailer($settings))->send($toEmail, $subject, $body);
+        (new SmtpMailer($settings))->send($toEmail, $subject, $body, $attachments);
         return;
     }
 
     $fromEmail = hosting_from_email((string) ($settings['from_email'] ?? ''));
     $fromName = (string) ($settings['from_name'] ?? '') !== '' ? (string) $settings['from_name'] : 'DZ Motor Tech';
 
-    $headers = [
+    [$contentHeaders, $encodedBody] = build_mail_body($body, $attachments);
+    $headers = array_merge([
         'From: =?UTF-8?B?' . base64_encode($fromName) . '?= <' . $fromEmail . '>',
         'MIME-Version: 1.0',
-        'Content-Type: text/plain; charset=UTF-8',
-        'Content-Transfer-Encoding: base64',
-    ];
+    ], $contentHeaders);
     $replyTo = trim(str_replace(["\r", "\n"], '', $replyTo));
     if ($replyTo !== '' && filter_var($replyTo, FILTER_VALIDATE_EMAIL)) {
         $headers[] = 'Reply-To: <' . $replyTo . '>';
@@ -210,7 +255,7 @@ function send_site_mail(string $toEmail, string $subject, string $body, string $
     $ok = mail(
         $toEmail,
         '=?UTF-8?B?' . base64_encode($subject) . '?=',
-        chunk_split(base64_encode($body)),
+        $encodedBody,
         implode("\r\n", $headers),
         '-f' . $fromEmail
     );
@@ -259,6 +304,9 @@ function lead_source_lines(string $direction, array $source): array
     ];
 }
 
+/** Сколько файлов клиента (в сумме) можно приложить к письму о заявке. */
+const LEAD_MAIL_ATTACHMENTS_MAX_BYTES = 15 * 1024 * 1024;
+
 function send_lead_notification(array $lead): void
 {
     $smtp = get_smtp_settings();
@@ -266,8 +314,7 @@ function send_lead_notification(array $lead): void
 
     $direction = (string) ($lead['direction'] ?? '');
     $subject = sprintf(
-        'Новая заявка (%s)%s: %s',
-        strtoupper($lead['lang']),
+        'Заявка%s: %s',
         $direction !== '' ? ' — ' . $direction : '',
         $lead['name']
     );
@@ -277,26 +324,41 @@ function send_lead_notification(array $lead): void
         return $value !== '' ? $value : '-';
     };
 
+    // Файлы клиента прикладываем к письму, пока их общий размер не превысит
+    // лимит: почтовые серверы не принимают слишком большие письма. Что не
+    // поместилось — остаётся в карточке заявки в админке.
+    $attachments = [];
+    $skipped = [];
+    $total = 0;
+    foreach ((array) ($lead['attachments'] ?? []) as $file) {
+        $size = is_file((string) ($file['path'] ?? '')) ? (int) filesize((string) $file['path']) : 0;
+        if ($size <= 0) {
+            continue;
+        }
+        if ($total + $size > LEAD_MAIL_ATTACHMENTS_MAX_BYTES) {
+            $skipped[] = (string) $file['name'];
+            continue;
+        }
+        $total += $size;
+        $attachments[] = $file;
+    }
+
     $bodyLines = [
-        'Новая заявка с сайта' . (!empty($lead['id']) ? ' №' . (int) $lead['id'] : '') . '.',
-        '',
         'Имя: ' . $lead['name'],
         'Компания: ' . $dash($lead['company'] ?? ''),
         'Телефон: ' . $dash($lead['phone'] ?? ''),
         'Email: ' . $dash($lead['email'] ?? ''),
         'Комментарий: ' . $dash($lead['message'] ?? ''),
-        'Вложений: ' . (int) ($lead['attachments_count'] ?? 0)
-            . ((int) ($lead['attachments_count'] ?? 0) > 0 ? ' (файлы — в карточке заявки в админке)' : ''),
-        '',
-        '— Откуда заявка —',
     ];
-    $bodyLines = array_merge($bodyLines, lead_source_lines($direction !== '' ? $direction : '-', (array) ($lead['source'] ?? [])));
+    if ($skipped) {
+        $bodyLines[] = '';
+        $bodyLines[] = 'Не поместились в письмо (слишком большие), смотрите в админке: ' . implode(', ', $skipped);
+    }
     $bodyLines[] = '';
-    $bodyLines[] = 'Язык страницы: ' . $lead['lang'];
     $bodyLines[] = 'Дата: ' . date('Y-m-d H:i:s');
 
     $body = implode("\n", $bodyLines);
 
     // Ответ из почты уходит сразу клиенту, если он оставил email.
-    send_site_mail($toEmail, $subject, $body, (string) ($lead['email'] ?? ''));
+    send_site_mail($toEmail, $subject, $body, (string) ($lead['email'] ?? ''), $attachments);
 }

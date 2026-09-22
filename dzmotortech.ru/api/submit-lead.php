@@ -309,7 +309,12 @@ try {
         'task_type' => $taskType,
         'power' => $power,
         'message' => $message,
-        'attachments_count' => count($attachmentsMeta),
+        'attachments' => array_map(static function (array $file) use ($leadId): array {
+            return [
+                'path' => __DIR__ . '/../leads_uploads/' . $leadId . '/' . $file['stored'],
+                'name' => $file['original'],
+            ];
+        }, $attachmentsMeta),
         'direction' => $direction,
         'source' => $source,
     ]);
