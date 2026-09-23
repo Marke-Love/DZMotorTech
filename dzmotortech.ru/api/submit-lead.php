@@ -4,6 +4,7 @@ declare(strict_types=1);
 require __DIR__ . '/../inc/db.php';
 require __DIR__ . '/../inc/helpers.php';
 require __DIR__ . '/../inc/mailer.php';
+require __DIR__ . '/../inc/telegram.php';
 
 const MAX_FILES = 5;
 const MAX_FILE_BYTES = 10 * 1024 * 1024; // 10 MB
@@ -298,28 +299,37 @@ if ($savedAttachments) {
 }
 
 // --- Notify by email (best effort, never blocks the lead from being saved) ---
+$notification = [
+    'id' => $leadId,
+    'lang' => $lang,
+    'name' => $name,
+    'company' => $company,
+    'phone' => $phone,
+    'email' => $email,
+    'task_type' => $taskType,
+    'power' => $power,
+    'message' => $message,
+    'attachments' => array_map(static function (array $file) use ($leadId): array {
+        return [
+            'path' => __DIR__ . '/../leads_uploads/' . $leadId . '/' . $file['stored'],
+            'name' => $file['original'],
+        ];
+    }, $attachmentsMeta),
+    'direction' => $direction,
+    'source' => $source,
+];
+
 try {
-    send_lead_notification([
-        'id' => $leadId,
-        'lang' => $lang,
-        'name' => $name,
-        'company' => $company,
-        'phone' => $phone,
-        'email' => $email,
-        'task_type' => $taskType,
-        'power' => $power,
-        'message' => $message,
-        'attachments' => array_map(static function (array $file) use ($leadId): array {
-            return [
-                'path' => __DIR__ . '/../leads_uploads/' . $leadId . '/' . $file['stored'],
-                'name' => $file['original'],
-            ];
-        }, $attachmentsMeta),
-        'direction' => $direction,
-        'source' => $source,
-    ]);
+    send_lead_notification($notification);
 } catch (Throwable $e) {
     error_log('Lead notification email failed: ' . $e->getMessage());
+}
+
+// --- Дублирование в Телеграм (тоже не мешает сохранению заявки) ---
+try {
+    send_lead_telegram($notification);
+} catch (Throwable $e) {
+    error_log('Lead notification telegram failed: ' . $e->getMessage());
 }
 
 result_redirect($lang, true, $returnTo);

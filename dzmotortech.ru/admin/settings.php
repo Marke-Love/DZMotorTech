@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/includes/auth.php';
 require_once __DIR__ . '/../inc/mailer.php';
+require_once __DIR__ . '/../inc/telegram.php';
 $admin = require_login();
 
 $flash = '';
@@ -37,12 +38,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !verify_csrf()) {
         set_setting('smtp_username', $smtpUsername);
         set_setting('smtp_from_email', $smtpFromEmail);
         set_setting('smtp_from_name', $smtpFromName);
+        set_setting('telegram_enabled', ($_POST['telegram_enabled'] ?? '') === '1' ? '1' : '0');
+        set_setting('telegram_with_files', ($_POST['telegram_with_files'] ?? '') === '1' ? '1' : '0');
+        set_setting('telegram_chat_id', trim((string) ($_POST['telegram_chat_id'] ?? '')));
+        // Токен, как и пароль, перезаписываем только если его ввели заново.
+        $telegramToken = trim((string) ($_POST['telegram_token'] ?? ''));
+        if ($telegramToken !== '') {
+            set_setting('telegram_token', $telegramToken);
+        }
         // Only overwrite the stored password if the admin typed a new one —
         // the field is always rendered empty, so an empty submit means "keep current".
         if ($smtpPassword !== '') {
             set_setting('smtp_password', $smtpPassword);
         }
         $flash = 'Настройки почты сохранены.';
+    }
+} elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'test_telegram') {
+    try {
+        telegram_send_message('<b>Проверка связи</b>' . "\n" . 'Если вы видите это сообщение, заявки с сайта будут приходить сюда.');
+        $flash = 'Тестовое сообщение отправлено в Телеграм.';
+    } catch (Throwable $e) {
+        $flash = 'Не удалось отправить в Телеграм: ' . $e->getMessage();
+        $flashType = 'error';
     }
 } elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'test') {
     try {
@@ -69,9 +86,11 @@ $smtpFromName = get_setting('smtp_from_name', '') ?: $smtpDefaults['from_name'];
 $hasStoredPassword = get_setting('smtp_password', '') !== '';
 $mailTransport = get_mail_transport();
 $hostingFrom = hosting_from_email($smtpFromEmail);
+$telegram = get_telegram_settings();
+$hasTelegramToken = $telegram['token'] !== '';
 
 $activeNav = 'settings';
-$pageTitle = 'Настройки почты';
+$pageTitle = 'Настройки уведомлений';
 require __DIR__ . '/includes/layout_top.php';
 ?>
 
@@ -158,6 +177,37 @@ require __DIR__ . '/includes/layout_top.php';
 				</div>
 			</div>
 		</div>
+		<h3>Дублирование в Телеграм</h3>
+		<p>Заявки будут приходить боту дополнительно к письму. Токен выдаёт <strong>@BotFather</strong>, адрес чата можно узнать у бота <strong>@userinfobot</strong> (для группы — добавьте туда своего бота и <strong>@userinfobot</strong>).</p>
+		<div class="admin-form-row">
+			<label for="telegram_enabled">Отправлять заявки в Телеграм</label>
+			<select id="telegram_enabled" name="telegram_enabled">
+				<option value="0" <?= $telegram['enabled'] ? '' : 'selected' ?>>Нет</option>
+				<option value="1" <?= $telegram['enabled'] ? 'selected' : '' ?>>Да</option>
+			</select>
+		</div>
+		<div class="row">
+			<div class="col-sm-6">
+				<div class="admin-form-row">
+					<label for="telegram_token">Токен бота</label>
+					<input type="password" id="telegram_token" name="telegram_token" placeholder="<?= $hasTelegramToken ? 'Оставьте пустым, чтобы не менять' : '123456789:AA...' ?>" autocomplete="new-password">
+				</div>
+			</div>
+			<div class="col-sm-6">
+				<div class="admin-form-row">
+					<label for="telegram_chat_id">Кому отправлять (chat ID)</label>
+					<input type="text" id="telegram_chat_id" name="telegram_chat_id" value="<?= e($telegram['chat_id']) ?>" placeholder="123456789 или -1001234567890">
+				</div>
+			</div>
+		</div>
+		<div class="admin-form-row">
+			<label for="telegram_with_files">Прикладывать файлы клиента</label>
+			<select id="telegram_with_files" name="telegram_with_files">
+				<option value="1" <?= $telegram['with_files'] ? 'selected' : '' ?>>Да</option>
+				<option value="0" <?= $telegram['with_files'] ? '' : 'selected' ?>>Нет, только текст</option>
+			</select>
+		</div>
+
 		<button type="submit" class="btn">Сохранить</button>
 	</form>
 </div>
@@ -169,6 +219,12 @@ require __DIR__ . '/includes/layout_top.php';
 		<?= csrf_field() ?>
 		<input type="hidden" name="action" value="test">
 		<button type="submit" class="btn btn-secondary">Отправить тестовое письмо</button>
+	</form>
+	<p style="margin-top:18px">Отправит проверочное сообщение в Телеграм с уже сохранёнными токеном и адресом чата.</p>
+	<form method="post">
+		<?= csrf_field() ?>
+		<input type="hidden" name="action" value="test_telegram">
+		<button type="submit" class="btn btn-secondary">Отправить тестовое сообщение в Телеграм</button>
 	</form>
 </div>
 
