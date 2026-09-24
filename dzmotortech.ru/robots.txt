@@ -1,0 +1,10 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /api/
+Disallow: /inc/
+Disallow: /leads_uploads/
+Disallow: /tags/
+Disallow: /en/tags/
+Clean-param: utm_source&utm_medium&utm_campaign&utm_content&utm_term&yclid&gclid&_openstat
+
+Sitemap: https://dzmotortech.ru/sitemap.xml

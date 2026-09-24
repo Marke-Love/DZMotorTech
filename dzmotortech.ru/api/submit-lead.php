@@ -21,6 +21,10 @@ const ALLOWED_MIME_TYPES = [
 const LEAD_DIRECTIONS = [
     '/zamena-dvigateley-abb-siemens' => 'Замена ABB и Siemens',
     '/vysokovoltnye-dvigateli-6-10-kv' => 'Высоковольтные двигатели 6 и 10 кВ',
+    '/chastotnye-preobrazovateli' => 'Частотные преобразователи',
+    '/en/abb-siemens-motor-replacement' => 'Замена ABB и Siemens (EN)',
+    '/en/high-voltage-motors-6-10-kv' => 'Высоковольтные двигатели 6 и 10 кВ (EN)',
+    '/en/variable-frequency-drives' => 'Частотные преобразователи (EN)',
 ];
 const DEFAULT_DIRECTION = 'Общая форма сайта';
 

@@ -491,6 +491,7 @@ textarea.ln-input { min-height: 84px; line-height: 1.5; resize: vertical; }
 /* --- высоковольтные двигатели ------------------------------------------------ */
 
 .ln-hero--hv .ln-hero__media { background-image: url("/assets/images/products/7168958-4.jpg"); opacity: 0.24; }
+.ln-hero--vfd .ln-hero__media { background-image: url("/assets/images/vfd/ev510a.jpg"); opacity: 0.18; }
 
 /* Синхронные и асинхронные */
 .ln-types {

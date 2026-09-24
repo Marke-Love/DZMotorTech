@@ -1873,6 +1873,34 @@ body.page-en #header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-n
 #header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list.dz-offer > a[href="/zamena-dvigateley-abb-siemens/"]::before { content: "Подбор по шильдику"; }
 #header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list.dz-offer > a[href="/zamena-dvigateley-abb-siemens/"]::after { content: "Аналог по мощности, оборотам и монтажу"; }
 
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list.dz-offer > a[href="/chastotnye-preobrazovateli/"]::before { content: "Подбор по задаче"; }
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list.dz-offer > a[href="/chastotnye-preobrazovateli/"]::after { content: "EV200, EV510A и EV510H · 0,4 кВт – 20 МВА"; }
+
+/* 6b-3. Те же пункты в английском меню: там заголовок раздела — «Product». */
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list.dz-offer { order: 20; margin-top: 8px; padding-top: 10px; border-top: 1px solid #e4e7e9; }
+
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list.dz-offer > a.navigation { background: rgba(0, 174, 239, 0.08); }
+
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list.dz-offer > a.navigation:hover,
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list.dz-offer > a.navigation:focus-visible { background: rgba(0, 174, 239, 0.16); }
+
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list.dz-offer > a.navigation::before {
+  display: block;
+  margin-bottom: 3px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #0077a8;
+}
+
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list.dz-offer > a[href="/en/high-voltage-motors-6-10-kv/"]::before { content: "Selection by specification"; }
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list.dz-offer > a[href="/en/high-voltage-motors-6-10-kv/"]::after { content: "Synchronous and induction, from 200 kW"; }
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list.dz-offer > a[href="/en/variable-frequency-drives/"]::before { content: "Selection by application"; }
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list.dz-offer > a[href="/en/variable-frequency-drives/"]::after { content: "EV200, EV510A and EV510H · 0.4 kW – 20 MVA"; }
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list.dz-offer > a[href="/en/abb-siemens-motor-replacement/"]::before { content: "Selection by nameplate"; }
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list.dz-offer > a[href="/en/abb-siemens-motor-replacement/"]::after { content: "Equivalent by power, speed and mounting"; }
+
 /* В мобильном меню — цветом, чтобы отличались от разделов каталога. */
 #sidebar-main li.dz-offer > a.phone_navigation { color: #0077a8 !important; font-weight: 600; }
 
