@@ -27,6 +27,9 @@ const LEAD_DIRECTIONS = [
     '/en/variable-frequency-drives' => 'Частотные преобразователи (EN)',
 ];
 const DEFAULT_DIRECTION = 'Общая форма сайта';
+/** Заявка из формы на карточке товара — отдельное направление. */
+const PRODUCT_DIRECTION = 'Карточка товара';
+const PRODUCT_PAGE_PATTERN = '#^/(en/)?catalog/[^/]+/(?!index\.html$)[^/]+\.html$#';
 
 /** Обрезает строку до $max символов, не ломая UTF-8. */
 function clip(string $value, int $max): string
@@ -120,6 +123,12 @@ function detect_direction(string $formPage, string $landingPage, string $explici
             if ($page !== '' && strpos($page, $prefix) === 0) {
                 return $label;
             }
+        }
+    }
+    foreach ([$formPage, $landingPage] as $page) {
+        $path = (string) parse_url($page, PHP_URL_PATH);
+        if ($path !== '' && preg_match(PRODUCT_PAGE_PATTERN, $path)) {
+            return PRODUCT_DIRECTION;
         }
     }
     return $explicit !== '' ? $explicit : DEFAULT_DIRECTION;

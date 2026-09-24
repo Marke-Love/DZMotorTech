@@ -110,6 +110,45 @@
     } catch (e) { /* счётчик не должен ломать отправку заявки */ }
   }
 
+  /* Направление заявки по адресу страницы — теми же правилами, что и в
+     api/submit-lead.php, чтобы цель в Метрике и подпись в админке совпадали.
+     Директ оптимизирует кампании по конкретной цели, поэтому у каждой
+     посадочной она своя. */
+  var DIRECTIONS = [
+    ['/zamena-dvigateley-abb-siemens', '/en/abb-siemens-motor-replacement', 'lead_abb_siemens', 'Замена ABB и Siemens'],
+    ['/vysokovoltnye-dvigateli-6-10-kv', '/en/high-voltage-motors-6-10-kv', 'lead_high_voltage', 'Высоковольтные двигатели 6 и 10 кВ'],
+    ['/chastotnye-preobrazovateli', '/en/variable-frequency-drives', 'lead_vfd', 'Частотные преобразователи']
+  ];
+
+  function direction() {
+    var path = window.location.pathname;
+    for (var i = 0; i < DIRECTIONS.length; i++) {
+      if (path.indexOf(DIRECTIONS[i][0]) === 0 || path.indexOf(DIRECTIONS[i][1]) === 0) {
+        return { goal: DIRECTIONS[i][2], label: DIRECTIONS[i][3] };
+      }
+    }
+    // карточка товара: /catalog/<раздел>/<серия>.html и её английский двойник
+    if (/^\/(en\/)?catalog\/[^/]+\/(?!index\.html$)[^/]+\.html$/.test(path)) {
+      return { goal: 'lead_product', label: 'Карточка товара' };
+    }
+    return { goal: 'lead_site_form', label: 'Общая форма сайта' };
+  }
+
+  /* Цели после подтверждённой отправки: общая, по направлению и о файле.
+     Направление уходит ещё и параметром визита — в «Мастере отчётов»
+     по нему можно разложить заявки, не заводя отдельных целей. */
+  function leadGoals(withFiles) {
+    var d = direction();
+    goal('lead_form_sent');
+    goal(d.goal);
+    if (withFiles) goal('nameplate_uploaded');
+    if (typeof window.ym === 'function') {
+      try {
+        window.ym(METRIKA_ID, 'params', { lead: { direction: d.label } });
+      } catch (e) { /* параметры визита не критичны */ }
+    }
+  }
+
   document.addEventListener('click', function (event) {
     var link = event.target.closest ? event.target.closest('a[href]') : null;
     if (!link) return;
@@ -259,8 +298,7 @@
     }).then(function (response) {
       var ok = response.ok && response.url.indexOf('sent=1') !== -1;
       if (ok) {
-        goal('lead_form_sent');
-        if (withFiles) goal('nameplate_uploaded');
+        leadGoals(withFiles);
       }
       return ok;
     }).catch(function () {
@@ -272,7 +310,9 @@
     submit: submitLead,
     check: checkContact,
     applySource: applySource,
-    goal: goal
+    goal: goal,
+    leadGoals: leadGoals,
+    direction: direction
   };
 
   /* ======================================================================

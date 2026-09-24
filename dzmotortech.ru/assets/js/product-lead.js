@@ -148,6 +148,14 @@
         }
         form.hidden = true;
         done.hidden = false;
+        /* Цели Метрики — те же, что у остальных форм сайта: без этого заявки
+           с карточек товаров не попадали в статистику и в оптимизацию Директа. */
+        if (window.dzLead && typeof window.dzLead.leadGoals === 'function') {
+          var hasFile = Array.prototype.some.call(form.querySelectorAll('input[type="file"]'), function (input) {
+            return input.files && input.files.length > 0;
+          });
+          window.dzLead.leadGoals(hasFile);
+        }
       }).catch(function () {
         error.hidden = false;
         submit.disabled = false;
