@@ -69,7 +69,7 @@ var chectoutpage="";
 
 
   <style>body,body *{font-family:'Montserrat',sans-serif!important}</style>
-  <link rel="stylesheet" href="/assets/css/landing.css?v=1790100000">
+  <link rel="stylesheet" href="/assets/css/landing.css?v=1792500000">
 </head>
 <body data-template="page" class="body ln-page">
 
@@ -545,7 +545,7 @@ var chectoutpage="";
         </div>
         <div class="ln-hero__form">
         <div class="ln-card">
-          <form class="ln-form" method="post" enctype="multipart/form-data" action="/api/submit-lead.php" data-ln-form>
+          <form class="ln-form" id="podbor" method="post" enctype="multipart/form-data" action="/api/submit-lead.php" data-ln-form>
             <p class="ln-form__title">Пришлите шильдик — подберём замену</p>
             <p class="ln-form__lede">Специалист сверит параметры и пришлёт модель Dazhong, цену и срок поставки.</p>
 
@@ -562,8 +562,8 @@ var chectoutpage="";
                 <input class="ln-input" type="text" id="f1_name" name="txt_name" placeholder="Как к вам обращаться" autocomplete="name" required>
               </div>
               <div class="ln-field">
-                <label for="f1_company">Компания</label>
-                <input class="ln-input" type="text" id="f1_company" name="txt_company" placeholder="Название организации" autocomplete="organization">
+                <label for="f1_company">Компания <span class="ln-req">*</span></label>
+                <input class="ln-input" type="text" id="f1_company" name="txt_company" placeholder="Название организации" autocomplete="organization" required>
               </div>
               <div class="ln-field">
                 <label for="f1_contact">Телефон или email <span class="ln-req">*</span></label>
@@ -607,44 +607,44 @@ var chectoutpage="";
         <div class="ln-head">
           <p class="ln-eyebrow">Параметры</p>
           <h2 class="ln-h2">Что сверяем при подборе замены</h2>
-          <p class="ln-lede">Двигатель на замену должен встать на место старого без переделки фундамента, муфты и питания. Поэтому сравниваем не только мощность.</p>
+          <p class="ln-lede">Двигатель на замену должен встать на место старого без переделки фундамента, муфты и питания.</p>
         </div>
-        <ul class="ln-params">
-          <li class="ln-param">
-            <h3>Мощность</h3>
-            <p>Номинальная мощность — как на шильдике старого двигателя.</p>
+        <ul class="ln-glows ln-glows--tilt">
+          <li data-ln-tilt class="ln-glow ln-glow--cyan">
+            <span class="ln-glow__panel" aria-hidden="true"></span>
+            <div class="ln-glow__content">
+              <p class="ln-glow__kicker">01</p>
+              <h3>Электрические параметры</h3>
+              <div class="ln-glow__group"><p class="ln-glow__label">Мощность</p><p class="ln-glow__sub">Номинальная мощность по шильдику старого двигателя.</p></div><div class="ln-glow__group"><p class="ln-glow__label">Напряжение</p><p class="ln-glow__sub">Номинальное напряжение и схема соединения обмоток.</p></div>
+            </div>
           </li>
-          <li class="ln-param">
-            <h3>Напряжение</h3>
-            <p>Номинальное напряжение и схема соединения обмоток.</p>
+          <li data-ln-tilt class="ln-glow ln-glow--teal">
+            <span class="ln-glow__panel" aria-hidden="true"></span>
+            <div class="ln-glow__content">
+              <p class="ln-glow__kicker">02</p>
+              <h3>Скорость и режим</h3>
+              <div class="ln-glow__group"><p class="ln-glow__label">Частота вращения</p><p class="ln-glow__sub">Частота вращения и число полюсов.</p></div><div class="ln-glow__group"><p class="ln-glow__label">Режим работы</p><p class="ln-glow__sub">Продолжительный S1 или повторно-кратковременные режимы.</p></div>
+            </div>
           </li>
-          <li class="ln-param">
-            <h3>Обороты</h3>
-            <p>Частота вращения и число полюсов — от них зависит работа механизма.</p>
+          <li data-ln-tilt class="ln-glow ln-glow--blue">
+            <span class="ln-glow__panel" aria-hidden="true"></span>
+            <div class="ln-glow__content">
+              <p class="ln-glow__kicker">03</p>
+              <h3>Монтаж и вал</h3>
+              <div class="ln-glow__group"><p class="ln-glow__label">Монтажное исполнение</p><p class="ln-glow__sub">На лапах, на фланце или комбинированное.</p></div><div class="ln-glow__group"><p class="ln-glow__label">Вал</p><p class="ln-glow__sub">Диаметр и длина выходного конца вала, шпонка.</p></div>
+            </div>
           </li>
-          <li class="ln-param">
-            <h3>Режим работы</h3>
-            <p>Продолжительный S1 или повторно-кратковременные режимы.</p>
-          </li>
-          <li class="ln-param">
-            <h3>Охлаждение и защита</h3>
-            <p>Способ охлаждения и степень защиты оболочки.</p>
-          </li>
-          <li class="ln-param">
-            <h3>Монтажное исполнение</h3>
-            <p>На лапах, на фланце или комбинированное.</p>
-          </li>
-          <li class="ln-param">
-            <h3>Вал</h3>
-            <p>Диаметр и длина выходного конца вала, шпонка.</p>
-          </li>
-          <li class="ln-param">
-            <h3>Присоединительные размеры</h3>
-            <p>Высота оси вращения, крепёжные отверстия, фланец.</p>
+          <li data-ln-tilt class="ln-glow ln-glow--sky">
+            <span class="ln-glow__panel" aria-hidden="true"></span>
+            <div class="ln-glow__content">
+              <p class="ln-glow__kicker">04</p>
+              <h3>Размеры и защита</h3>
+              <div class="ln-glow__group"><p class="ln-glow__label">Присоединительные размеры</p><p class="ln-glow__sub">Высота оси вращения, крепёжные отверстия, фланец.</p></div><div class="ln-glow__group"><p class="ln-glow__label">Охлаждение и защита</p><p class="ln-glow__sub">Способ охлаждения и степень защиты оболочки.</p></div>
+            </div>
           </li>
         </ul>
         <div class="ln-note">
-          <p>Большинство этих параметров есть на шильдике. Если его не видно или он утерян — пришлите паспорт или название старой модели.</p>
+          <p>Шильдик не читается или утерян? Пришлите паспорт двигателя или обозначение старой модели.</p>
           <button class="ln-btn ln-btn--primary" type="button" data-ln-upload><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3z"/><circle cx="12" cy="13" r="3.2"/></svg>Отправить фото шильдика</button>
         </div>
       </div>
@@ -657,7 +657,7 @@ var chectoutpage="";
           <p class="ln-eyebrow">Порядок работы</p>
           <h2 class="ln-h2">Как проходит подбор</h2>
         </div>
-        <ol class="ln-steps">
+        <ol class="ln-steps ln-steps--hover">
           <li class="ln-step">
             <h3>Получаем данные</h3>
             <p>Фото шильдика, паспорт, название старой модели или техническое задание.</p>
@@ -684,42 +684,55 @@ var chectoutpage="";
         <div class="ln-head">
           <p class="ln-eyebrow">Исходные данные</p>
           <h2 class="ln-h2">Что можно прислать</h2>
-          <p class="ln-lede">Подойдёт любое из этого — чем больше данных, тем точнее подбор.</p>
+          <p class="ln-lede">Подойдёт любой из вариантов. Чем полнее данные, тем точнее подбор.</p>
         </div>
-        <ul class="ln-send">
+        <ul class="ln-send ln-send--hover">
           <li>
             <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3z"/><circle cx="12" cy="13" r="3.2"/></svg>
             <span class="ln-send__tag">Быстрее всего</span>
             <h3>Фото шильдика</h3>
-            <p>Самый быстрый способ: на нём мощность, напряжение, обороты и степень защиты.</p>
+            <p>На нём мощность, напряжение, частота вращения и степень защиты.</p>
+            <a class="ln-send__cover" href="#podbor" aria-label="Оставить заявку: Фото шильдика"></a>
           </li>
           <li>
             <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8M16 17H8M10 9H8"/></svg>
             
             <h3>Паспорт двигателя</h3>
             <p>Скан или фото страниц с техническими данными.</p>
+            <a class="ln-send__cover" href="#podbor" aria-label="Оставить заявку: Паспорт двигателя"></a>
           </li>
           <li>
             <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.6 13.4l-7.2 7.2a2 2 0 0 1-2.8 0L2 12V2h10l8.6 8.6a2 2 0 0 1 0 2.8z"/><circle cx="7" cy="7" r="1.5"/></svg>
             
             <h3>Старая модель</h3>
             <p>Производитель и полное обозначение двигателя.</p>
+            <a class="ln-send__cover" href="#podbor" aria-label="Оставить заявку: Старая модель"></a>
           </li>
           <li>
             <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
             
             <h3>Чертёж</h3>
             <p>Габаритный или присоединительный чертёж.</p>
+            <a class="ln-send__cover" href="#podbor" aria-label="Оставить заявку: Чертёж"></a>
           </li>
           <li>
             <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M9 12h6M9 16h4"/></svg>
             
             <h3>Техническое задание</h3>
             <p>ТЗ или опросный лист с условиями работы.</p>
+            <a class="ln-send__cover" href="#podbor" aria-label="Оставить заявку: Техническое задание"></a>
           </li>
         </ul>
-        <div class="ln-center">
-          <button class="ln-btn ln-btn--dark" type="button" data-ln-upload><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3z"/><circle cx="12" cy="13" r="3.2"/></svg>Отправить фото шильдика</button>
+        <div class="ln-help">
+          <span class="ln-help__icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 21a8 8 0 0 1 13.29-6"/><circle cx="10" cy="8" r="5"/><path d="m16 19 2 2 4-4"/></svg></span>
+          <div class="ln-help__text">
+            <p class="ln-help__title">Не знаете, какие данные нужны?</p>
+            <p>Поможет наш специалист: подскажет, что снять с двигателя на месте, подберёт замену Dazhong и пришлёт техническое предложение с ценой и сроком поставки.</p>
+          </div>
+          <div class="ln-help__actions">
+            <a class="ln-btn ln-btn--primary" href="#podbor">Оставить заявку</a>
+            <button class="ln-btn ln-btn--dark" type="button" data-ln-upload><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3z"/><circle cx="12" cy="13" r="3.2"/></svg>Отправить шильдик</button>
+          </div>
         </div>
       </div>
     </section>
@@ -773,7 +786,7 @@ var chectoutpage="";
           <li><b>1958</b><span>год основания завода</span></li>
           <li><b>2 000</b><span>сотрудников на заводе</span></li>
           <li><b>68 %</b><span>сотрудников — технические специалисты</span></li>
-          <li><b>60+</b><span>стран в сети продаж</span></li>
+          <li><b>60+</b><span>стран, где работают двигатели</span></li>
           <li><b>СПб</b><span>российский офис</span></li>
         </ul>
       </div>
@@ -785,7 +798,7 @@ var chectoutpage="";
         <div>
           <p class="ln-eyebrow">Документы</p>
           <h2 class="ln-h2">Сертификаты и патенты</h2>
-          <p class="ln-lede">Сертификаты систем менеджмента качества, экологического менеджмента и охраны труда, сертификат послепродажного обслуживания, патенты на изобретения. Полный список — на странице документов.</p>
+          <p class="ln-lede">ISO 9001, ISO 14001, ISO 45001, CE, UL, ATEX. 61 патент, из них 18 — на изобретения. Копии документов — на странице сертификатов.</p>
           <div class="ln-docs__more">
             <a class="ln-btn ln-btn--dark" href="/company/certificates.html">Все документы <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a>
           </div>
@@ -852,8 +865,8 @@ var chectoutpage="";
                 <input class="ln-input" type="text" id="f2_name" name="txt_name" placeholder="Как к вам обращаться" autocomplete="name" required>
               </div>
               <div class="ln-field">
-                <label for="f2_company">Компания</label>
-                <input class="ln-input" type="text" id="f2_company" name="txt_company" placeholder="Название организации" autocomplete="organization">
+                <label for="f2_company">Компания <span class="ln-req">*</span></label>
+                <input class="ln-input" type="text" id="f2_company" name="txt_company" placeholder="Название организации" autocomplete="organization" required>
               </div>
               <div class="ln-field">
                 <label for="f2_contact">Телефон или email <span class="ln-req">*</span></label>
@@ -1506,6 +1519,6 @@ var chectoutpage="";
 <script src="/assets/js/to-top.js?v=1787154820" defer></script>
 
   <script src="/assets/js/lead-modal.js?v=1790000000" defer></script>
-  <script src="/assets/js/landing.js?v=1790000000" defer></script>
+  <script src="/assets/js/landing.js?v=1792200000" defer></script>
 </body>
 </html>

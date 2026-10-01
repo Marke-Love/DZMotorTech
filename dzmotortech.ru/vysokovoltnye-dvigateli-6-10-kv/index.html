@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Высоковольтные электродвигатели 6 и 10 кВ — ДЗМоторТех</title>
-  <meta name="description" content="Подбор высоковольтных синхронных и асинхронных электродвигателей Dazhong 6 и 10 кВ мощностью от 200 кВт для насосов, компрессоров, вентиляторов, дымососов и мельниц. Пришлите ТЗ — подготовим техническое предложение.">
+  <meta name="description" content="Подбор высоковольтных синхронных и асинхронных электродвигателей Dazhong 6 и 10 кВ мощностью от 160 кВт для насосов, компрессоров, вентиляторов, мельниц и конвейеров. Пришлите ТЗ — подготовим техническое предложение.">
   <link rel="canonical" href="https://dzmotortech.ru/vysokovoltnye-dvigateli-6-10-kv/">
 <link rel="alternate" hreflang="ru" href="https://dzmotortech.ru/vysokovoltnye-dvigateli-6-10-kv/">
 <link rel="alternate" hreflang="en" href="https://dzmotortech.ru/en/high-voltage-motors-6-10-kv/">
@@ -12,7 +12,7 @@
   <meta property="og:type" content="website">
   <meta property="og:locale" content="ru_RU">
   <meta property="og:title" content="Высоковольтные электродвигатели 6 и 10 кВ">
-  <meta property="og:description" content="Синхронные и асинхронные двигатели Dazhong от 200 кВт для насосов, компрессоров, вентиляторов, дымососов и мельниц. Пришлите ТЗ — подготовим техническое предложение.">
+  <meta property="og:description" content="Синхронные и асинхронные двигатели Dazhong от 160 кВт для насосов, компрессоров, вентиляторов, мельниц и конвейеров. Пришлите ТЗ — подготовим техническое предложение.">
   <meta property="og:url" content="https://dzmotortech.ru/vysokovoltnye-dvigateli-6-10-kv/">
   <meta property="og:image" content="https://dzmotortech.ru/assets/images/products/7168958-4.jpg">
   <link rel="icon" href="/media/ru/ico/1763104710097_0.ico">
@@ -69,7 +69,7 @@ var chectoutpage="";
 
 
   <style>body,body *{font-family:'Montserrat',sans-serif!important}</style>
-  <link rel="stylesheet" href="/assets/css/landing.css?v=1790100000">
+  <link rel="stylesheet" href="/assets/css/landing.css?v=1792400000">
 </head>
 <body data-template="page" class="body ln-page">
 
@@ -531,7 +531,7 @@ var chectoutpage="";
           </nav>
           <p class="ln-eyebrow">High Voltage Motor</p>
           <h1 class="ln-hero__h">Высоковольтные электродвигатели <em>6&nbsp;и&nbsp;10&nbsp;кВ</em></h1>
-          <p class="ln-hero__lede">Подбор высоковольтных синхронных и асинхронных электродвигателей мощностью от 200 кВт для насосов, компрессоров, вентиляторов, дымососов, мельниц и другого промышленного оборудования.</p>
+          <p class="ln-hero__lede">Подбор высоковольтных синхронных и асинхронных электродвигателей мощностью от 160 кВт для насосов, компрессоров, вентиляторов, мельниц, конвейеров и подъёмных механизмов.</p>
           <div class="ln-hero__actions">
             <button class="ln-btn ln-btn--primary" type="button" data-ln-upload><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8M16 17H8"/></svg>Отправить техническое задание</button>
             <button class="ln-btn ln-btn--ghost" type="button" data-ln-upload><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3z"/><circle cx="12" cy="13" r="3.2"/></svg>Отправить шильдик двигателя</button>
@@ -539,12 +539,12 @@ var chectoutpage="";
           <p class="ln-hero__phone">Российский офис: <a href="tel:+79213820715">+7 921 382-07-15</a></p>
           <ul class="ln-hero__facts">
             <li><b>6 и 10 кВ</b><span>номинальное напряжение</span></li>
-            <li><b>от 200 кВт</b><span>мощность</span></li>
+            <li><b>от 160 кВт</b><span>мощность</span></li>
           </ul>
         </div>
         <div class="ln-hero__form">
         <div class="ln-card">
-          <form class="ln-form" method="post" enctype="multipart/form-data" action="/api/submit-lead.php" data-ln-form>
+          <form class="ln-form" id="podbor" method="post" enctype="multipart/form-data" action="/api/submit-lead.php" data-ln-form>
             <p class="ln-form__title">Пришлите ТЗ — подготовим предложение</p>
             <p class="ln-form__lede">Специалист подберёт серию Dazhong и пришлёт техническое предложение с ценой и сроком поставки.</p>
 
@@ -561,8 +561,8 @@ var chectoutpage="";
                 <input class="ln-input" type="text" id="f1_name" name="txt_name" placeholder="Как к вам обращаться" autocomplete="name" required>
               </div>
               <div class="ln-field">
-                <label for="f1_company">Компания</label>
-                <input class="ln-input" type="text" id="f1_company" name="txt_company" placeholder="Название организации" autocomplete="organization">
+                <label for="f1_company">Компания <span class="ln-req">*</span></label>
+                <input class="ln-input" type="text" id="f1_company" name="txt_company" placeholder="Название организации" autocomplete="organization" required>
               </div>
               <div class="ln-field">
                 <label for="f1_contact">Телефон или email <span class="ln-req">*</span></label>
@@ -606,46 +606,73 @@ var chectoutpage="";
         <div class="ln-head">
           <p class="ln-eyebrow">Характеристики</p>
           <h2 class="ln-h2">Диапазоны и исполнения</h2>
-          <p class="ln-lede">Значения — из характеристик серий Dazhong в каталоге. Конкретное исполнение подбираем под механизм и условия работы.</p>
         </div>
-        <ul class="ln-params">
-          <li class="ln-param">
-            <h3>Напряжение</h3>
-            <p>6 кВ и 10 кВ. Серии для насосных станций — в диапазоне до 13,8 кВ.</p>
+        <ul class="ln-glows ln-glows--tilt">
+          <li data-ln-tilt class="ln-glow ln-glow--cyan">
+            <span class="ln-glow__panel" aria-hidden="true"></span>
+            <div class="ln-glow__content">
+              <p class="ln-glow__kicker">01</p>
+              <h3>Напряжение и мощность</h3>
+              <div class="ln-glow__stat"><p class="ln-glow__big">6 и 10 <small>кВ</small></p><p class="ln-glow__sub">Взрывозащищённые серии — также 3 кВ, для насосных станций — до 13,8 кВ</p></div><div class="ln-glow__stat"><p class="ln-glow__big">160 – 10 000 <small>кВт</small></p><p class="ln-glow__sub">Серии для насосных станций — от 140 до 28 500 кВт</p></div>
+            </div>
           </li>
-          <li class="ln-param">
-            <h3>Мощность</h3>
-            <p>Синхронные серии T — 400–10 000 кВт, асинхронные — от 160 кВт. Более мощные машины — по заказу.</p>
+          <li data-ln-tilt class="ln-glow ln-glow--teal">
+            <span class="ln-glow__panel" aria-hidden="true"></span>
+            <div class="ln-glow__content">
+              <p class="ln-glow__kicker">02</p>
+              <h3>Скорость и полюса</h3>
+              <div class="ln-glow__stat"><p class="ln-glow__big">75 – 1 500 <small>об/мин</small></p><p class="ln-glow__sub">Синхронная серия T. Частотно-регулируемая YBBP — до 6 000 об/мин</p></div><div class="ln-glow__stat"><p class="ln-glow__big">2 – 80 <small>полюсов</small></p><p class="ln-glow__sub">Синхронные T — 4–80, асинхронные — 2–20, для насосных станций — 2–24</p></div>
+            </div>
           </li>
-          <li class="ln-param">
-            <h3>Частота вращения</h3>
-            <p>Синхронные двигатели серии T — 75–1 500 об/мин, от 4 до 80 полюсов.</p>
+          <li data-ln-tilt class="ln-glow ln-glow--blue">
+            <span class="ln-glow__panel" aria-hidden="true"></span>
+            <div class="ln-glow__content">
+              <p class="ln-glow__kicker">03</p>
+              <h3>Тип и монтаж</h3>
+              <div class="ln-glow__group"><p class="ln-glow__label">Тип</p><ul class="ln-glow__chips"><li>Синхронные</li><li>Асинхронные трёхфазные</li><li>Взрывозащищённые Ex&nbsp;d</li><li>Неискрящие Ex&nbsp;nA</li></ul></div><div class="ln-glow__group"><p class="ln-glow__label">Монтаж</p><ul class="ln-glow__chips"><li>Горизонтальное</li><li>Вертикальное для насосных агрегатов</li></ul></div>
+            </div>
           </li>
-          <li class="ln-param">
-            <h3>Тип двигателя</h3>
-            <p>Синхронные, асинхронные с короткозамкнутым и с фазным ротором.</p>
-          </li>
-          <li class="ln-param">
-            <h3>Монтажное исполнение</h3>
-            <p>Горизонтальное на лапах и вертикальное — для насосных агрегатов.</p>
-          </li>
-          <li class="ln-param">
-            <h3>Охлаждение</h3>
-            <p>Например, IC611 — замкнутый контур воздух-воздух для запылённой среды.</p>
-          </li>
-          <li class="ln-param">
-            <h3>Степень защиты</h3>
-            <p>IP55, для влажных зон насосных станций — IPW24 и IP66.</p>
-          </li>
-          <li class="ln-param">
-            <h3>Режим работы</h3>
-            <p>Продолжительная работа, тяжёлые и частые пуски под нагрузкой.</p>
+          <li data-ln-tilt class="ln-glow ln-glow--sky">
+            <span class="ln-glow__panel" aria-hidden="true"></span>
+            <div class="ln-glow__content">
+              <p class="ln-glow__kicker">04</p>
+              <h3>Охлаждение, защита, режим</h3>
+              <div class="ln-glow__group"><p class="ln-glow__label">Охлаждение</p><ul class="ln-glow__chips"><li>IC611 воздух-воздух</li><li>IC81W воздух-вода</li><li>IC01</li><li>IC666</li></ul></div><div class="ln-glow__group"><p class="ln-glow__label">Защита</p><ul class="ln-glow__chips"><li>IP55</li><li>IP66</li><li>IPW24</li></ul></div><div class="ln-glow__group"><p class="ln-glow__label">Режим</p><ul class="ln-glow__chips"><li>Круглосуточно</li><li>Частые пуски</li><li>С ЧРП</li></ul></div>
+            </div>
           </li>
         </ul>
         <div class="ln-note">
-          <p>Нет готового ТЗ или опросного листа? Пришлите шильдик или паспорт двигателя, который нужно заменить, — параметры возьмём с него.</p>
+          <p>Нет ТЗ? Сфотографируйте шильдик старого двигателя — по нему подберём замену.</p>
           <button class="ln-btn ln-btn--primary" type="button" data-ln-upload><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3z"/><circle cx="12" cy="13" r="3.2"/></svg>Отправить шильдик двигателя</button>
         </div>
+      </div>
+    </section>
+
+    <!-- Как проходит подбор -->
+    <section class="ln-section ln-section--white" style="padding-top:0">
+      <div class="ln-shell">
+        <div class="ln-head">
+          <p class="ln-eyebrow">Порядок работы</p>
+          <h2 class="ln-h2">Как проходит подбор</h2>
+        </div>
+        <ol class="ln-steps ln-steps--hover">
+          <li class="ln-step">
+            <h3>Получаем данные</h3>
+            <p>Техническое задание, опросный лист, фото шильдика или паспорт двигателя, который нужно заменить.</p>
+          </li>
+          <li class="ln-step">
+            <h3>Техническая проверка</h3>
+            <p>Специалист сверяет мощность, напряжение, частоту вращения, исполнение и условия работы, при необходимости уточняет детали.</p>
+          </li>
+          <li class="ln-step">
+            <h3>Предлагаем серию</h3>
+            <p>Серия Dazhong с совпадающими характеристиками. Если есть отличия — указываем какие.</p>
+          </li>
+          <li class="ln-step">
+            <h3>Цена и срок поставки</h3>
+            <p>Присылаем техническое предложение с ценой и сроком изготовления.</p>
+          </li>
+        </ol>
       </div>
     </section>
 
@@ -656,26 +683,50 @@ var chectoutpage="";
           <p class="ln-eyebrow">Исполнения</p>
           <h2 class="ln-h2">Синхронные и асинхронные двигатели</h2>
         </div>
-        <ul class="ln-types">
-          <li class="ln-type">
-            <h3>Синхронные</h3>
-            <p>Для мощных приводов с длительной непрерывной работой.</p>
+        <div class="ln-duo">
+          <article class="ln-duo__card ln-duo__card--sync">
+            <p class="ln-duo__kicker">Синхронные</p>
+            <h3>Привод большой мощности с постоянной частотой вращения</h3>
+            <p class="ln-duo__lede">Для крупных машин с длительной непрерывной работой: шаровых мельниц, компрессоров, мощных насосов и вентиляторов.</p>
+            <dl class="ln-duo__stats">
+              <div><dt>97 %+</dt><dd>КПД при номинальной нагрузке</dd></div>
+              <div><dt>−20 %</dt><dd>потерь против асинхронных той же мощности</dd></div>
+              <div><dt>75</dt><dd>об/мин — минимальная частота, высокий момент без редуктора</dd></div>
+            </dl>
             <ul class="ln-ticks">
-              <li>КПД серии T — свыше 97 % при номинальной нагрузке</li>
               <li>Регулируемый коэффициент мощности: двигатель компенсирует реактивную мощность сети</li>
-              <li>Низкие обороты с высоким моментом — без редуктора</li>
+              <li>Частота вращения не зависит от нагрузки</li>
             </ul>
-          </li>
-          <li class="ln-type">
-            <h3>Асинхронные</h3>
-            <p>С короткозамкнутым ротором — для насосов и вентиляторов, с фазным ротором — для тяжёлого пуска.</p>
+            <p class="ln-duo__series"><span>Серия</span><a href="/catalog/high-voltage/t-krupnyy.html">T</a></p>
+          </article>
+          <div class="ln-duo__or" aria-hidden="true">или</div>
+          <article class="ln-duo__card ln-duo__card--async">
+            <p class="ln-duo__kicker">Асинхронные</p>
+            <h3>Общепромышленные и взрывозащищённые исполнения</h3>
+            <p class="ln-duo__lede">Для насосов, вентиляторов, компрессоров, конвейеров и подъёмных механизмов, в том числе во взрывоопасных зонах 1 и 2.</p>
+            <dl class="ln-duo__stats">
+              <div><dt>2,5×</dt><dd>перегрузочная способность YBKS для частых пусков</dd></div>
+              <div><dt>1:100</dt><dd>диапазон регулирования YBBP при постоянном моменте</dd></div>
+              <div><dt>IE3</dt><dd>класс энергоэффективности YB2, Y2W, YWKK</dd></div>
+            </dl>
             <ul class="ln-ticks">
-              <li>Фазный ротор: высокий пусковой момент при малом пусковом токе</li>
-              <li>Частые пуски под полной нагрузкой без ударов по трансмиссии</li>
-              <li>Модульные серии для насосных станций с усиленными подшипниками под осевую нагрузку</li>
+              <li>Взрывозащита до Ex d IIC T4 Gb, неискрящее исполнение Ex nA II T4 Gb</li>
+              <li>Изоляция класса F, перегрев по классу B</li>
             </ul>
-          </li>
-        </ul>
+            <p class="ln-duo__series"><span>Серии</span><a href="/catalog/high-voltage/yb2.html">YB2</a><a href="/catalog/high-voltage/ybx3.html">YBX3</a><a href="/catalog/high-voltage/ybks.html">YBKS</a><a href="/catalog/high-voltage/ybbp.html">YBBP</a><a href="/catalog/high-voltage/y2w.html">Y2W</a><a href="/catalog/high-voltage/ywkk.html">YWKK</a></p>
+          </article>
+        </div>
+        <div class="ln-help">
+          <span class="ln-help__icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 21a8 8 0 0 1 13.29-6"/><circle cx="10" cy="8" r="5"/><path d="m16 19 2 2 4-4"/></svg></span>
+          <div class="ln-help__text">
+            <p class="ln-help__title">Не знаете, что выбрать — синхронный или асинхронный?</p>
+            <p>Поможет наш специалист: подберёт двигатель под ваш механизм, режим работы и условия среды и пришлёт техническое предложение с ценой и сроком поставки.</p>
+          </div>
+          <div class="ln-help__actions">
+            <a class="ln-btn ln-btn--primary" href="#podbor">Оставить заявку</a>
+            <button class="ln-btn ln-btn--dark" type="button" data-ln-upload><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3z"/><circle cx="12" cy="13" r="3.2"/></svg>Отправить шильдик</button>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -707,109 +758,112 @@ var chectoutpage="";
           <p class="ln-eyebrow">Серии Dazhong</p>
           <h2 class="ln-h2">Серии высоковольтных двигателей</h2>
         </div>
-        <p class="ln-lede" style="margin-bottom:22px">Девять серий 6 и 10 кВ: синхронные, асинхронные с короткозамкнутым и фазным ротором, исполнения для взрывоопасных зон. Мощность и напряжение — как в карточках каталога.</p>
-        <ul class="ln-series">
-          <li class="ln-serie">
-            <a class="ln-serie__media" href="/catalog/high-voltage/t-krupnyy.html"><img src="/assets/images/hv/t.jpg" alt="Крупный высоковольтный синхронный двигатель серии T" loading="lazy" decoding="async" width="560" height="560"></a>
-            <div class="ln-serie__body">
-              <p class="ln-serie__type">Синхронный</p>
-              <h3>Серия T</h3>
-              <dl class="ln-specs">
-                <div><dt>Мощность</dt><dd>400–10 000 кВт</dd></div><div><dt>Напряжение</dt><dd>6 / 10 кВ</dd></div><div><dt>Обороты</dt><dd>75–1 500 об/мин</dd></div><div><dt>Полюса</dt><dd>4–80</dd></div>
-              </dl>
-              <a class="ln-link" href="/catalog/high-voltage/t-krupnyy.html">Характеристики серии <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a>
-            </div>
+        <ul class="ln-ncards">
+          <li>
+            <a class="ln-ncard" href="/catalog/high-voltage/t-krupnyy.html" aria-label="Серия T — характеристики серии">
+              <span class="ln-ncard__cover">
+                <img src="/assets/images/hv/t.jpg" alt="Крупный высоковольтный синхронный двигатель серии T" loading="lazy" decoding="async" width="560" height="560">
+                <span class="ln-ncard__notch" aria-hidden="true"></span>
+                <span class="ln-ncard__fillet ln-ncard__fillet--up" aria-hidden="true"></span>
+                <span class="ln-ncard__fillet ln-ncard__fillet--left" aria-hidden="true"></span>
+                <span class="ln-ncard__go" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg></span>
+              </span>
+              <h3 class="ln-ncard__title">Серия T</h3>
+              <dl class="ln-specs"><div><dt>Мощность</dt><dd>400–10 000 кВт</dd></div><div><dt>Напряжение</dt><dd>6 / 10 кВ</dd></div><div><dt>Обороты</dt><dd>75–1 500 об/мин</dd></div><div><dt>Полюса</dt><dd>4–80</dd></div></dl>
+            </a>
           </li>
-          <li class="ln-serie">
-            <a class="ln-serie__media" href="/catalog/special/ic611.html"><img src="/assets/images/hv/yrkk.jpg" alt="Двигатель с фазным ротором YRKK" loading="lazy" decoding="async" width="560" height="560"></a>
-            <div class="ln-serie__body">
-              <p class="ln-serie__type">Асинхронный, фазный ротор</p>
-              <h3>Серия YRKK</h3>
-              <dl class="ln-specs">
-                <div><dt>Мощность</dt><dd>450–1 250 кВт</dd></div><div><dt>Полюса</dt><dd>6</dd></div><div><dt>Охлаждение</dt><dd>IC611</dd></div><div><dt>Защита</dt><dd>IP55</dd></div>
-              </dl>
-              <a class="ln-link" href="/catalog/special/ic611.html">Характеристики серии <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a>
-            </div>
+          <li>
+            <a class="ln-ncard" href="/catalog/marine/vodokhozyaystvennykh-nasosnykh-stantsiy.html" aria-label="Для насосных станций — характеристики серии">
+              <span class="ln-ncard__cover ln-ncard__cover--photo">
+                <img src="/assets/images/hv/pump.jpg" alt="Двигатели для водохозяйственных насосных станций" loading="lazy" decoding="async" width="560" height="560">
+                <span class="ln-ncard__notch" aria-hidden="true"></span>
+                <span class="ln-ncard__fillet ln-ncard__fillet--up" aria-hidden="true"></span>
+                <span class="ln-ncard__fillet ln-ncard__fillet--left" aria-hidden="true"></span>
+                <span class="ln-ncard__go" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg></span>
+              </span>
+              <h3 class="ln-ncard__title">Для насосных станций</h3>
+              <dl class="ln-specs"><div><dt>Мощность</dt><dd>140–28 500 кВт</dd></div><div><dt>Напряжение</dt><dd>до 13,8 кВ</dd></div><div><dt>Полюса</dt><dd>2–24</dd></div><div><dt>Защита</dt><dd>IP55 / IP66</dd></div></dl>
+            </a>
           </li>
-          <li class="ln-serie">
-            <a class="ln-serie__media" href="/catalog/marine/vodokhozyaystvennykh-nasosnykh-stantsiy.html"><img src="/assets/images/hv/pump.jpg" alt="Двигатели для водохозяйственных насосных станций" loading="lazy" decoding="async" width="560" height="560"></a>
-            <div class="ln-serie__body">
-              <p class="ln-serie__type">Асинхронные и синхронные</p>
-              <h3>Для насосных станций</h3>
-              <dl class="ln-specs">
-                <div><dt>Мощность</dt><dd>140–28 500 кВт</dd></div><div><dt>Напряжение</dt><dd>до 13,8 кВ</dd></div><div><dt>Полюса</dt><dd>2–24</dd></div><div><dt>Защита</dt><dd>IP55 / IP66</dd></div>
-              </dl>
-              <a class="ln-link" href="/catalog/marine/vodokhozyaystvennykh-nasosnykh-stantsiy.html">Характеристики серии <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a>
-            </div>
+          <li>
+            <a class="ln-ncard" href="/catalog/high-voltage/ywkk.html" aria-label="Серия YWKK — характеристики серии">
+              <span class="ln-ncard__cover">
+                <img src="/assets/images/hv/ywkk.jpg" alt="Высоковольтный неискрящий двигатель серии YWKK" loading="lazy" decoding="async" width="560" height="560">
+                <span class="ln-ncard__notch" aria-hidden="true"></span>
+                <span class="ln-ncard__fillet ln-ncard__fillet--up" aria-hidden="true"></span>
+                <span class="ln-ncard__fillet ln-ncard__fillet--left" aria-hidden="true"></span>
+                <span class="ln-ncard__go" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg></span>
+              </span>
+              <h3 class="ln-ncard__title">Серия YWKK</h3>
+              <dl class="ln-specs"><div><dt>Мощность</dt><dd>160–5 600 кВт</dd></div><div><dt>Напряжение</dt><dd>6–10 кВ</dd></div><div><dt>Полюса</dt><dd>2–20</dd></div><div><dt>Энергоэффективность</dt><dd>IE3</dd></div></dl>
+            </a>
           </li>
-          <li class="ln-serie">
-            <a class="ln-serie__media" href="/catalog/high-voltage/ywkk.html"><img src="/assets/images/hv/ywkk.jpg" alt="Высоковольтный искрозащищённый двигатель серии YWKK" loading="lazy" decoding="async" width="560" height="560"></a>
-            <div class="ln-serie__body">
-              <p class="ln-serie__type">Искрозащищённый</p>
-              <h3>Серия YWKK</h3>
-              <dl class="ln-specs">
-                <div><dt>Мощность</dt><dd>160–5 600 кВт</dd></div><div><dt>Напряжение</dt><dd>6 000–10 000 В</dd></div>
-              </dl>
-              <a class="ln-link" href="/catalog/high-voltage/ywkk.html">Характеристики серии <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a>
-            </div>
+          <li>
+            <a class="ln-ncard" href="/catalog/high-voltage/ybks.html" aria-label="Серия YBKS — характеристики серии">
+              <span class="ln-ncard__cover">
+                <img src="/assets/images/hv/ybks.jpg" alt="Высоковольтный взрывозащищённый двигатель серии YBKS" loading="lazy" decoding="async" width="560" height="560">
+                <span class="ln-ncard__notch" aria-hidden="true"></span>
+                <span class="ln-ncard__fillet ln-ncard__fillet--up" aria-hidden="true"></span>
+                <span class="ln-ncard__fillet ln-ncard__fillet--left" aria-hidden="true"></span>
+                <span class="ln-ncard__go" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg></span>
+              </span>
+              <h3 class="ln-ncard__title">Серия YBKS</h3>
+              <dl class="ln-specs"><div><dt>Мощность</dt><dd>185–5 600 кВт</dd></div><div><dt>Напряжение</dt><dd>3 / 6 / 10 кВ</dd></div><div><dt>Полюса</dt><dd>2–12</dd></div><div><dt>Перегрузка</dt><dd>2,5×</dd></div></dl>
+            </a>
           </li>
-          <li class="ln-serie">
-            <a class="ln-serie__media" href="/catalog/high-voltage/y2w.html"><img src="/assets/images/hv/y2w.jpg" alt="Высоковольтный искрозащищённый двигатель серии Y2W" loading="lazy" decoding="async" width="560" height="560"></a>
-            <div class="ln-serie__body">
-              <p class="ln-serie__type">Искрозащищённый</p>
-              <h3>Серия Y2W</h3>
-              <dl class="ln-specs">
-                <div><dt>Мощность</dt><dd>185–1 800 кВт</dd></div><div><dt>Напряжение</dt><dd>3 000 / 6 000 / 10 000 В</dd></div>
-              </dl>
-              <a class="ln-link" href="/catalog/high-voltage/y2w.html">Характеристики серии <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a>
-            </div>
+          <li>
+            <a class="ln-ncard" href="/catalog/high-voltage/ybbp.html" aria-label="Серия YBBP — характеристики серии">
+              <span class="ln-ncard__cover">
+                <img src="/assets/images/hv/ybbp.jpg" alt="Взрывозащищённый высоковольтный частотно-регулируемый двигатель серии YBBP" loading="lazy" decoding="async" width="560" height="560">
+                <span class="ln-ncard__notch" aria-hidden="true"></span>
+                <span class="ln-ncard__fillet ln-ncard__fillet--up" aria-hidden="true"></span>
+                <span class="ln-ncard__fillet ln-ncard__fillet--left" aria-hidden="true"></span>
+                <span class="ln-ncard__go" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg></span>
+              </span>
+              <h3 class="ln-ncard__title">Серия YBBP</h3>
+              <dl class="ln-specs"><div><dt>Мощность</dt><dd>160–4 500 кВт</dd></div><div><dt>Напряжение</dt><dd>3 / 6 / 10 кВ</dd></div><div><dt>Регулирование</dt><dd>1:100</dd></div><div><dt>Обороты</dt><dd>до 6 000 об/мин</dd></div></dl>
+            </a>
           </li>
-          <li class="ln-serie">
-            <a class="ln-serie__media" href="/catalog/high-voltage/ybks.html"><img src="/assets/images/hv/ybks.jpg" alt="Высоковольтный взрывозащищённый двигатель серии YBKS" loading="lazy" decoding="async" width="560" height="560"></a>
-            <div class="ln-serie__body">
-              <p class="ln-serie__type">Взрывозащищённый</p>
-              <h3>Серия YBKS</h3>
-              <dl class="ln-specs">
-                <div><dt>Мощность</dt><dd>185–5 600 кВт</dd></div><div><dt>Напряжение</dt><dd>3 000 / 6 000 / 10 000 В</dd></div>
-              </dl>
-              <a class="ln-link" href="/catalog/high-voltage/ybks.html">Характеристики серии <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a>
-            </div>
+          <li>
+            <a class="ln-ncard" href="/catalog/high-voltage/ybx3.html" aria-label="Серия YBX3 — характеристики серии">
+              <span class="ln-ncard__cover">
+                <img src="/assets/images/hv/ybx3.jpg" alt="Взрывозащищённый высоковольтный двигатель серии YBX3" loading="lazy" decoding="async" width="560" height="560">
+                <span class="ln-ncard__notch" aria-hidden="true"></span>
+                <span class="ln-ncard__fillet ln-ncard__fillet--up" aria-hidden="true"></span>
+                <span class="ln-ncard__fillet ln-ncard__fillet--left" aria-hidden="true"></span>
+                <span class="ln-ncard__go" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg></span>
+              </span>
+              <h3 class="ln-ncard__title">Серия YBX3</h3>
+              <dl class="ln-specs"><div><dt>Мощность</dt><dd>315–2 800 кВт</dd></div><div><dt>Напряжение</dt><dd>3 / 6 / 10 кВ</dd></div><div><dt>Полюса</dt><dd>2–12</dd></div><div><dt>Изоляция</dt><dd>класс F</dd></div></dl>
+            </a>
           </li>
-          <li class="ln-serie">
-            <a class="ln-serie__media" href="/catalog/high-voltage/ybbp.html"><img src="/assets/images/hv/ybbp.jpg" alt="Взрывозащищённый высоковольтный частотно-регулируемый двигатель серии YBBP" loading="lazy" decoding="async" width="560" height="560"></a>
-            <div class="ln-serie__body">
-              <p class="ln-serie__type">Взрывозащищённый, с ЧРП</p>
-              <h3>Серия YBBP</h3>
-              <dl class="ln-specs">
-                <div><dt>Мощность</dt><dd>160–4 500 кВт</dd></div><div><dt>Напряжение</dt><dd>3 000 / 6 000 / 10 000 В</dd></div>
-              </dl>
-              <a class="ln-link" href="/catalog/high-voltage/ybbp.html">Характеристики серии <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a>
-            </div>
+          <li>
+            <a class="ln-ncard" href="/catalog/high-voltage/y2w.html" aria-label="Серия Y2W — характеристики серии">
+              <span class="ln-ncard__cover">
+                <img src="/assets/images/hv/y2w.jpg" alt="Высоковольтный неискрящий двигатель серии Y2W" loading="lazy" decoding="async" width="560" height="560">
+                <span class="ln-ncard__notch" aria-hidden="true"></span>
+                <span class="ln-ncard__fillet ln-ncard__fillet--up" aria-hidden="true"></span>
+                <span class="ln-ncard__fillet ln-ncard__fillet--left" aria-hidden="true"></span>
+                <span class="ln-ncard__go" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg></span>
+              </span>
+              <h3 class="ln-ncard__title">Серия Y2W</h3>
+              <dl class="ln-specs"><div><dt>Мощность</dt><dd>185–1 800 кВт</dd></div><div><dt>Напряжение</dt><dd>3 / 6 / 10 кВ</dd></div><div><dt>Полюса</dt><dd>2–8</dd></div><div><dt>Энергоэффективность</dt><dd>IE3</dd></div></dl>
+            </a>
           </li>
-          <li class="ln-serie">
-            <a class="ln-serie__media" href="/catalog/high-voltage/ybx3.html"><img src="/assets/images/hv/ybx3.jpg" alt="Взрывозащищённый высоковольтный двигатель серии YBX3" loading="lazy" decoding="async" width="560" height="560"></a>
-            <div class="ln-serie__body">
-              <p class="ln-serie__type">Взрывозащищённый</p>
-              <h3>Серия YBX3</h3>
-              <dl class="ln-specs">
-                <div><dt>Мощность</dt><dd>315–2 800 кВт</dd></div><div><dt>Напряжение</dt><dd>3 000 / 6 000 / 10 000 В</dd></div>
-              </dl>
-              <a class="ln-link" href="/catalog/high-voltage/ybx3.html">Характеристики серии <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a>
-            </div>
-          </li>
-          <li class="ln-serie">
-            <a class="ln-serie__media" href="/catalog/high-voltage/yb2.html"><img src="/assets/images/hv/yb2.jpg" alt="Высоковольтный взрывозащищённый двигатель серии YB2" loading="lazy" decoding="async" width="560" height="560"></a>
-            <div class="ln-serie__body">
-              <p class="ln-serie__type">Взрывозащищённый</p>
-              <h3>Серия YB2</h3>
-              <dl class="ln-specs">
-                <div><dt>Мощность</dt><dd>160–1 600 кВт</dd></div><div><dt>Напряжение</dt><dd>3 000 / 6 000 / 10 000 В</dd></div>
-              </dl>
-              <a class="ln-link" href="/catalog/high-voltage/yb2.html">Характеристики серии <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a>
-            </div>
+          <li>
+            <a class="ln-ncard" href="/catalog/high-voltage/yb2.html" aria-label="Серия YB2 — характеристики серии">
+              <span class="ln-ncard__cover">
+                <img src="/assets/images/hv/yb2.jpg" alt="Высоковольтный взрывозащищённый двигатель серии YB2" loading="lazy" decoding="async" width="560" height="560">
+                <span class="ln-ncard__notch" aria-hidden="true"></span>
+                <span class="ln-ncard__fillet ln-ncard__fillet--up" aria-hidden="true"></span>
+                <span class="ln-ncard__fillet ln-ncard__fillet--left" aria-hidden="true"></span>
+                <span class="ln-ncard__go" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg></span>
+              </span>
+              <h3 class="ln-ncard__title">Серия YB2</h3>
+              <dl class="ln-specs"><div><dt>Мощность</dt><dd>160–1 600 кВт</dd></div><div><dt>Напряжение</dt><dd>3 / 6 / 10 кВ</dd></div><div><dt>Полюса</dt><dd>2–12</dd></div><div><dt>Энергоэффективность</dt><dd>IE3</dd></div></dl>
+            </a>
           </li>
         </ul>
-        <p class="ln-note-small">Взрывозащищённые и искрозащищённые исполнения (Ex) поставляем по запросу: маркировку и комплект документов подтверждаем до заключения договора.</p>
       </div>
     </section>
 
@@ -849,7 +903,7 @@ var chectoutpage="";
           <li><b>1958</b><span>год основания завода</span></li>
           <li><b>2 000</b><span>сотрудников на заводе</span></li>
           <li><b>68 %</b><span>сотрудников — технические специалисты</span></li>
-          <li><b>60+</b><span>стран в сети продаж</span></li>
+          <li><b>60+</b><span>стран, где работают двигатели</span></li>
           <li><b>СПб</b><span>российский офис</span></li>
         </ul>
       </div>
@@ -861,7 +915,7 @@ var chectoutpage="";
         <div>
           <p class="ln-eyebrow">Документы</p>
           <h2 class="ln-h2">Сертификаты и патенты</h2>
-          <p class="ln-lede">Сертификаты систем менеджмента качества, экологического менеджмента и охраны труда, сертификат послепродажного обслуживания, патенты на изобретения. Полный список — на странице документов.</p>
+          <p class="ln-lede">ISO 9001, ISO 14001, ISO 45001, CE, UL, ATEX. 61 патент, из них 18 — на изобретения. Копии документов — на странице сертификатов.</p>
           <div class="ln-docs__more">
             <a class="ln-btn ln-btn--dark" href="/company/certificates.html">Все документы <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a>
           </div>
@@ -886,11 +940,7 @@ var chectoutpage="";
         <div class="ln-faq">
           <details class="ln-faq__item">
             <summary>Какие напряжения и мощности вы поставляете?</summary>
-            <p>Основные исполнения — 6 и 10 кВ. Стандартные высоковольтные серии перекрывают диапазон примерно от 160 до 10 000 кВт, серии для насосных станций — от 140 до 28 500 кВт и до 13,8 кВ. Точное исполнение подбираем под механизм и условия работы.</p>
-          </details>
-          <details class="ln-faq__item">
-            <summary>Синхронный или асинхронный двигатель выбрать?</summary>
-            <p>Для насосов, вентиляторов и дымососов обычно достаточно асинхронного двигателя с короткозамкнутым ротором. Синхронная серия T выгодна на больших мощностях: КПД свыше 97 %, регулируемый коэффициент мощности и работа на низких оборотах без редуктора. Для тяжёлого пуска под нагрузкой применяют двигатели с фазным ротором.</p>
+            <p>Основные исполнения — 6 и 10 кВ. Стандартные высоковольтные серии перекрывают диапазон от 160 до 10 000 кВт, серии для насосных станций — от 140 до 28 500 кВт и до 13,8 кВ. Точное исполнение подбираем под механизм и условия работы.</p>
           </details>
           <details class="ln-faq__item">
             <summary>Что прислать, чтобы вы подобрали двигатель?</summary>
@@ -902,11 +952,11 @@ var chectoutpage="";
           </details>
           <details class="ln-faq__item">
             <summary>Какие документы вы предоставляете?</summary>
-            <p>У завода есть сертификаты системы менеджмента качества, экологического менеджмента и охраны труда, сертификат послепродажного обслуживания и патенты на изобретения — они опубликованы на странице документов. Комплект документов на конкретную поставку согласуем при заказе.</p>
+            <p>Завод сертифицирован по ISO 9001, ISO 14001 и ISO 45001, продукция — по CE, UL и ATEX. Копии опубликованы на странице сертификатов. Комплект документов на конкретную поставку согласуем при заказе.</p>
           </details>
           <details class="ln-faq__item">
             <summary>Кто производитель и кто отвечает за поставку?</summary>
-            <p>Двигатели выпускает завод Dazhong Motor в Китае: работает с 1958 года, 2 000 сотрудников, поставки более чем в 60 стран. Договор и поставку в России ведёт ООО «ДЗМоторТех», офис в Санкт-Петербурге.</p>
+            <p>Двигатели выпускает завод Dazhong Motor в Китае: работает с 1958 года, 2 000 сотрудников, двигатели работают более чем в 60 странах. Договор и поставку в России ведёт ООО «ДЗМоторТех», офис в Санкт-Петербурге.</p>
           </details>
           <details class="ln-faq__item">
             <summary>Можно ли подобрать замену импортному двигателю?</summary>
@@ -968,8 +1018,8 @@ var chectoutpage="";
                 <input class="ln-input" type="text" id="f2_name" name="txt_name" placeholder="Как к вам обращаться" autocomplete="name" required>
               </div>
               <div class="ln-field">
-                <label for="f2_company">Компания</label>
-                <input class="ln-input" type="text" id="f2_company" name="txt_company" placeholder="Название организации" autocomplete="organization">
+                <label for="f2_company">Компания <span class="ln-req">*</span></label>
+                <input class="ln-input" type="text" id="f2_company" name="txt_company" placeholder="Название организации" autocomplete="organization" required>
               </div>
               <div class="ln-field">
                 <label for="f2_contact">Телефон или email <span class="ln-req">*</span></label>
@@ -1622,7 +1672,7 @@ var chectoutpage="";
 <script src="/assets/js/to-top.js?v=1787154820" defer></script>
 
   <script src="/assets/js/lead-modal.js?v=1790000000" defer></script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Какие напряжения и мощности вы поставляете?", "acceptedAnswer": {"@type": "Answer", "text": "Основные исполнения — 6 и 10 кВ. Стандартные высоковольтные серии перекрывают диапазон примерно от 160 до 10 000 кВт, серии для насосных станций — от 140 до 28 500 кВт и до 13,8 кВ. Точное исполнение подбираем под механизм и условия работы."}}, {"@type": "Question", "name": "Синхронный или асинхронный двигатель выбрать?", "acceptedAnswer": {"@type": "Answer", "text": "Для насосов, вентиляторов и дымососов обычно достаточно асинхронного двигателя с короткозамкнутым ротором. Синхронная серия T выгодна на больших мощностях: КПД свыше 97 %, регулируемый коэффициент мощности и работа на низких оборотах без редуктора. Для тяжёлого пуска под нагрузкой применяют двигатели с фазным ротором."}}, {"@type": "Question", "name": "Что прислать, чтобы вы подобрали двигатель?", "acceptedAnswer": {"@type": "Answer", "text": "Техническое задание или опросный лист. Если их нет — фото шильдика или паспорт двигателя, который нужно заменить, и данные о механизме: мощность, напряжение, обороты, режим работы, монтажное исполнение и условия среды."}}, {"@type": "Question", "name": "Сколько стоит двигатель и когда его получим?", "acceptedAnswer": {"@type": "Answer", "text": "Высоковольтные двигатели изготавливаются под заказ, поэтому цену и срок изготовления рассчитываем по техническому заданию и присылаем в техническом предложении."}}, {"@type": "Question", "name": "Какие документы вы предоставляете?", "acceptedAnswer": {"@type": "Answer", "text": "У завода есть сертификаты системы менеджмента качества, экологического менеджмента и охраны труда, сертификат послепродажного обслуживания и патенты на изобретения — они опубликованы на странице документов. Комплект документов на конкретную поставку согласуем при заказе."}}, {"@type": "Question", "name": "Кто производитель и кто отвечает за поставку?", "acceptedAnswer": {"@type": "Answer", "text": "Двигатели выпускает завод Dazhong Motor в Китае: работает с 1958 года, 2 000 сотрудников, поставки более чем в 60 стран. Договор и поставку в России ведёт ООО «ДЗМоторТех», офис в Санкт-Петербурге."}}, {"@type": "Question", "name": "Можно ли подобрать замену импортному двигателю?", "acceptedAnswer": {"@type": "Answer", "text": "Да. Пришлите шильдик или старую модель — подберём аналог по мощности, напряжению, оборотам, режиму работы и присоединительным размерам. Для такой задачи у нас есть отдельная страница: подбор замены ABB и Siemens."}}]}</script>
-  <script src="/assets/js/landing.js?v=1790000000" defer></script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Какие напряжения и мощности вы поставляете?", "acceptedAnswer": {"@type": "Answer", "text": "Основные исполнения — 6 и 10 кВ. Стандартные высоковольтные серии перекрывают диапазон от 160 до 10 000 кВт, серии для насосных станций — от 140 до 28 500 кВт и до 13,8 кВ. Точное исполнение подбираем под механизм и условия работы."}}, {"@type": "Question", "name": "Что прислать, чтобы вы подобрали двигатель?", "acceptedAnswer": {"@type": "Answer", "text": "Техническое задание или опросный лист. Если их нет — фото шильдика или паспорт двигателя, который нужно заменить, и данные о механизме: мощность, напряжение, обороты, режим работы, монтажное исполнение и условия среды."}}, {"@type": "Question", "name": "Сколько стоит двигатель и когда его получим?", "acceptedAnswer": {"@type": "Answer", "text": "Высоковольтные двигатели изготавливаются под заказ, поэтому цену и срок изготовления рассчитываем по техническому заданию и присылаем в техническом предложении."}}, {"@type": "Question", "name": "Какие документы вы предоставляете?", "acceptedAnswer": {"@type": "Answer", "text": "Завод сертифицирован по ISO 9001, ISO 14001 и ISO 45001, продукция — по CE, UL и ATEX. Копии опубликованы на странице сертификатов. Комплект документов на конкретную поставку согласуем при заказе."}}, {"@type": "Question", "name": "Кто производитель и кто отвечает за поставку?", "acceptedAnswer": {"@type": "Answer", "text": "Двигатели выпускает завод Dazhong Motor в Китае: работает с 1958 года, 2 000 сотрудников, двигатели работают более чем в 60 странах. Договор и поставку в России ведёт ООО «ДЗМоторТех», офис в Санкт-Петербурге."}}, {"@type": "Question", "name": "Можно ли подобрать замену импортному двигателю?", "acceptedAnswer": {"@type": "Answer", "text": "Да. Пришлите шильдик или старую модель — подберём аналог по мощности, напряжению, оборотам, режиму работы и присоединительным размерам. Для такой задачи у нас есть отдельная страница: подбор замены ABB и Siemens."}}]}</script>
+  <script src="/assets/js/landing.js?v=1792200000" defer></script>
 </body>
 </html>

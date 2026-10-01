@@ -96,9 +96,44 @@
     });
   }
 
+
+  /* Наклон карточек за курсором с бликом (элементы с data-ln-tilt).
+     Только мышь и только без системной настройки «уменьшить движение». */
+  function initTilt() {
+    if (!window.matchMedia || !window.requestAnimationFrame) return;
+    if (!matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var MAX = 7;
+    Array.prototype.forEach.call(document.querySelectorAll('[data-ln-tilt]'), function (card) {
+      var frame = 0, px = 0.5, py = 0.5;
+      function apply() {
+        frame = 0;
+        card.style.setProperty('--ry', ((px - 0.5) * 2 * MAX).toFixed(2) + 'deg');
+        card.style.setProperty('--rx', ((0.5 - py) * 2 * MAX).toFixed(2) + 'deg');
+        card.style.setProperty('--gx', (px * 100).toFixed(1) + '%');
+        card.style.setProperty('--gy', (py * 100).toFixed(1) + '%');
+      }
+      card.addEventListener('pointermove', function (e) {
+        var r = card.getBoundingClientRect();
+        px = Math.min(1, Math.max(0, (e.clientX - r.left) / r.width));
+        py = Math.min(1, Math.max(0, (e.clientY - r.top) / r.height));
+        card.classList.add('is-tilting');
+        if (!frame) frame = requestAnimationFrame(apply);
+      });
+      card.addEventListener('pointerleave', function () {
+        if (frame) { cancelAnimationFrame(frame); frame = 0; }
+        card.classList.remove('is-tilting');
+        card.style.setProperty('--rx', '0deg');
+        card.style.setProperty('--ry', '0deg');
+      });
+    });
+  }
+
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
+    document.addEventListener('DOMContentLoaded', initTilt);
   } else {
     init();
+    initTilt();
   }
 }());

@@ -788,3 +788,358 @@ textarea.ln-input { min-height: 84px; line-height: 1.5; resize: vertical; }
   html { scroll-behavior: auto; }
   * { transition-duration: 0.01ms !important; }
 }
+
+/* ==========================================================================
+   Высоковольтная посадочная: диапазоны, синхронные/асинхронные, серии.
+   Новые классы — остальные посадочные пока не затрагиваются.
+   ========================================================================== */
+
+/* --- Диапазоны и исполнения: белый раздел, тёмные карточки, за каждой — скошенная цветная полоса --- */
+.ln-glows {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 34px 20px;
+  margin: 18px 0 0;                    /* полоса выходит над карточкой */
+  padding: 0;
+  list-style: none;
+}
+.ln-glow {
+  --from: #00aeef;
+  --to: #4f8cff;
+  position: relative;
+  display: flex;
+  margin-bottom: 26px;                 /* и под карточкой */
+}
+.ln-glow--teal { --from: #22c1a7; --to: #00aeef; }
+.ln-glow--blue { --from: #4f8cff; --to: #6a5cff; }
+.ln-glow--sky  { --from: #7cc8ff; --to: #22c1a7; }
+.ln-glow__panel {
+  position: absolute;
+  top: -14px;
+  bottom: -26px;
+  left: 18%;
+  width: 34%;
+  border-radius: 10px;
+  background: linear-gradient(315deg, var(--from), var(--to));
+  transform: skewX(12deg);
+}
+.ln-glow__content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
+  padding: 26px 24px 28px;
+  border-radius: 16px;
+  background: var(--ln-ink);
+}
+.ln-glow__kicker { margin: 0; font-size: 13px; font-weight: 800; letter-spacing: 0.12em; color: rgba(255, 255, 255, 0.55); }
+.ln-glow h3 { margin: -6px 0 2px; font-size: 20px; font-weight: 800; line-height: 1.25; color: #fff; }
+.ln-glow__stat { padding-top: 12px; border-top: 1px solid rgba(255, 255, 255, 0.12); }
+.ln-glow__big { margin: 0; font-size: clamp(22px, 1.9vw, 27px); font-weight: 800; line-height: 1.15; color: #fff; }
+.ln-glow__big small { font-size: 0.62em; font-weight: 700; color: rgba(255, 255, 255, 0.72); white-space: nowrap; }
+.ln-glow__sub { margin: 6px 0 0; font-size: 13.5px; line-height: 1.5; color: rgba(255, 255, 255, 0.74); }
+.ln-glow__group { padding-top: 12px; border-top: 1px solid rgba(255, 255, 255, 0.12); }
+.ln-glow__label { margin: 0 0 8px; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255, 255, 255, 0.55); }
+.ln-glow__chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 0; padding: 0; list-style: none; }
+.ln-glow__chips li {
+  padding: 6px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.08);
+  font-size: 13px;
+  line-height: 1.3;
+  color: #fff;
+}
+
+/* --- Синхронные и асинхронные: пара карточек «или» ----------------------- */
+.ln-duo {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 18px;
+}
+.ln-duo__card {
+  display: grid;
+  align-content: start;
+  gap: 12px;
+  padding: clamp(24px, 2.6vw, 36px);
+  border: 1px solid var(--ln-steel-100);
+  border-radius: 26px;
+  background: #fff;
+  box-shadow: 0 10px 30px rgba(13, 31, 45, 0.06);
+  transition: background-color 0.35s var(--ln-ease), border-color 0.35s var(--ln-ease),
+              box-shadow 0.35s var(--ln-ease), color 0.35s var(--ln-ease), transform 0.35s var(--ln-ease);
+}
+.ln-duo__kicker { margin: 0; font-size: 12.5px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: #0077a8; transition: color 0.35s var(--ln-ease); }
+.ln-duo__card h3 { margin: 0; font-size: clamp(21px, 1.9vw, 26px); font-weight: 800; line-height: 1.2; }
+.ln-duo__lede { margin: 0; font-size: 15px; line-height: 1.55; color: var(--ln-steel-700); transition: color 0.35s var(--ln-ease); }
+
+.ln-duo__stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin: 8px 0 4px; }
+.ln-duo__stats div { padding: 14px 12px; border: 1px solid transparent; border-radius: 16px; background: var(--ln-paper); transition: background-color 0.35s var(--ln-ease), border-color 0.35s var(--ln-ease); }
+.ln-duo__stats dt { font-size: clamp(22px, 2vw, 28px); font-weight: 800; line-height: 1.1; color: #0077a8; transition: color 0.35s var(--ln-ease); }
+.ln-duo__stats dd { margin: 6px 0 0; font-size: 12.5px; line-height: 1.4; color: var(--ln-steel-700); transition: color 0.35s var(--ln-ease); }
+.ln-duo__card .ln-ticks li { transition: color 0.35s var(--ln-ease); }
+
+.ln-duo__series { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: 6px 0 0; }
+.ln-duo__series span { margin-right: 4px; font-size: 13px; font-weight: 700; color: var(--ln-steel-500); transition: color 0.35s var(--ln-ease); }
+.ln-duo__series a {
+  padding: 6px 12px;
+  border-radius: 99px;
+  background: var(--ln-paper);
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--ln-ink) !important;
+  text-decoration: none;
+  transition: background-color 0.2s var(--ln-ease), color 0.2s var(--ln-ease);
+}
+
+/* наведение (и фокус с клавиатуры) — карточка становится тёмно-синей */
+.ln-duo__card:hover, .ln-duo__card:focus-within {
+  border-color: transparent;
+  background:
+    radial-gradient(90% 70% at 0% 0%, rgba(0, 174, 239, 0.28), transparent 60%),
+    var(--ln-ink);
+  box-shadow: 0 18px 44px rgba(13, 31, 45, 0.22);
+  color: #fff;
+  transform: translateY(-3px);
+}
+.ln-duo__card:hover .ln-duo__kicker, .ln-duo__card:focus-within .ln-duo__kicker { color: var(--ln-accent); }
+.ln-duo__card:hover .ln-duo__lede, .ln-duo__card:focus-within .ln-duo__lede { color: rgba(255, 255, 255, 0.74); }
+.ln-duo__card:hover .ln-duo__stats div, .ln-duo__card:focus-within .ln-duo__stats div { background: rgba(255, 255, 255, 0.07); border-color: rgba(255, 255, 255, 0.1); }
+.ln-duo__card:hover .ln-duo__stats dt, .ln-duo__card:focus-within .ln-duo__stats dt { color: var(--ln-accent); }
+.ln-duo__card:hover .ln-duo__stats dd, .ln-duo__card:focus-within .ln-duo__stats dd { color: rgba(255, 255, 255, 0.68); }
+.ln-duo__card:hover .ln-ticks li, .ln-duo__card:focus-within .ln-ticks li { color: rgba(255, 255, 255, 0.86); }
+.ln-duo__card:hover .ln-duo__series span, .ln-duo__card:focus-within .ln-duo__series span { color: rgba(255, 255, 255, 0.55); }
+.ln-duo__card:hover .ln-duo__series a, .ln-duo__card:focus-within .ln-duo__series a { background: var(--ln-accent); color: #06202c !important; }
+.ln-duo__series a:hover { background: #fff !important; color: var(--ln-ink) !important; }
+
+.ln-duo__or {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  border: 6px solid var(--ln-surface);
+  border-radius: 50%;
+  background: var(--ln-accent);
+  color: #06202c;
+  font-size: 13px;
+  font-weight: 800;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+.ln-duo__hint { margin: 18px 0 0; font-size: 15px; line-height: 1.55; color: var(--ln-steel-700); }
+.ln-duo__hint b { color: var(--ln-ink); }
+
+/* --- Серии: карточка с вырезом и стрелкой в углу обложки ---------------- */
+.ln-ncards {
+  --nc-surface: var(--ln-surface);  /* цвет фона под карточкой — им закрашен вырез */
+  --nc-disc: 54px;
+  --nc-inset: 4px;                   /* зазор до края обложки — место для увеличения при наведении */
+  --nc-block: 74px;
+  --nc-fillet: 24px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 40px 20px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.ln-ncard { display: flex; flex-direction: column; color: inherit !important; text-decoration: none; border-radius: 26px; }
+.ln-ncard:focus-visible { outline: 3px solid var(--ln-accent); outline-offset: 6px; }
+.ln-ncard__cover { position: relative; display: block; aspect-ratio: 4 / 3; overflow: hidden; border-radius: 26px; background: var(--ln-paper); }
+.ln-ncard__cover img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 4% 12% 9% 4%;
+  mix-blend-mode: multiply;          /* белый фон фото сливается с подложкой */
+  transition: transform 0.5s var(--ln-ease);
+}
+.ln-ncard__cover--photo img { padding: 0; object-fit: cover; mix-blend-mode: normal; }
+.ln-ncard:hover .ln-ncard__cover img, .ln-ncard:focus-visible .ln-ncard__cover img { transform: scale(1.05); }
+/* вырез: блок с вогнутым углом и два скругления там, где он встречает края обложки */
+.ln-ncard__notch {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: var(--nc-block);
+  height: var(--nc-block);
+  border-top-left-radius: calc(var(--nc-block) - var(--nc-inset) - var(--nc-disc) / 2);  /* соосно кружку */
+  background: var(--nc-surface);
+}
+.ln-ncard__fillet {
+  position: absolute;
+  width: var(--nc-fillet);
+  height: var(--nc-fillet);
+  background: radial-gradient(circle at top left, transparent calc(var(--nc-fillet) - 0.5px), var(--nc-surface) var(--nc-fillet));
+}
+.ln-ncard__fillet--up { right: 0; bottom: var(--nc-block); }
+.ln-ncard__fillet--left { right: var(--nc-block); bottom: 0; }
+.ln-ncard__go {
+  position: absolute;
+  right: var(--nc-inset);
+  bottom: var(--nc-inset);
+  display: grid;
+  place-items: center;
+  width: var(--nc-disc);
+  height: var(--nc-disc);
+  border-radius: 50%;
+  background: var(--ln-navy);
+  color: #fff;
+  transition: background-color 0.25s var(--ln-ease), color 0.25s var(--ln-ease), transform 0.25s var(--ln-ease);
+}
+.ln-ncard__go svg { transition: transform 0.25s var(--ln-ease); }
+.ln-ncard:hover .ln-ncard__go, .ln-ncard:focus-visible .ln-ncard__go { background: var(--ln-accent); color: #06202c; transform: scale(1.07); }
+.ln-ncard:hover .ln-ncard__go svg { transform: translate(2px, -2px); }
+.ln-ncard__title { margin: 18px 0 2px; font-size: 21px; font-weight: 800; line-height: 1.2; transition: color 0.2s var(--ln-ease); }
+.ln-ncard:hover .ln-ncard__title { color: #0077a8; }
+.ln-ncard .ln-specs { margin-top: 4px; }
+
+@media (max-width: 1100px) {
+  .ln-glows { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ln-ncards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 760px) {
+  .ln-duo { grid-template-columns: minmax(0, 1fr); gap: 34px; }
+  .ln-duo__stats { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 560px) {
+  .ln-glows, .ln-ncards { grid-template-columns: minmax(0, 1fr); }
+  .ln-duo__stats { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* --- Помощь в выборе: плашка с инженером под блоком «синхронные / асинхронные» --- */
+.ln-form[id] { scroll-margin-top: 110px; }   /* по якорю форма не уходит под шапку */
+.ln-help {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 22px;
+  margin-top: 22px;
+  padding: 22px 26px;
+  border: 1px solid rgba(0, 174, 239, 0.28);
+  border-radius: 22px;
+  background: linear-gradient(100deg, rgba(0, 174, 239, 0.1), rgba(0, 174, 239, 0.03) 60%), #fff;
+}
+.ln-help__icon {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--ln-accent);
+  color: #06202c;
+  box-shadow: 0 0 0 8px rgba(0, 174, 239, 0.14);
+}
+.ln-help__title { margin: 0 0 4px; font-size: clamp(17px, 1.5vw, 20px); font-weight: 800; line-height: 1.3; color: var(--ln-ink); }
+.ln-help__text p:not(.ln-help__title) { margin: 0; max-width: 64ch; font-size: 15px; line-height: 1.55; color: var(--ln-steel-700); }
+.ln-help__actions { display: flex; flex-wrap: wrap; gap: 10px; justify-content: flex-end; }
+.ln-help__actions .ln-btn { white-space: nowrap; }
+@media (max-width: 1100px) {
+  .ln-help { grid-template-columns: auto minmax(0, 1fr); }
+  .ln-help__actions { grid-column: 1 / -1; justify-content: flex-start; }
+}
+@media (max-width: 560px) {
+  .ln-help { grid-template-columns: minmax(0, 1fr); padding: 20px; }
+  .ln-help__actions .ln-btn { flex: 1 1 100%; justify-content: center; }
+}
+
+/* --- ABB/Siemens: шаги подбора и «что прислать» — белые карточки, при наведении тёмно-синие --- */
+.ln-steps--hover .ln-step,
+.ln-send--hover li {
+  border: 1px solid var(--ln-steel-100);
+  background: #fff;
+  box-shadow: 0 10px 30px rgba(13, 31, 45, 0.06);
+  transition: background-color 0.35s var(--ln-ease), border-color 0.35s var(--ln-ease),
+              box-shadow 0.35s var(--ln-ease), transform 0.35s var(--ln-ease);
+}
+.ln-steps--hover .ln-step h3, .ln-steps--hover .ln-step p,
+.ln-send--hover h3, .ln-send--hover p, .ln-send--hover svg, .ln-send--hover .ln-send__tag {
+  transition: color 0.35s var(--ln-ease), background-color 0.35s var(--ln-ease);
+}
+.ln-send--hover li:first-child { border-color: var(--ln-accent); box-shadow: 0 0 0 1px var(--ln-accent) inset, 0 10px 30px rgba(13, 31, 45, 0.06); }
+
+.ln-send--hover li:hover {
+  border-color: transparent;
+  background:
+    radial-gradient(90% 70% at 0% 0%, rgba(0, 174, 239, 0.28), transparent 60%),
+    var(--ln-ink);
+  box-shadow: 0 18px 44px rgba(13, 31, 45, 0.22);
+  transform: translateY(-3px);
+}
+.ln-send--hover li:hover h3 { color: #fff; }
+.ln-send--hover li:hover p { color: rgba(255, 255, 255, 0.74); }
+.ln-send--hover li:hover .ln-send__tag { background: var(--ln-accent); color: #06202c; }
+
+/* плашка специалиста после «что прислать» (раздел на сером фоне) */
+.ln-send--hover + .ln-help { margin-top: clamp(22px, 2.6vw, 34px); }
+@media (hover: none) {
+  .ln-send--hover li:hover { transform: none; }
+}
+/* вся карточка «что прислать» — ссылка на форму заявки */
+.ln-send--hover li { position: relative; cursor: pointer; }
+.ln-send__cover { position: absolute; inset: 0; z-index: 1; border-radius: inherit; }
+.ln-send__cover:focus-visible { outline: 3px solid var(--ln-accent); outline-offset: 3px; }
+
+/* --- ABB/Siemens «Что сверяем»: градиент в цвет полосы, наклон за курсором с бликом и свечением.
+   Наклон считает landing.js по data-ln-tilt; меняются только transform и прозрачность блика. --- */
+.ln-glows--tilt .ln-glow {
+  --rx: 0deg;
+  --ry: 0deg;
+  transform: perspective(900px) rotateX(var(--rx)) rotateY(var(--ry));
+  transition: transform 0.5s var(--ln-ease);
+}
+.ln-glows--tilt .ln-glow.is-tilting { transition: transform 0.12s linear; }
+.ln-glows--tilt .ln-glow__content {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: linear-gradient(150deg, color-mix(in srgb, var(--from) 34%, var(--ln-ink)) 0%, #13293a 45%, var(--ln-ink) 100%);
+  transition: box-shadow 0.4s var(--ln-ease), border-color 0.4s var(--ln-ease);
+}
+.ln-glows--tilt .ln-glow__content::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(circle at var(--gx, 50%) var(--gy, 50%), rgba(255, 255, 255, 0.08), transparent 45%);
+  opacity: 0;
+  transition: opacity 0.4s var(--ln-ease);
+  pointer-events: none;
+}
+.ln-glows--tilt .ln-glow.is-tilting .ln-glow__content {
+  border-color: color-mix(in srgb, var(--from) 45%, transparent);
+  box-shadow: 0 20px 44px color-mix(in srgb, var(--from) 30%, transparent);
+}
+.ln-glows--tilt .ln-glow.is-tilting .ln-glow__content::after { opacity: 1; }
+
+/* значок специалиста в плашке «поможет наш специалист» — пульсирующие кольца
+   (только transform и opacity, без пересчёта страницы) */
+.ln-help__icon { position: relative; isolation: isolate; }
+.ln-help__icon::before,
+.ln-help__icon::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: 50%;
+  background: var(--ln-accent);
+  opacity: 0;
+  animation: ln-help-pulse 2.6s cubic-bezier(0.2, 0.6, 0.4, 1) infinite;
+  pointer-events: none;
+}
+.ln-help__icon::after { animation-delay: 1.3s; }
+@keyframes ln-help-pulse {
+  0%   { transform: scale(1);    opacity: 0.45; }
+  70%  { transform: scale(1.75); opacity: 0; }
+  100% { transform: scale(1.75); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ln-help__icon::before, .ln-help__icon::after { animation: none; }
+}

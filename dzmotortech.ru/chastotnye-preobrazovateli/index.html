@@ -12,7 +12,7 @@
   <meta property="og:type" content="website">
   <meta property="og:locale" content="ru_RU">
   <meta property="og:title" content="Частотные преобразователи Dazhong">
-  <meta property="og:description" content="Подбор частотного преобразователя под насос, вентилятор, компрессор, конвейер или станок. Серии Dazhong EV200, EV510A и EV510H. Пришлите шильдик двигателя — подготовим предложение.">
+  <meta property="og:description" content="Подбор частотного преобразователя под насос, вентилятор, компрессор, конвейер, дробилку, мельницу или кран. Серии Dazhong EV200, EV510A и EV510H. Пришлите шильдик двигателя — подготовим предложение.">
   <meta property="og:url" content="https://dzmotortech.ru/chastotnye-preobrazovateli/">
   <meta property="og:image" content="https://dzmotortech.ru/assets/images/vfd/ev510a.jpg">
   <link rel="icon" href="/media/ru/ico/1763104710097_0.ico">
@@ -69,7 +69,7 @@ var chectoutpage="";
 
 
   <style>body,body *{font-family:'Montserrat',sans-serif!important}</style>
-  <link rel="stylesheet" href="/assets/css/landing.css?v=1790100000">
+  <link rel="stylesheet" href="/assets/css/landing.css?v=1792500000">
 </head>
 <body data-template="page" class="body ln-page">
 
@@ -531,7 +531,7 @@ var chectoutpage="";
           </nav>
           <p class="ln-eyebrow">Variable Frequency Drives</p>
           <h1 class="ln-hero__h">Частотные преобразователи <em>под ваш механизм</em></h1>
-          <p class="ln-hero__lede">Подбираем привод под конкретную задачу: насос, вентилятор, компрессор, конвейер, дробилку или станок. Преобразователи Dazhong серий EV200, EV510A и EV510H для асинхронных и синхронных двигателей.</p>
+          <p class="ln-hero__lede">Подбираем привод под конкретную задачу: насос, вентилятор, компрессор, конвейер, дробилку, мельницу или кран. Преобразователи Dazhong серий EV200, EV510A и EV510H для асинхронных и синхронных двигателей.</p>
           <div class="ln-hero__actions">
             <button class="ln-btn ln-btn--primary" type="button" data-ln-upload><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8M16 17H8"/></svg>Отправить техническое задание</button>
             <button class="ln-btn ln-btn--ghost" type="button" data-ln-upload><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3z"/><circle cx="12" cy="13" r="3.2"/></svg>Отправить шильдик двигателя</button>
@@ -539,12 +539,12 @@ var chectoutpage="";
           <p class="ln-hero__phone">Российский офис: <a href="tel:+79213820715">+7 921 382-07-15</a></p>
           <ul class="ln-hero__facts">
             <li><b>от 0,4 кВт</b><span>диапазон мощности</span></li>
-            <li><b>SVC и VF</b><span>алгоритмы управления</span></li>
+            <li><b>SVC и V/F</b><span>режимы управления</span></li>
           </ul>
         </div>
         <div class="ln-hero__form">
         <div class="ln-card">
-          <form class="ln-form" method="post" enctype="multipart/form-data" action="/api/submit-lead.php" data-ln-form>
+          <form class="ln-form" id="podbor" method="post" enctype="multipart/form-data" action="/api/submit-lead.php" data-ln-form>
             <p class="ln-form__title">Опишите задачу — подберём привод</p>
             <p class="ln-form__lede">Специалист подберёт преобразователь по мощности, току и характеру нагрузки и пришлёт предложение с ценой и сроком поставки.</p>
 
@@ -561,8 +561,8 @@ var chectoutpage="";
                 <input class="ln-input" type="text" id="f1_name" name="txt_name" placeholder="Как к вам обращаться" autocomplete="name" required>
               </div>
               <div class="ln-field">
-                <label for="f1_company">Компания</label>
-                <input class="ln-input" type="text" id="f1_company" name="txt_company" placeholder="Название организации" autocomplete="organization">
+                <label for="f1_company">Компания <span class="ln-req">*</span></label>
+                <input class="ln-input" type="text" id="f1_company" name="txt_company" placeholder="Название организации" autocomplete="organization" required>
               </div>
               <div class="ln-field">
                 <label for="f1_contact">Телефон или email <span class="ln-req">*</span></label>
@@ -605,92 +605,149 @@ var chectoutpage="";
         <div class="ln-head">
           <p class="ln-eyebrow">Подбор</p>
           <h2 class="ln-h2">Что уточняем перед предложением</h2>
-          <p class="ln-lede">Достаточно шильдика двигателя и пары слов о механизме — остальное уточним сами. Чем больше данных, тем точнее предложение.</p>
+          <p class="ln-lede">Достаточно шильдика двигателя и названия механизма.</p>
         </div>
-        <ul class="ln-params">
-          <li class="ln-param">
-            <h3>Двигатель</h3>
-            <p>Мощность, номинальный ток и напряжение с шильдика. Тип — асинхронный, синхронный или серво.</p>
+        <ul class="ln-glows ln-glows--tilt">
+          <li data-ln-tilt class="ln-glow ln-glow--cyan">
+            <span class="ln-glow__panel" aria-hidden="true"></span>
+            <div class="ln-glow__content">
+              <p class="ln-glow__kicker">01</p>
+              <h3>Двигатель и механизм</h3>
+              <div class="ln-glow__group"><p class="ln-glow__label">Двигатель</p><p class="ln-glow__sub">Мощность, номинальный ток и напряжение с шильдика. Тип — асинхронный или синхронный на постоянных магнитах.</p></div><div class="ln-glow__group"><p class="ln-glow__label">Механизм</p><p class="ln-glow__sub">Насос, вентилятор, компрессор, конвейер, дробилка, мельница, кран. От него зависит характер нагрузки.</p></div>
+            </div>
           </li>
-          <li class="ln-param">
-            <h3>Механизм</h3>
-            <p>Насос, вентилятор, компрессор, конвейер, дробилка, мельница, станок. От этого зависит характер нагрузки.</p>
+          <li data-ln-tilt class="ln-glow ln-glow--teal">
+            <span class="ln-glow__panel" aria-hidden="true"></span>
+            <div class="ln-glow__content">
+              <p class="ln-glow__kicker">02</p>
+              <h3>Режим и регулирование</h3>
+              <div class="ln-glow__group"><p class="ln-glow__label">Режим работы</p><p class="ln-glow__sub">Продолжительная работа или частые пуски и торможения, реверс, момент на малых оборотах.</p></div><div class="ln-glow__group"><p class="ln-glow__label">Диапазон регулирования</p><p class="ln-glow__sub">Пределы изменения частоты вращения, нужна ли обратная связь по скорости.</p></div>
+            </div>
           </li>
-          <li class="ln-param">
-            <h3>Режим работы</h3>
-            <p>Постоянная работа или частые пуски и торможения, нужен ли реверс и удержание момента на малых оборотах.</p>
+          <li data-ln-tilt class="ln-glow ln-glow--blue">
+            <span class="ln-glow__panel" aria-hidden="true"></span>
+            <div class="ln-glow__content">
+              <p class="ln-glow__kicker">03</p>
+              <h3>Условия и сеть</h3>
+              <div class="ln-glow__group"><p class="ln-glow__label">Условия установки</p><p class="ln-glow__sub">Запылённость, влажность, температура в помещении или шкафу, высота над уровнем моря.</p></div><div class="ln-glow__group"><p class="ln-glow__label">Сеть и кабель</p><p class="ln-glow__sub">Напряжение и частота сети, длина кабеля до двигателя, требования к ЭМС.</p></div>
+            </div>
           </li>
-          <li class="ln-param">
-            <h3>Диапазон регулирования</h3>
-            <p>В каких пределах меняются обороты и нужна ли обратная связь по скорости.</p>
-          </li>
-          <li class="ln-param">
-            <h3>Условия установки</h3>
-            <p>Запылённость, влажность, температура в помещении или шкафу, высота над уровнем моря.</p>
-          </li>
-          <li class="ln-param">
-            <h3>Сеть и кабель</h3>
-            <p>Напряжение и частота питающей сети, длина кабеля до двигателя, требования к электромагнитной совместимости.</p>
-          </li>
-          <li class="ln-param">
-            <h3>Управление</h3>
-            <p>Панель, внешние сигналы или обмен с ПЛК и АСУ ТП. Подскажем, какие интерфейсы нужны.</p>
-          </li>
-          <li class="ln-param">
-            <h3>Что на выходе</h3>
-            <p>Подобранная серия и типоразмер, цена, срок поставки, при необходимости — комплект с двигателем Dazhong.</p>
+          <li data-ln-tilt class="ln-glow ln-glow--sky">
+            <span class="ln-glow__panel" aria-hidden="true"></span>
+            <div class="ln-glow__content">
+              <p class="ln-glow__kicker">04</p>
+              <h3>Управление и результат</h3>
+              <div class="ln-glow__group"><p class="ln-glow__label">Управление</p><p class="ln-glow__sub">Панель, внешние сигналы или обмен с ПЛК и АСУ ТП.</p></div><div class="ln-glow__group"><p class="ln-glow__label">Результат подбора</p><p class="ln-glow__sub">Серия и типоразмер, цена, срок поставки, при необходимости — комплект с двигателем Dazhong.</p></div>
+            </div>
           </li>
         </ul>
+        <div class="ln-note">
+          <p>Нет ТЗ? Сфотографируйте шильдик двигателя — по нему подберём преобразователь.</p>
+          <button class="ln-btn ln-btn--primary" type="button" data-ln-upload><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3z"/><circle cx="12" cy="13" r="3.2"/></svg>Отправить шильдик двигателя</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Как проходит подбор -->
+    <section class="ln-section ln-section--white" style="padding-top:0">
+      <div class="ln-shell">
+        <div class="ln-head">
+          <p class="ln-eyebrow">Порядок работы</p>
+          <h2 class="ln-h2">Как проходит подбор</h2>
+        </div>
+        <ol class="ln-steps ln-steps--hover">
+          <li class="ln-step">
+            <h3>Получаем данные</h3>
+            <p>Фото шильдика двигателя и название механизма, техническое задание или опросный лист.</p>
+          </li>
+          <li class="ln-step">
+            <h3>Техническая проверка</h3>
+            <p>Специалист сверяет ток и мощность двигателя, режим работы, диапазон регулирования и параметры сети.</p>
+          </li>
+          <li class="ln-step">
+            <h3>Предлагаем модель</h3>
+            <p>Серия и типоразмер преобразователя, при необходимости — комплект с двигателем Dazhong.</p>
+          </li>
+          <li class="ln-step">
+            <h3>Цена и срок поставки</h3>
+            <p>Присылаем коммерческое предложение с ценой и сроком поставки.</p>
+          </li>
+        </ol>
       </div>
     </section>
 
     <!-- Серии -->
-    <section class="ln-section ln-section--white">
+    <section class="ln-section ln-section--white" style="padding-top:0">
       <div class="ln-shell">
         <div class="ln-head">
           <p class="ln-eyebrow">Каталог</p>
           <h2 class="ln-h2">Серии преобразователей</h2>
-          <p class="ln-lede">Серии EV200, EV510A и EV510H — от малых механизмов до тяжёлого оборудования с ударными нагрузками. Характеристики — в карточках каталога.</p>
         </div>
-        <ul class="ln-series">
-          <li class="ln-serie">
-            <a class="ln-serie__media" href="/catalog/vfd/ev200.html"><img src="/assets/images/vfd/ev200.jpg" alt="Миниатюрный преобразователь частоты серии EV200" loading="lazy" decoding="async" width="560" height="560"></a>
-            <div class="ln-serie__body">
-              <p class="ln-serie__type">Низковольтный</p>
-              <h3>Серия EV200</h3>
-              <p class="ln-serie__text">Компактный преобразователь для небольших механизмов и встраивания в машины, где важен размер.</p>
-              <a class="ln-link" href="/catalog/vfd/ev200.html">Характеристики серии <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a>
-            </div>
+        <ul class="ln-ncards">
+          <li>
+            <a class="ln-ncard" href="/catalog/vfd/ev200.html" aria-label="Серия EV200 — характеристики серии">
+              <span class="ln-ncard__cover">
+                <img src="/assets/images/vfd/ev200.jpg" alt="Миниатюрный преобразователь частоты серии EV200" loading="lazy" decoding="async" width="560" height="560">
+                <span class="ln-ncard__notch" aria-hidden="true"></span>
+                <span class="ln-ncard__fillet ln-ncard__fillet--up" aria-hidden="true"></span>
+                <span class="ln-ncard__fillet ln-ncard__fillet--left" aria-hidden="true"></span>
+                <span class="ln-ncard__go" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg></span>
+              </span>
+              <h3 class="ln-ncard__title">Серия EV200</h3>
+              <dl class="ln-specs"><div><dt>Мощность</dt><dd>0,4–7,5 кВт</dd></div><div><dt>Питание</dt><dd>1ф 220 В / 3ф 380 В</dd></div><div><dt>Выходная частота</dt><dd>0–500 Гц</dd></div><div><dt>Масса</dt><dd>1,3–3,9 кг</dd></div></dl>
+            </a>
           </li>
-          <li class="ln-serie">
-            <a class="ln-serie__media" href="/catalog/vfd/ev510a.html"><img src="/assets/images/vfd/ev510a.jpg" alt="Преобразователь частоты серии EV510A с векторным управлением по току" loading="lazy" decoding="async" width="560" height="560"></a>
-            <div class="ln-serie__body">
-              <p class="ln-serie__type">Низковольтный</p>
-              <h3>Серия EV510A</h3>
-              <p class="ln-serie__text">Векторное управление по току: точное поддержание момента и оборотов под переменной нагрузкой.</p>
-              <a class="ln-link" href="/catalog/vfd/ev510a.html">Характеристики серии <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a>
-            </div>
+          <li>
+            <a class="ln-ncard" href="/catalog/vfd/ev510a.html" aria-label="Серия EV510A — характеристики серии">
+              <span class="ln-ncard__cover">
+                <img src="/assets/images/vfd/ev510a.jpg" alt="Преобразователь частоты серии EV510A с векторным управлением по току" loading="lazy" decoding="async" width="560" height="560">
+                <span class="ln-ncard__notch" aria-hidden="true"></span>
+                <span class="ln-ncard__fillet ln-ncard__fillet--up" aria-hidden="true"></span>
+                <span class="ln-ncard__fillet ln-ncard__fillet--left" aria-hidden="true"></span>
+                <span class="ln-ncard__go" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg></span>
+              </span>
+              <h3 class="ln-ncard__title">Серия EV510A</h3>
+              <dl class="ln-specs"><div><dt>Питание</dt><dd>1ф 220 / 3ф 220 / 3ф 380 В</dd></div><div><dt>Управление</dt><dd>SVC / V/F</dd></div><div><dt>Момент при 0,5 Гц</dt><dd>180 %</dd></div><div><dt>Степень защиты</dt><dd>IP20, опц. IP54</dd></div></dl>
+            </a>
           </li>
-          <li class="ln-serie">
-            <a class="ln-serie__media" href="/catalog/vfd/ev510h.html"><img src="/assets/images/vfd/ev510h.jpg" alt="Преобразователь частоты серии EV510H с векторным управлением по току" loading="lazy" decoding="async" width="560" height="560"></a>
-            <div class="ln-serie__body">
-              <p class="ln-serie__type">Низковольтный</p>
-              <h3>Серия EV510H</h3>
-              <p class="ln-serie__text">Исполнение EV510 для более тяжёлых режимов работы и механизмов с ударной нагрузкой.</p>
-              <a class="ln-link" href="/catalog/vfd/ev510h.html">Характеристики серии <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a>
-            </div>
+          <li>
+            <a class="ln-ncard" href="/catalog/vfd/ev510h.html" aria-label="Серия EV510H — характеристики серии">
+              <span class="ln-ncard__cover">
+                <img src="/assets/images/vfd/ev510h.jpg" alt="Преобразователь частоты серии EV510H с векторным управлением по току" loading="lazy" decoding="async" width="560" height="560">
+                <span class="ln-ncard__notch" aria-hidden="true"></span>
+                <span class="ln-ncard__fillet ln-ncard__fillet--up" aria-hidden="true"></span>
+                <span class="ln-ncard__fillet ln-ncard__fillet--left" aria-hidden="true"></span>
+                <span class="ln-ncard__go" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg></span>
+              </span>
+              <h3 class="ln-ncard__title">Серия EV510H</h3>
+              <dl class="ln-specs"><div><dt>Питание</dt><dd>1ф 220 / 3ф 220 / 3ф 380 В</dd></div><div><dt>Перегрузка, 1 с</dt><dd>200 %</dd></div><div><dt>Перегрузка, 1 мин</dt><dd>150 %</dd></div><div><dt>Несущая частота</dt><dd>0,8–12 кГц</dd></div></dl>
+            </a>
           </li>
-          <li class="ln-serie">
-            <a class="ln-serie__media" href="/catalog/vfd/promyshlennye-preobrazovateli.html"><img src="/assets/images/vfd/ev510a.jpg" alt="Промышленные преобразователи частоты Dazhong" loading="lazy" decoding="async" width="560" height="560"></a>
-            <div class="ln-serie__body">
-              <p class="ln-serie__type">Низко- и высоковольтные</p>
-              <h3>Промышленные ПЧ</h3>
-              <p class="ln-serie__text">Обзор линейки: EV200 для малых механизмов, EV510A для общепромышленного оборудования, EV510H для тяжёлых нагрузок.</p>
-              <a class="ln-link" href="/catalog/vfd/promyshlennye-preobrazovateli.html">Характеристики серии <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a>
-            </div>
+          <li>
+            <a class="ln-ncard" href="/catalog/vfd/promyshlennye-preobrazovateli.html" aria-label="Обзор линейки — характеристики линейки">
+              <span class="ln-ncard__cover">
+                <img src="/assets/images/vfd/ev510a.jpg" alt="Промышленные преобразователи частоты Dazhong" loading="lazy" decoding="async" width="560" height="560">
+                <span class="ln-ncard__notch" aria-hidden="true"></span>
+                <span class="ln-ncard__fillet ln-ncard__fillet--up" aria-hidden="true"></span>
+                <span class="ln-ncard__fillet ln-ncard__fillet--left" aria-hidden="true"></span>
+                <span class="ln-ncard__go" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg></span>
+              </span>
+              <h3 class="ln-ncard__title">Обзор линейки</h3>
+              <dl class="ln-specs"><div><dt>Серии</dt><dd>EV200, EV510A, EV510H</dd></div><div><dt>Мощность</dt><dd>от 0,4 кВт</dd></div><div><dt>Управление</dt><dd>SVC / V/F</dd></div><div><dt>Связь</dt><dd>Modbus-RTU, CANopen</dd></div></dl>
+            </a>
           </li>
         </ul>
-        <p class="ln-note-small">Двигатель и преобразователь можно взять комплектом: проверим совместимость по току, моменту и длине кабеля, подберём фильтры, если они нужны.</p>
+        <div class="ln-help">
+          <span class="ln-help__icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 21a8 8 0 0 1 13.29-6"/><circle cx="10" cy="8" r="5"/><path d="m16 19 2 2 4-4"/></svg></span>
+          <div class="ln-help__text">
+            <p class="ln-help__title">Нужен двигатель в комплект?</p>
+            <p>Поможет наш специалист: подберёт преобразователь под механизм и режим работы, при необходимости — вместе с двигателем Dazhong, и пришлёт предложение с ценой и сроком поставки.</p>
+          </div>
+          <div class="ln-help__actions">
+            <a class="ln-btn ln-btn--primary" href="#podbor">Оставить заявку</a>
+            <button class="ln-btn ln-btn--dark" type="button" data-ln-upload><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3z"/><circle cx="12" cy="13" r="3.2"/></svg>Отправить шильдик</button>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -705,7 +762,7 @@ var chectoutpage="";
           <li><b>1958</b><span>год основания завода</span></li>
           <li><b>2 000</b><span>сотрудников на заводе</span></li>
           <li><b>68 %</b><span>сотрудников — технические специалисты</span></li>
-          <li><b>60+</b><span>стран в сети продаж</span></li>
+          <li><b>60+</b><span>стран, где работают двигатели</span></li>
           <li><b>СПб</b><span>российский офис</span></li>
         </ul>
       </div>
@@ -717,7 +774,7 @@ var chectoutpage="";
         <div>
           <p class="ln-eyebrow">Документы</p>
           <h2 class="ln-h2">Сертификаты и патенты</h2>
-          <p class="ln-lede">Сертификаты систем менеджмента качества, экологического менеджмента и охраны труда, сертификат послепродажного обслуживания, патенты на изобретения. Полный список — на странице документов.</p>
+          <p class="ln-lede">ISO 9001, ISO 14001, ISO 45001, CE, UL, ATEX. 61 патент, из них 18 — на изобретения. Копии документов — на странице сертификатов.</p>
           <div class="ln-docs__more">
             <a class="ln-btn ln-btn--dark" href="/company/certificates.html">Все документы <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a>
           </div>
@@ -747,15 +804,15 @@ var chectoutpage="";
           </details>
           <details class="ln-faq__item">
             <summary>Что прислать, чтобы получить предложение?</summary>
-            <p>Шильдик двигателя и название механизма — насос, вентилятор, конвейер, дробилка. Если есть техническое задание или опросный лист, приложите их: так предложение будет точнее.</p>
+            <p>Шильдик двигателя и название механизма: насос, вентилятор, конвейер, дробилка. Если есть техническое задание или опросный лист, приложите их: так предложение будет точнее.</p>
           </details>
           <details class="ln-faq__item">
-            <summary>Работают ли преобразователи с синхронными и серводвигателями?</summary>
-            <p>Да, серии Dazhong рассчитаны на асинхронные, синхронные и серводвигатели. Алгоритмы управления — векторное, SVC и VF; нужный режим выбирается под задачу.</p>
+            <summary>С какими двигателями работают преобразователи?</summary>
+            <p>С асинхронными и с синхронными двигателями на постоянных магнитах (EV510A). Режимы управления — бездатчиковое векторное (SVC) и V/F, диапазон выходной частоты 0–500 Гц.</p>
           </details>
           <details class="ln-faq__item">
             <summary>Есть ли высоковольтные преобразователи?</summary>
-            <p>В каталоге — низковольтные серии EV200, EV510A и EV510H на 220 и 380 В. Высоковольтный привод подбираем на заводе под конкретный проект: пришлите данные двигателя и механизма.</p>
+            <p>Нет. Линейка Dazhong — низковольтные серии EV200, EV510A и EV510H с питанием 1ф 220 В, 3ф 220 В и 3ф 380 В.</p>
           </details>
           <details class="ln-faq__item">
             <summary>Можно ли взять двигатель и преобразователь комплектом?</summary>
@@ -812,8 +869,8 @@ var chectoutpage="";
                 <input class="ln-input" type="text" id="f2_name" name="txt_name" placeholder="Как к вам обращаться" autocomplete="name" required>
               </div>
               <div class="ln-field">
-                <label for="f2_company">Компания</label>
-                <input class="ln-input" type="text" id="f2_company" name="txt_company" placeholder="Название организации" autocomplete="organization">
+                <label for="f2_company">Компания <span class="ln-req">*</span></label>
+                <input class="ln-input" type="text" id="f2_company" name="txt_company" placeholder="Название организации" autocomplete="organization" required>
               </div>
               <div class="ln-field">
                 <label for="f2_contact">Телефон или email <span class="ln-req">*</span></label>
@@ -1466,70 +1523,7 @@ var chectoutpage="";
 <script src="/assets/js/to-top.js?v=1787154820" defer></script>
 
   <script src="/assets/js/lead-modal.js?v=1790000000" defer></script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "Подберёте преобразователь к двигателю другого производителя?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Да. Преобразователь подбирается по мощности, номинальному току и типу двигателя, а не по его марке. Пришлите фото шильдика — этого обычно достаточно."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Что прислать, чтобы получить предложение?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Шильдик двигателя и название механизма — насос, вентилятор, конвейер, дробилка. Если есть техническое задание или опросный лист, приложите их: так предложение будет точнее."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Работают ли преобразователи с синхронными и серводвигателями?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Да, серии Dazhong рассчитаны на асинхронные, синхронные и серводвигатели. Алгоритмы управления — векторное, SVC и VF; нужный режим выбирается под задачу."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Есть ли высоковольтные преобразователи?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "В каталоге — низковольтные серии EV200, EV510A и EV510H на 220 и 380 В. Высоковольтный привод подбираем на заводе под конкретный проект: пришлите данные двигателя и механизма."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Можно ли взять двигатель и преобразователь комплектом?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Можно. Мы проверим совместимость по току, моменту и длине кабеля и подберём фильтры, если они потребуются. Двигатели — из нашего каталога."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Сколько ждать поставку?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Срок зависит от серии и исполнения, он указывается в предложении вместе с ценой. Оборудование поставляется под заказ."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Поможете с настройкой после поставки?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Да, подскажем параметры под ваш механизм и режим работы. Вопросы по подключению и настройке можно задать специалисту по телефону или почте."
-      }
-    }
-  ]
-}
-</script>
-  <script src="/assets/js/landing.js?v=1790000000" defer></script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Подберёте преобразователь к двигателю другого производителя?", "acceptedAnswer": {"@type": "Answer", "text": "Да. Преобразователь подбирается по мощности, номинальному току и типу двигателя, а не по его марке. Пришлите фото шильдика — этого обычно достаточно."}}, {"@type": "Question", "name": "Что прислать, чтобы получить предложение?", "acceptedAnswer": {"@type": "Answer", "text": "Шильдик двигателя и название механизма: насос, вентилятор, конвейер, дробилка. Если есть техническое задание или опросный лист, приложите их: так предложение будет точнее."}}, {"@type": "Question", "name": "С какими двигателями работают преобразователи?", "acceptedAnswer": {"@type": "Answer", "text": "С асинхронными и с синхронными двигателями на постоянных магнитах (EV510A). Режимы управления — бездатчиковое векторное (SVC) и V/F, диапазон выходной частоты 0–500 Гц."}}, {"@type": "Question", "name": "Есть ли высоковольтные преобразователи?", "acceptedAnswer": {"@type": "Answer", "text": "Нет. Линейка Dazhong — низковольтные серии EV200, EV510A и EV510H с питанием 1ф 220 В, 3ф 220 В и 3ф 380 В."}}, {"@type": "Question", "name": "Можно ли взять двигатель и преобразователь комплектом?", "acceptedAnswer": {"@type": "Answer", "text": "Можно. Мы проверим совместимость по току, моменту и длине кабеля и подберём фильтры, если они потребуются. Двигатели — из нашего каталога."}}, {"@type": "Question", "name": "Сколько ждать поставку?", "acceptedAnswer": {"@type": "Answer", "text": "Срок зависит от серии и исполнения, он указывается в предложении вместе с ценой. Оборудование поставляется под заказ."}}, {"@type": "Question", "name": "Поможете с настройкой после поставки?", "acceptedAnswer": {"@type": "Answer", "text": "Да, подскажем параметры под ваш механизм и режим работы. Вопросы по подключению и настройке можно задать специалисту по телефону или почте."}}]}</script>
+  <script src="/assets/js/landing.js?v=1792200000" defer></script>
 </body>
 </html>
