@@ -1752,157 +1752,119 @@ body.page-en #header .header_box .r_icon {
 #header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) ul.nav_third { display: none !important; }
 
 /* Порядок разделов — как в каталоге. */
-#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list:has(> a[href$="#c242903"]),
-#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list:has(> a[href$="#c242903"]) { order: 1; }
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list:has(> a[data-cat="c242903"]),
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list:has(> a[data-cat="c242903"]) { order: 1; }
 
-#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list:has(> a[href$="#c242901"]),
-#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list:has(> a[href$="#c242901"]) { order: 2; }
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list:has(> a[data-cat="c242901"]),
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list:has(> a[data-cat="c242901"]) { order: 2; }
 
-#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list:has(> a[href$="#c242902"]),
-#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list:has(> a[href$="#c242902"]) { order: 3; }
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list:has(> a[data-cat="c242902"]),
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list:has(> a[data-cat="c242902"]) { order: 3; }
 
-#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list:has(> a[href$="#c242904"]),
-#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list:has(> a[href$="#c242904"]) { order: 4; }
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list:has(> a[data-cat="c242904"]),
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list:has(> a[data-cat="c242904"]) { order: 4; }
 
-#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list:has(> a[href$="#c242905"]),
-#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list:has(> a[href$="#c242905"]) { order: 5; }
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list:has(> a[data-cat="c242905"]),
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list:has(> a[data-cat="c242905"]) { order: 5; }
 
-#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list:has(> a[href$="#c267313"]),
-#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list:has(> a[href$="#c267313"]) { order: 6; }
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list:has(> a[data-cat="c267313"]),
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list:has(> a[data-cat="c267313"]) { order: 6; }
 
-#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list:has(> a[href$="#c267300"]),
-#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list:has(> a[href$="#c267300"]) { order: 7; }
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list:has(> a[data-cat="c267300"]),
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list:has(> a[data-cat="c267300"]) { order: 7; }
 
-#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list:has(> a[href$="#c242906"]),
-#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list:has(> a[href$="#c242906"]) { order: 8; }
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list:has(> a[data-cat="c242906"]),
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list:has(> a[data-cat="c242906"]) { order: 8; }
 
-#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list:has(> a[href$="#c245137"]),
-#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list:has(> a[href$="#c245137"]) { order: 9; }
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list:has(> a[data-cat="c245137"]),
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list:has(> a[data-cat="c245137"]) { order: 9; }
 
-#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list:has(> a[href$="#c242907"]),
-#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list:has(> a[href$="#c242907"]) { order: 10; }
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list:has(> a[data-cat="c242907"]),
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list:has(> a[data-cat="c242907"]) { order: 10; }
 
 /* Подписи под названиями разделов. */
-#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list > a[href$="#c242903"]::after,
-#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list > a[href$="#c242903"]::after { content: "8 моделей · 160 кВт – 10 МВт"; }
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list > a[data-cat="c242903"]::after,
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list > a[data-cat="c242903"]::after { content: "10 моделей · 160 кВт – 10 МВт"; }
 
-#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list > a[href$="#c242901"]::after,
-#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list > a[href$="#c242901"]::after { content: "8 моделей · прокат, буровые"; }
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list > a[data-cat="c242901"]::after,
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list > a[data-cat="c242901"]::after { content: "8 моделей · прокат, буровые"; }
 
-#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list > a[href$="#c242902"]::after,
-#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list > a[href$="#c242902"]::after { content: "18 моделей · IE3 – IE5"; }
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list > a[data-cat="c242902"]::after,
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list > a[data-cat="c242902"]::after { content: "16 моделей · IE3 – IE5"; }
 
-#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list > a[href$="#c242904"]::after,
-#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list > a[href$="#c242904"]::after { content: "6 моделей · КПД выше 95 %"; }
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list > a[data-cat="c242904"]::after,
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list > a[data-cat="c242904"]::after { content: "6 моделей · КПД выше 95 %"; }
 
-#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list > a[href$="#c242905"]::after,
-#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list > a[href$="#c242905"]::after { content: "16 моделей · под механизм"; }
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list > a[data-cat="c242905"]::after,
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list > a[data-cat="c242905"]::after { content: "16 моделей · под механизм"; }
 
-#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list > a[href$="#c267313"]::after,
-#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list > a[href$="#c267313"]::after { content: "13 моделей · суда и насосы"; }
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list > a[data-cat="c267313"]::after,
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list > a[data-cat="c267313"]::after { content: "13 моделей · суда и насосы"; }
 
-#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list > a[href$="#c267300"]::after,
-#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list > a[href$="#c267300"]::after { content: "43 модели · Ex d, Ex e, Ex tD"; }
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list > a[data-cat="c267300"]::after,
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list > a[data-cat="c267300"]::after { content: "43 модели · Ex d, Ex e, Ex tD"; }
 
-#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list > a[href$="#c242906"]::after,
-#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list > a[href$="#c242906"]::after { content: "5 моделей · 0,2–200 кВт"; }
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list > a[data-cat="c242906"]::after,
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list > a[data-cat="c242906"]::after { content: "5 моделей · 0,05–41 кВт"; }
 
-#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list > a[href$="#c245137"]::after,
-#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list > a[href$="#c245137"]::after { content: "19 моделей · 3–200 Вт"; }
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list > a[data-cat="c245137"]::after,
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list > a[data-cat="c245137"]::after { content: "19 моделей · 5–200 Вт"; }
 
-#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list > a[href$="#c242907"]::after,
-#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list > a[href$="#c242907"]::after { content: "4 модели · до 20 МВА"; }
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list > a[data-cat="c242907"]::after,
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list > a[data-cat="c242907"]::after { content: "4 модели · от 0,4 кВт"; }
 
 /* Те же подписи на английских страницах. */
-body.page-en #header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list > a[href$="#c242903"]::after,
-body.page-en #header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list > a[href$="#c242903"]::after { content: "8 models · 160 kW – 10 MW"; }
+body.page-en #header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list > a[data-cat="c242903"]::after,
+body.page-en #header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list > a[data-cat="c242903"]::after { content: "10 models · 160 kW – 10 MW"; }
 
-body.page-en #header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list > a[href$="#c242901"]::after,
-body.page-en #header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list > a[href$="#c242901"]::after { content: "8 models · rolling mills, drilling"; }
+body.page-en #header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list > a[data-cat="c242901"]::after,
+body.page-en #header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list > a[data-cat="c242901"]::after { content: "8 models · rolling mills, drilling"; }
 
-body.page-en #header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list > a[href$="#c242902"]::after,
-body.page-en #header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list > a[href$="#c242902"]::after { content: "18 models · IE3 – IE5"; }
+body.page-en #header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list > a[data-cat="c242902"]::after,
+body.page-en #header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list > a[data-cat="c242902"]::after { content: "16 models · IE3 – IE5"; }
 
-body.page-en #header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list > a[href$="#c242904"]::after,
-body.page-en #header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list > a[href$="#c242904"]::after { content: "6 models · efficiency above 95 %"; }
+body.page-en #header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list > a[data-cat="c242904"]::after,
+body.page-en #header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list > a[data-cat="c242904"]::after { content: "6 models · efficiency above 95 %"; }
 
-body.page-en #header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list > a[href$="#c242905"]::after,
-body.page-en #header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list > a[href$="#c242905"]::after { content: "16 models · built for the machine"; }
+body.page-en #header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list > a[data-cat="c242905"]::after,
+body.page-en #header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list > a[data-cat="c242905"]::after { content: "16 models · built for the machine"; }
 
-body.page-en #header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list > a[href$="#c267313"]::after,
-body.page-en #header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list > a[href$="#c267313"]::after { content: "13 models · vessels and pumps"; }
+body.page-en #header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list > a[data-cat="c267313"]::after,
+body.page-en #header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list > a[data-cat="c267313"]::after { content: "13 models · vessels and pumps"; }
 
-body.page-en #header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list > a[href$="#c267300"]::after,
-body.page-en #header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list > a[href$="#c267300"]::after { content: "43 models · Ex d, Ex e, Ex tD"; }
+body.page-en #header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list > a[data-cat="c267300"]::after,
+body.page-en #header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list > a[data-cat="c267300"]::after { content: "43 models · Ex d, Ex e, Ex tD"; }
 
-body.page-en #header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list > a[href$="#c242906"]::after,
-body.page-en #header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list > a[href$="#c242906"]::after { content: "5 models · 0.2–200 kW"; }
+body.page-en #header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list > a[data-cat="c242906"]::after,
+body.page-en #header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list > a[data-cat="c242906"]::after { content: "5 models · 0.05–41 kW"; }
 
-body.page-en #header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list > a[href$="#c245137"]::after,
-body.page-en #header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list > a[href$="#c245137"]::after { content: "19 models · 3–200 W"; }
+body.page-en #header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list > a[data-cat="c245137"]::after,
+body.page-en #header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list > a[data-cat="c245137"]::after { content: "19 models · 5–200 W"; }
 
-body.page-en #header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list > a[href$="#c242907"]::after,
-body.page-en #header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list > a[href$="#c242907"]::after { content: "4 models · up to 20 MVA"; }
+body.page-en #header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list > a[data-cat="c242907"]::after,
+body.page-en #header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list > a[data-cat="c242907"]::after { content: "4 models · from 0.4 kW"; }
 
-/* 6b-2. Посадочные страницы в меню «Продукция» (только русская версия).
-   Два пункта в разметке каждой страницы с классом dz-offer; здесь они
-   встают последней строкой панели и выделяются как подбор под задачу. */
-#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list.dz-offer { order: 20; margin-top: 8px; padding-top: 10px; border-top: 1px solid #e4e7e9; }
+/* 6b-2. Под чертой в панели «Продукция»: весь каталог и замена ABB/Siemens.
+   Пункты разделов выше ведут на посадочные страницы (атрибут data-cat —
+   номер раздела каталога, по нему заданы порядок и подписи). */
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list.dz-all,
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list.dz-all { order: 20; margin-top: 8px; padding-top: 10px; border-top: 1px solid #e4e7e9; }
 
-#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list.dz-offer > a.navigation {
-  background: rgba(0, 174, 239, 0.08);
-}
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list.dz-all > a[href="/catalog/"]::after { content: "10 разделов · 121 модель"; }
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list.dz-all > a[href="/zamena-dvigateley-abb-siemens/"]::after { content: "Аналог по мощности, оборотам и монтажу"; }
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list.dz-all > a[href="/en/catalog/"]::after { content: "10 sections · 121 models"; }
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list.dz-all > a[href="/en/abb-siemens-motor-replacement/"]::after { content: "Equivalent by power, speed and mounting"; }
 
-#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list.dz-offer > a.navigation:hover,
-#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list.dz-offer > a.navigation:focus-visible {
-  background: rgba(0, 174, 239, 0.16);
-}
+/* «Весь каталог» выделен: это главный вход к полному списку моделей. */
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list.dz-all > a[href="/catalog/"],
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list.dz-all > a[href="/en/catalog/"] { background: rgba(0, 174, 239, 0.1); color: #0077a8; }
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list.dz-all > a[href="/catalog/"]:hover, #header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list.dz-all > a[href="/catalog/"]:focus-visible,
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list.dz-all > a[href="/en/catalog/"]:hover, #header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list.dz-all > a[href="/en/catalog/"]:focus-visible { background: rgba(0, 174, 239, 0.18); color: #0077a8; }
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list.dz-all > a[href="/catalog/"]::before,
+#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list.dz-all > a[href="/en/catalog/"]::before { content: "→"; float: right; margin-left: 10px; font-size: 18px; font-weight: 600; line-height: 1.1; color: #00aeef; }
 
-#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list.dz-offer > a.navigation::before {
-  display: block;
-  margin-bottom: 3px;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: #0077a8;
-}
-
-#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list.dz-offer > a[href="/vysokovoltnye-dvigateli-6-10-kv/"]::before { content: "Подбор по ТЗ"; }
-#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list.dz-offer > a[href="/vysokovoltnye-dvigateli-6-10-kv/"]::after { content: "Синхронные и асинхронные, от 200 кВт"; }
-#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list.dz-offer > a[href="/zamena-dvigateley-abb-siemens/"]::before { content: "Подбор по шильдику"; }
-#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list.dz-offer > a[href="/zamena-dvigateley-abb-siemens/"]::after { content: "Аналог по мощности, оборотам и монтажу"; }
-
-#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list.dz-offer > a[href="/chastotnye-preobrazovateli/"]::before { content: "Подбор по задаче"; }
-#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Продукция"]) li.nav_second_list.dz-offer > a[href="/chastotnye-preobrazovateli/"]::after { content: "EV200, EV510A и EV510H · 0,4 кВт – 20 МВА"; }
-
-/* 6b-3. Те же пункты в английском меню: там заголовок раздела — «Product». */
-#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list.dz-offer { order: 20; margin-top: 8px; padding-top: 10px; border-top: 1px solid #e4e7e9; }
-
-#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list.dz-offer > a.navigation { background: rgba(0, 174, 239, 0.08); }
-
-#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list.dz-offer > a.navigation:hover,
-#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list.dz-offer > a.navigation:focus-visible { background: rgba(0, 174, 239, 0.16); }
-
-#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list.dz-offer > a.navigation::before {
-  display: block;
-  margin-bottom: 3px;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: #0077a8;
-}
-
-#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list.dz-offer > a[href="/en/high-voltage-motors-6-10-kv/"]::before { content: "Selection by specification"; }
-#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list.dz-offer > a[href="/en/high-voltage-motors-6-10-kv/"]::after { content: "Synchronous and induction, from 200 kW"; }
-#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list.dz-offer > a[href="/en/variable-frequency-drives/"]::before { content: "Selection by application"; }
-#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list.dz-offer > a[href="/en/variable-frequency-drives/"]::after { content: "EV200, EV510A and EV510H · 0.4 kW – 20 MVA"; }
-#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list.dz-offer > a[href="/en/abb-siemens-motor-replacement/"]::before { content: "Selection by nameplate"; }
-#header .nav_bar .nav_first > li.nav_list:has(> a.navigation[data-nav="Product"]) li.nav_second_list.dz-offer > a[href="/en/abb-siemens-motor-replacement/"]::after { content: "Equivalent by power, speed and mounting"; }
-
-/* В мобильном меню — цветом, чтобы отличались от разделов каталога. */
-#sidebar-main li.dz-offer > a.phone_navigation { color: #0077a8 !important; font-weight: 600; }
+/* В мобильном меню — цветом, чтобы отличались от разделов. */
+#sidebar-main li.dz-all > a.phone_navigation { color: #0077a8 !important; font-weight: 600; }
 
 /* 6c. Стрелка у пунктов меню с выпадающим списком.
    Значок рисуется маской по цвету текста, поэтому подхватывает и обычный

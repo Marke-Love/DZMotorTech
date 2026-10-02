@@ -117,7 +117,15 @@
   var DIRECTIONS = [
     ['/zamena-dvigateley-abb-siemens', '/en/abb-siemens-motor-replacement', 'lead_abb_siemens', 'Замена ABB и Siemens'],
     ['/vysokovoltnye-dvigateli-6-10-kv', '/en/high-voltage-motors-6-10-kv', 'lead_high_voltage', 'Высоковольтные двигатели 6 и 10 кВ'],
-    ['/chastotnye-preobrazovateli', '/en/variable-frequency-drives', 'lead_vfd', 'Частотные преобразователи']
+    ['/chastotnye-preobrazovateli', '/en/variable-frequency-drives', 'lead_vfd', 'Частотные преобразователи'],
+    ['/dvigateli-postoyannogo-toka', '/en/dc-motors', 'lead_dc_motors', 'Двигатели постоянного тока'],
+    ['/nizkovoltnye-dvigateli', '/en/low-voltage-motors', 'lead_low_voltage', 'Низковольтные двигатели'],
+    ['/spetsialnye-dvigateli', '/en/special-motors', 'lead_special_motors', 'Специальные двигатели'],
+    ['/dvigateli-s-postoyannymi-magnitami', '/en/permanent-magnet-motors', 'lead_pm_motors', 'Двигатели с постоянными магнитами'],
+    ['/sudovye-dvigateli', '/en/marine-motors', 'lead_marine_motors', 'Судовые двигатели'],
+    ['/servoprivody', '/en/servo-motors', 'lead_servo', 'Сервоприводы'],
+    ['/miniatyurnye-servoprivody', '/en/miniature-servo-motors', 'lead_mini_servo', 'Миниатюрные сервоприводы'],
+    ['/vzryvozashchishchennye-dvigateli', '/en/explosion-proof-motors', 'lead_explosion_proof', 'Взрывозащищённые двигатели']
   ];
 
   function direction() {
@@ -321,7 +329,7 @@
 
   var T = isEn ? {
     title: 'Send a request',
-    lede: 'Tell us what you need — an engineer will pick the right motor, calculate the price and confirm lead time.',
+    lede: 'Tell us what you need — a specialist will pick the right motor, calculate the price and confirm lead time.',
     name: 'Your name', namePh: 'How should we address you',
     phone: 'Phone',
     email: 'E-mail',
@@ -338,7 +346,7 @@
     okText: 'We will review the information and get back to you during business hours.'
   } : {
     title: 'Оставить заявку',
-    lede: 'Расскажите, что нужно, — инженер подберёт исполнение, посчитает стоимость и назовёт срок поставки.',
+    lede: 'Расскажите, что нужно, — специалист подберёт исполнение, посчитает стоимость и назовёт срок поставки.',
     name: 'Ваше имя', namePh: 'Как к вам обращаться',
     phone: 'Телефон',
     email: 'E-mail',
@@ -464,6 +472,15 @@
     // Перерисовка, чтобы появление проигралось как переход, а не скачком.
     void back.offsetWidth;
     back.classList.add('is-open');
+
+    // На карточке товара подставляем модель в комментарий, чтобы менеджер
+    // видел, каким двигателем интересовались. Введённый текст не трогаем.
+    var model = document.querySelector('h1.product_item__title');
+    var note = back.querySelector('#dzm_message');
+    if (model && note && !note.value) {
+      note.value = (document.documentElement.lang === 'en' ? 'Product of interest: ' : 'Интересует: ') +
+        model.textContent.replace(/\s+/g, ' ').trim() + '\n';
+    }
 
     var first = back.querySelector('#dzm_name');
     if (first) first.focus({ preventScroll: true });

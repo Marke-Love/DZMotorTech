@@ -5,13 +5,56 @@
    обращаемся в момент действия, а не при загрузке.
 
    Без скрипта формы уходят обычной отправкой: обработчик возвращает на эту
-   же страницу с ?sent=1 или ?sent=0, и тогда сообщение показывается ниже. */
+   же страницу с ?sent=1 или ?sent=0, и тогда показывается окно или ошибка. */
 (function () {
   'use strict';
 
   function param(name) {
     var match = new RegExp('[?&]' + name + '=([^&#]*)').exec(window.location.search);
     return match ? decodeURIComponent(match[1]) : '';
+  }
+
+  /* Всплывающее окно «Заявка получена». Закрывается кнопкой, кликом по фону и Esc. */
+  function openPopup(source) {
+    var previous = document.querySelector('.ln-pop');
+    if (previous) previous.parentNode.removeChild(previous);
+
+    var isRu = (document.documentElement.lang || 'ru').toLowerCase().indexOf('ru') === 0;
+    var title = source.querySelector('.ln-done__title');
+    var pop = document.createElement('div');
+    pop.className = 'ln-pop';
+    pop.setAttribute('role', 'dialog');
+    pop.setAttribute('aria-modal', 'true');
+    if (title) pop.setAttribute('aria-label', title.textContent);
+
+    var card = document.createElement('div');
+    card.className = 'ln-pop__card ln-done';
+    card.innerHTML = source.innerHTML;
+    var close = document.createElement('button');
+    close.type = 'button';
+    close.className = 'ln-btn ln-btn--dark ln-pop__close';
+    close.textContent = isRu ? 'Закрыть' : 'Close';
+    card.appendChild(close);
+    pop.appendChild(card);
+
+    var lastFocus = document.activeElement;
+    function shut() {
+      document.removeEventListener('keydown', onKey);
+      document.documentElement.classList.remove('ln-pop-open');
+      if (pop.parentNode) pop.parentNode.removeChild(pop);
+      if (lastFocus && lastFocus.focus) lastFocus.focus();
+    }
+    function onKey(event) {
+      if (event.key === 'Escape' || event.key === 'Esc') shut();
+      if (event.key === 'Tab') { event.preventDefault(); close.focus(); }   // в окне одна кнопка
+    }
+    close.addEventListener('click', shut);
+    pop.addEventListener('click', function (event) { if (event.target === pop) shut(); });
+    document.addEventListener('keydown', onKey);
+
+    document.body.appendChild(pop);
+    document.documentElement.classList.add('ln-pop-open');
+    close.focus();
   }
 
   function setupForm(form) {
@@ -35,12 +78,14 @@
       });
     }
 
+    /* Успешная отправка: всплывающее окно поверх страницы, форма очищается
+       и остаётся доступной. Текст окна берём из блока [data-ln-done] формы. */
     function showDone() {
-      form.hidden = true;
-      if (done) {
-        done.hidden = false;
-        done.scrollIntoView({ block: 'center', behavior: 'smooth' });
+      form.reset();
+      if (file) {
+        try { file.dispatchEvent(new Event('change')); } catch (e) { /* старые браузеры */ }
       }
+      if (done) openPopup(done);
     }
 
     function showBad() {

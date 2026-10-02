@@ -492,6 +492,14 @@ textarea.ln-input { min-height: 84px; line-height: 1.5; resize: vertical; }
 
 .ln-hero--hv .ln-hero__media { background-image: url("/assets/images/products/7168958-4.jpg"); opacity: 0.24; }
 .ln-hero--vfd .ln-hero__media { background-image: url("/assets/images/vfd/ev510a.jpg"); opacity: 0.18; }
+.ln-hero--dc .ln-hero__media { background-image: url("/assets/images/dc/z4.jpg"); opacity: 0.18; }
+.ln-hero--lv .ln-hero__media { background-image: url("/assets/images/lv/ye5.jpg"); opacity: 0.18; }
+.ln-hero--sp .ln-hero__media { background-image: url("/assets/images/sp/yzp.jpg"); opacity: 0.18; }
+.ln-hero--pm .ln-hero__media { background-image: url("/assets/images/pm/typ1.jpg"); opacity: 0.18; }
+.ln-hero--marine .ln-hero__media { background-image: url("/assets/images/marine/windlass.jpg"); opacity: 0.2; }
+.ln-hero--servo .ln-hero__media { background-image: url("/assets/images/servo/zf.jpg"); opacity: 0.18; }
+.ln-hero--mini .ln-hero__media { background-image: url("/assets/images/mini/40d.jpg"); opacity: 0.18; }
+.ln-hero--ex .ln-hero__media { background-image: url("/assets/images/ex/ybx3-lv.jpg"); opacity: 0.18; }
 
 /* Синхронные и асинхронные */
 .ln-types {
@@ -1143,3 +1151,31 @@ textarea.ln-input { min-height: 84px; line-height: 1.5; resize: vertical; }
 @media (prefers-reduced-motion: reduce) {
   .ln-help__icon::before, .ln-help__icon::after { animation: none; }
 }
+
+/* --- Всплывающее окно «Заявка получена» на посадочных --- */
+.ln-pop-open { overflow: hidden; }
+.ln-pop {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483000;                 /* выше шапки сайта и баннера cookie */
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(13, 31, 45, 0.82);
+  -webkit-backdrop-filter: blur(4px);
+          backdrop-filter: blur(4px);
+  animation: ln-pop-fade 0.25s var(--ln-ease) both;
+}
+.ln-pop__card {
+  width: min(100%, 470px);
+  padding: 44px 32px 32px;
+  border-radius: 26px;
+  background: #fff;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
+  animation: ln-pop-rise 0.3s var(--ln-ease) both;
+}
+.ln-pop__card p:not(.ln-done__title) { font-size: 16px; }
+.ln-pop__close { margin-top: 16px; min-width: 160px; justify-content: center; }
+@keyframes ln-pop-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes ln-pop-rise { from { opacity: 0; transform: translateY(14px) scale(0.97); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .ln-pop, .ln-pop__card { animation: none; } }
