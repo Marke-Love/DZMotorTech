@@ -81,8 +81,8 @@ SEED_CARDS = {
 STATS = [
     ("Founded in", "1958"),
     ("65+", "years of industrial motor production"),
-    ("10+", "projects delivered across 5 continents"),
-    ("2000+", "units a day with an in-house metallurgical base"),
+    ("61", "patents, 18 of them for inventions"),
+    ("10+", "projects delivered by DZMotorTech LLC, Dazhong distributor"),
 ]
 
 

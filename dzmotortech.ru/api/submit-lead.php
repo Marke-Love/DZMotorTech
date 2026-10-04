@@ -30,6 +30,9 @@ const LEAD_DIRECTIONS = [
     '/servoprivody' => 'Сервоприводы',
     '/miniatyurnye-servoprivody' => 'Миниатюрные сервоприводы',
     '/vzryvozashchishchennye-dvigateli' => 'Взрывозащищённые двигатели',
+    '/dvigateli-dlya-nasosov' => 'Двигатели для насосов',
+    '/dvigateli-dlya-dymososov' => 'Двигатели для дымососов и вентиляторов',
+    '/dvigateli-dlya-kompressorov' => 'Двигатели для компрессоров',
     '/en/abb-siemens-motor-replacement' => 'Замена ABB и Siemens (EN)',
     '/en/high-voltage-motors-6-10-kv' => 'Высоковольтные двигатели 6 и 10 кВ (EN)',
     '/en/variable-frequency-drives' => 'Частотные преобразователи (EN)',
@@ -41,6 +44,9 @@ const LEAD_DIRECTIONS = [
     '/en/servo-motors' => 'Сервоприводы (EN)',
     '/en/miniature-servo-motors' => 'Миниатюрные сервоприводы (EN)',
     '/en/explosion-proof-motors' => 'Взрывозащищённые двигатели (EN)',
+    '/en/pump-motors' => 'Двигатели для насосов (EN)',
+    '/en/fan-motors' => 'Двигатели для дымососов и вентиляторов (EN)',
+    '/en/compressor-motors' => 'Двигатели для компрессоров (EN)',
 ];
 const DEFAULT_DIRECTION = 'Общая форма сайта';
 /** Заявка из формы на карточке товара — отдельное направление. */

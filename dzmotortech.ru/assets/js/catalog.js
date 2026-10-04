@@ -24,9 +24,62 @@
     return (value || '').toLowerCase().replace(/ё/g, 'е').replace(/\s+/g, ' ').trim();
   }
 
+  /* --- подбор по параметрам ---------------------------------------------
+
+     У каждого товара в data-f-* лежат параметры из описания серии:
+     p — мощность «от до» в кВт, u — напряжение «от до» в вольтах,
+     ip — степени защиты, ex — виды взрывозащиты (any — есть любая),
+     ie — классы энергоэффективности. Пустое значение — в описании не указано:
+     такая модель при выборе этого параметра скрывается. */
+
+  var filterBox = root.querySelector('[data-dzc-filter]');
+  var filterToggle = root.querySelector('[data-dzc-ftoggle]');
+  var filterCount = root.querySelector('[data-dzc-fcount]');
+  var powerInput = root.querySelector('[data-f-power]');
+  var emptySearch = root.querySelector('[data-dzc-empty-search]');
+  var emptyFilter = root.querySelector('[data-dzc-empty-filter]');
+  var state = { power: null, cat: '', volt: '', ex: '', ip: '', ie: '' };
+
+  function nums(item, name) {
+    var raw = item.getAttribute('data-f-' + name) || '';
+    return raw ? raw.split(' ') : [];
+  }
+
+  function matchFilters(item) {
+    if (state.power !== null) {
+      var p = nums(item, 'p').map(Number);
+      if (!p.length || state.power < p[0] || state.power > p[p.length - 1]) return false;
+    }
+    if (state.volt) {
+      var u = nums(item, 'u').map(Number);
+      if (!u.length) return false;
+      var lo = u[0], hi = u[u.length - 1];
+      if (state.volt === 'lv' ? lo > 1140 : state.volt === 'hv' ? hi <= 10000 : (lo > +state.volt || hi < +state.volt)) return false;
+    }
+    if (state.ex && nums(item, 'ex').indexOf(state.ex) === -1) return false;
+    if (state.ip) {
+      var need = state.ip;
+      var okIp = nums(item, 'ip').some(function (v) { return v[0] >= need[0] && v[1] >= need[1]; });
+      if (!okIp) return false;
+    }
+    if (state.ie) {
+      var okIe = nums(item, 'ie').some(function (v) { return +v >= +state.ie; });
+      if (!okIe) return false;
+    }
+    return true;
+  }
+
+  function activeFilters() {
+    return (state.power !== null ? 1 : 0) + ['cat', 'volt', 'ex', 'ip', 'ie'].filter(function (k) { return state[k]; }).length;
+  }
+
+  var lastQuery = '';
+
   function applySearch(rawQuery) {
+    lastQuery = rawQuery;
     var query = normalise(rawQuery);
     var terms = query ? query.split(' ') : [];
+    var filtering = activeFilters() > 0;
     var visibleModels = 0;
     var visibleSections = 0;
 
@@ -34,9 +87,10 @@
       var items = section.querySelectorAll('[data-dzc-item]');
       var shown = 0;
 
+      var outOfType = state.cat && section.id !== state.cat;
       Array.prototype.forEach.call(items, function (item) {
         var haystack = item.getAttribute('data-dzc-item') || '';
-        var hit = terms.every(function (term) { return haystack.indexOf(term) !== -1; });
+        var hit = terms.every(function (term) { return haystack.indexOf(term) !== -1; }) && !outOfType && (!filtering || matchFilters(item));
         item.classList.toggle('is-hidden', !hit);
         if (hit) shown++;
       });
@@ -64,16 +118,25 @@
     if (tilesSection) {
       tilesSection.classList.toggle('is-hidden', visibleSections === 0);
     }
+    var narrowing = terms.length > 0 || filtering;
     if (empty) {
       empty.classList.toggle('is-visible', visibleSections === 0);
       if (emptyQuery) emptyQuery.textContent = rawQuery;
+      // без текста запроса фраза «По запросу „“» выглядела бы поломкой
+      if (emptySearch) emptySearch.hidden = !terms.length;
+      if (emptyFilter) emptyFilter.hidden = !!terms.length;
     }
-    root.classList.toggle('is-searching', terms.length > 0);
+    root.classList.toggle('is-searching', narrowing);
     if (counter) {
-      counter.textContent = String(terms.length ? visibleModels : totalModels);
+      counter.textContent = String(narrowing ? visibleModels : totalModels);
     }
     if (counterLine) {
-      counterLine.hidden = terms.length === 0;
+      counterLine.hidden = !narrowing;
+    }
+    if (filterCount) {
+      var n = activeFilters();
+      filterCount.hidden = !n;
+      filterCount.textContent = String(n);
     }
     if (clearButton) {
       clearButton.classList.toggle('is-visible', terms.length > 0);
@@ -103,6 +166,66 @@
       applySearch('');
       input.focus();
     });
+  }
+
+  if (filterBox && filterToggle) {
+    var bar = filterToggle.closest('.dzc-bar');
+    function setOpen(open) {
+      filterBox.hidden = !open;
+      filterToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      if (bar) bar.classList.toggle('is-filter-open', open);
+    }
+    filterToggle.addEventListener('click', function () { setOpen(filterBox.hidden); });
+
+    // На компьютере фильтр открыт сразу, на телефоне свёрнут: раскрытый он
+    // занимает целый экран над списком моделей.
+    if (window.matchMedia('(max-width: 900px)').matches) setOpen(false);
+
+    // Кнопка у заголовка страницы: раскрыть фильтр и прокрутить к нему.
+    var jump = root.querySelector('[data-dzc-fjump]');
+    if (jump) {
+      jump.addEventListener('click', function (event) {
+        event.preventDefault();
+        setOpen(true);
+        (bar || filterBox).scrollIntoView({ block: 'start', behavior: 'smooth' });
+        if (powerInput) window.setTimeout(function () { powerInput.focus({ preventScroll: true }); }, 400);
+      });
+    }
+
+    // В группе выбрана одна кнопка; «Не важно» снимает условие.
+    filterBox.addEventListener('click', function (event) {
+      var chip = event.target.closest('.dzc-fchip');
+      if (chip) {
+        var key = ['cat', 'volt', 'ex', 'ip', 'ie'].filter(function (k) { return chip.hasAttribute('data-f-' + k); })[0];
+        state[key] = chip.getAttribute('data-f-' + key);
+        Array.prototype.forEach.call(chip.parentNode.children, function (b) {
+          b.setAttribute('aria-pressed', b === chip ? 'true' : 'false');
+        });
+        applySearch(lastQuery);
+        return;
+      }
+      if (event.target.closest('[data-f-reset]')) {
+        state = { power: null, cat: '', volt: '', ex: '', ip: '', ie: '' };
+        if (powerInput) powerInput.value = '';
+        Array.prototype.forEach.call(filterBox.querySelectorAll('.dzc-fchip'), function (b) {
+          var key = ['cat', 'volt', 'ex', 'ip', 'ie'].filter(function (k) { return b.hasAttribute('data-f-' + k); })[0];
+          b.setAttribute('aria-pressed', b.getAttribute('data-f-' + key) === '' ? 'true' : 'false');
+        });
+        applySearch(lastQuery);
+      }
+    });
+
+    if (powerInput) {
+      var powerPending = null;
+      powerInput.addEventListener('input', function () {
+        window.clearTimeout(powerPending);
+        powerPending = window.setTimeout(function () {
+          var v = parseFloat(String(powerInput.value).replace(',', '.'));
+          state.power = isFinite(v) && v > 0 ? v : null;
+          applySearch(lastQuery);
+        }, 150);
+      });
+    }
   }
 
   /* --- «Показать ещё» в списках категорий -------------------------------- */

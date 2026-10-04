@@ -125,7 +125,10 @@
     ['/sudovye-dvigateli', '/en/marine-motors', 'lead_marine_motors', 'Судовые двигатели'],
     ['/servoprivody', '/en/servo-motors', 'lead_servo', 'Сервоприводы'],
     ['/miniatyurnye-servoprivody', '/en/miniature-servo-motors', 'lead_mini_servo', 'Миниатюрные сервоприводы'],
-    ['/vzryvozashchishchennye-dvigateli', '/en/explosion-proof-motors', 'lead_explosion_proof', 'Взрывозащищённые двигатели']
+    ['/vzryvozashchishchennye-dvigateli', '/en/explosion-proof-motors', 'lead_explosion_proof', 'Взрывозащищённые двигатели'],
+    ['/dvigateli-dlya-nasosov', '/en/pump-motors', 'lead_pumps', 'Двигатели для насосов'],
+    ['/dvigateli-dlya-dymososov', '/en/fan-motors', 'lead_fans', 'Двигатели для дымососов и вентиляторов'],
+    ['/dvigateli-dlya-kompressorov', '/en/compressor-motors', 'lead_compressors', 'Двигатели для компрессоров']
   ];
 
   function direction() {
@@ -152,7 +155,7 @@
     if (withFiles) goal('nameplate_uploaded');
     if (typeof window.ym === 'function') {
       try {
-        window.ym(METRIKA_ID, 'params', { lead: { direction: d.label } });
+        window.ym(METRIKA_ID, 'params', { lead: scenario ? { direction: d.label, scenario: SCEN[scenario].tag } : { direction: d.label } });
       } catch (e) { /* параметры визита не критичны */ }
     }
   }
@@ -363,6 +366,20 @@
     okText: 'Мы проверим информацию и свяжемся с вами в рабочее время.'
   };
 
+  /* Сценарии первого экрана главной: data-lead-modal="nameplate|project|quote".
+     Меняют заголовок и подсказку окна и первой строкой подписывают сообщение,
+     чтобы менеджер сразу видел, с чем пришёл человек. */
+  var SCEN = isEn ? {
+    nameplate: { title: 'Replace from the nameplate', lede: 'Attach a photo of the old motor nameplate — a specialist will match a Dazhong equivalent, quote the price and lead time.', tag: 'Replacement from the nameplate', file: 'Nameplate photo' },
+    project: { title: 'Select a motor for a project', lede: 'Describe the machine, duty and conditions or attach a specification — we will pick the series and design.', tag: 'Selection for a project', file: 'Specification, drawing or datasheet' },
+    quote: { title: 'Get a quotation', lede: 'Give the series, power, voltage and quantity — we will send the price and lead time.', tag: 'Quotation request', file: T.file }
+  } : {
+    nameplate: { title: 'Заменить по шильдику', lede: 'Приложите фото шильдика старого двигателя — специалист подберёт аналог Dazhong, посчитает стоимость и срок поставки.', tag: 'Замена по шильдику', file: 'Фото шильдика' },
+    project: { title: 'Подобрать под проект', lede: 'Опишите механизм, режим работы и условия или приложите ТЗ — подберём серию и исполнение.', tag: 'Подбор под проект', file: 'ТЗ, чертёж или опросный лист' },
+    quote: { title: 'Получить КП', lede: 'Укажите серию, мощность, напряжение и количество — пришлём цену и срок поставки.', tag: 'Запрос КП', file: T.file }
+  };
+  var scenario = '';      // сценарий, с которым открыто окно
+
   var back = null;       // подложка с окном, собирается при первом открытии
   var lastFocus = null;  // куда вернуть фокус после закрытия
   var sent = false;      // заявка отправлена — окно пересоберём при следующем открытии
@@ -457,7 +474,7 @@
     back.querySelector('[data-dzm-form]').addEventListener('submit', send);
   }
 
-  function open(event) {
+  function open(event, key) {
     if (event) event.preventDefault();
     if (back && sent) {            // после отправки собираем окно заново
       back.remove();
@@ -473,6 +490,8 @@
     void back.offsetWidth;
     back.classList.add('is-open');
 
+    applyScenario(SCEN[key] ? key : '');
+
     // На карточке товара подставляем модель в комментарий, чтобы менеджер
     // видел, каким двигателем интересовались. Введённый текст не трогаем.
     var model = document.querySelector('h1.product_item__title');
@@ -484,6 +503,18 @@
 
     var first = back.querySelector('#dzm_name');
     if (first) first.focus({ preventScroll: true });
+  }
+
+  function applyScenario(key) {
+    var sc = SCEN[key];
+    var note = back.querySelector('#dzm_message');
+    // подпись прошлого сценария убираем, если человек её не правил
+    if (scenario && note && note.value === SCEN[scenario].tag + '\n') note.value = '';
+    scenario = key;
+    back.querySelector('.dzm__title').textContent = sc ? sc.title : T.title;
+    back.querySelector('.dzm__lede').textContent = sc ? sc.lede : T.lede;
+    back.querySelector('label[for="dzm_files"]').textContent = sc ? sc.file : T.file;
+    if (sc && note && !note.value) note.value = sc.tag + '\n';
   }
 
   function close() {
@@ -532,7 +563,7 @@
 
   document.addEventListener('click', function (event) {
     var trigger = event.target.closest('[data-lead-modal]');
-    if (trigger) open(event);
+    if (trigger) open(event, trigger.getAttribute('data-lead-modal'));
   });
 
   document.addEventListener('keydown', function (event) {

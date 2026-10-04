@@ -500,6 +500,9 @@ textarea.ln-input { min-height: 84px; line-height: 1.5; resize: vertical; }
 .ln-hero--servo .ln-hero__media { background-image: url("/assets/images/servo/zf.jpg"); opacity: 0.18; }
 .ln-hero--mini .ln-hero__media { background-image: url("/assets/images/mini/40d.jpg"); opacity: 0.18; }
 .ln-hero--ex .ln-hero__media { background-image: url("/assets/images/ex/ybx3-lv.jpg"); opacity: 0.18; }
+.ln-hero--pumps .ln-hero__media { background-image: url("/assets/images/ind/oil-pumps.jpg"); opacity: 0.2; }
+.ln-hero--fans .ln-hero__media { background-image: url("/assets/images/sp/centrifugal.jpg"); opacity: 0.2; }
+.ln-hero--comp .ln-hero__media { background-image: url("/assets/images/ind/air-compressors.jpg"); opacity: 0.2; }
 
 /* Синхронные и асинхронные */
 .ln-types {

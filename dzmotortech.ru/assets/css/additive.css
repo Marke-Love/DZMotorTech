@@ -2129,6 +2129,23 @@ body #footer .footer_a_tt:hover {
   transform: translateY(-1px);
 }
 
+/* Ряд под номером: Telegram, MAX и «Связаться с нами». Квадратные значки в
+   фирменных цветах мессенджеров (как в контактах и подвале), высота — по кнопке. */
+#header .header_box .r_icon .dzh-toprow { display: flex; align-items: stretch; gap: 6px; }
+
+#header .header_box .r_icon .dzh-toprow .dzh-topcta { flex: 1 1 auto; }
+
+#header .header_box .r_icon .dzh-topmsgr {
+  flex: none;
+  width: 32px;
+  height: auto;
+  min-height: 32px;
+  border-radius: 10px;
+}
+
+#header .header_box .r_icon .dzh-topmsgr:hover,
+#header .header_box .r_icon .dzh-topmsgr:focus-visible { transform: translateY(-1px); }
+
 @media (max-width: 1279px) {
   #header .header_box .r_icon .dzh-topcontact { display: none; }
 }
@@ -2227,7 +2244,7 @@ body #footer .footer_a_tt:hover {
   gap: 16px 18px;
 }
 
-.dzm__field { display: grid; gap: 7px; }
+.dzm__field { display: grid; grid-template-columns: minmax(0, 1fr); gap: 7px; }  /* без minmax поле файла с длинной подписью вылезало за край на телефоне */
 
 .dzm__field--wide { grid-column: 1 / -1; }
 
@@ -2519,3 +2536,41 @@ a.dz-msgr__btn:focus-visible { transform: translateY(-2px); box-shadow: 0 6px 14
   padding: 0;
   line-height: 1;
 }
+
+/* Мобильное меню: внизу панели «Написать нам» — Telegram и MAX.
+   Кнопки в фирменных цветах, как в шапке, контактах и подвале. */
+#sidebar-main .dz-side-msgr {
+  margin: 18px 14px auto;   /* auto снизу: в английской теме .wrapper распределяет детей по краям (space-between) */
+  padding-bottom: 24px;
+}
+
+#sidebar-main .dz-side-msgr__label {
+  margin: 0 0 10px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #7b8891;
+}
+
+#sidebar-main .dz-side-msgr__row { display: flex; gap: 10px; }
+
+#sidebar-main .dz-side-msgr__row > a.dz-side-msgr__btn {
+  display: flex !important;
+  flex: 1 1 0;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: auto;
+  height: 44px;
+  margin: 0;
+  padding: 0 12px;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1;
+  text-align: center;
+}
+
+#sidebar-main .dz-side-msgr__btn svg { flex: none; }

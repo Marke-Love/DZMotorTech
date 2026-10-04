@@ -534,6 +534,173 @@
 
 .dzc-search__clear.is-visible { display: block; }
 
+/* --- подбор по параметрам ------------------------------------------------ */
+
+/* Заметная кнопка у заголовка «Выберите тип оборудования»: ведёт к фильтру. */
+.dzc-section__head:has(.dzc-fjump) {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px 24px;
+  max-width: none;
+}
+
+.dzc-fjump,
+.dzc-ftoggle {
+  border-color: var(--dzc-accent);
+  background: var(--dzc-accent);
+  color: var(--dzc-ink-deep);
+}
+
+.dzc-fjump {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 24px;
+  border: 1px solid var(--dzc-accent);
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 700;
+  box-shadow: 0 14px 30px -16px rgba(0, 174, 239, 0.9);
+  transition: background-color 0.18s var(--dzc-ease), transform 0.18s var(--dzc-ease);
+}
+
+.dzc-fjump:hover,
+.dzc-fjump:focus { background: #33c1f3; color: var(--dzc-ink-deep); transform: translateY(-1px); }
+
+/* Пока панель открыта, полоса не прилипает к верху — иначе закрывала бы список. */
+.dzc-bar.is-filter-open { position: relative; }
+
+.dzc-bar__inner { grid-template-columns: auto minmax(0, 1fr); }
+
+.dzc-ftoggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 42px;
+  padding: 0 18px;
+  border: 1px solid var(--dzc-accent);
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 0.18s var(--dzc-ease);
+}
+
+.dzc-ftoggle:hover { background: #33c1f3; }
+
+.dzc-ftoggle__n {
+  display: inline-grid;
+  place-items: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: var(--dzc-ink);
+  color: #fff;
+  font-size: 11px;
+}
+
+.dzc-ftoggle__n[hidden] { display: none; }
+
+.dzc-filter {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 180px repeat(2, minmax(0, 1fr));
+  gap: 14px 22px;
+  padding: 16px 0 4px;
+  border-top: 1px solid var(--dzc-steel-300);
+}
+
+.dzc-filter[hidden] { display: none; }
+
+.dzc-filter__group { min-width: 0; }
+
+.dzc-filter__group--power { grid-row: span 2; }
+
+.dzc-filter__group--cat { grid-column: 1 / -1; }
+
+.dzc-filter__label {
+  display: block;
+  margin: 0 0 7px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--dzc-steel-700);
+}
+
+.dzc-filter__input {
+  width: 100%;
+  height: 40px;
+  padding: 0 14px;
+  border: 1px solid var(--dzc-steel-300);
+  border-radius: var(--dzc-radius-sm);
+  background: var(--dzc-surface);
+  font-size: 15px;
+  color: var(--dzc-ink);
+}
+
+.dzc-filter__input:focus { border-color: var(--dzc-accent); box-shadow: 0 0 0 4px var(--dzc-accent-dim); outline: none; }
+
+.dzc-filter__chips { display: flex; flex-wrap: wrap; gap: 6px; }
+
+.dzc-fchip {
+  padding: 7px 13px;
+  border: 1px solid var(--dzc-steel-300);
+  border-radius: 999px;
+  background: var(--dzc-surface);
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--dzc-steel-700);
+  cursor: pointer;
+  transition: color 0.18s var(--dzc-ease), border-color 0.18s var(--dzc-ease), background-color 0.18s var(--dzc-ease);
+}
+
+.dzc-fchip:hover { border-color: var(--dzc-ink); color: var(--dzc-ink); }
+
+.dzc-fchip[aria-pressed="true"] { background: var(--dzc-ink); border-color: var(--dzc-ink); color: #fff; }
+
+.dzc-filter__foot {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.dzc-filter__note { margin: 0; max-width: 90ch; font-size: 12px; line-height: 1.5; color: var(--dzc-steel-500); }
+
+.dzc-filter__reset {
+  flex: none;
+  padding: 7px 14px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--dzc-steel-100);
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--dzc-ink);
+  cursor: pointer;
+}
+
+@media (max-width: 560px) {
+  .dzc-ftoggle { padding: 0 14px; }
+  .dzc-ftoggle span {
+    position: absolute; width: 1px; height: 1px; overflow: hidden;
+    clip: rect(0 0 0 0); white-space: nowrap;
+  }
+}
+
+/* в развёрнутом виде панель выше экрана телефона: полоса перестаёт
+   прилипать к верху, иначе закрывала бы список при прокрутке */
+@media (max-width: 900px) {
+  .dzc-filter { grid-template-columns: minmax(0, 1fr); }
+  .dzc-filter__group--power { grid-row: auto; }
+  .dzc-filter__foot { flex-direction: column; align-items: flex-start; }
+}
+
 /* --- секции категорий --------------------------------------------------- */
 
 .dzc-cat {
@@ -700,13 +867,14 @@
 
 .dzc-offers {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 16px;
   margin-top: 16px;
 }
 
 .dzc-offer {
   display: grid;
+  grid-template-rows: auto auto 1fr auto;
   align-content: start;
   gap: 8px;
   padding: clamp(20px, 2vw, 28px);
@@ -765,7 +933,7 @@
 .dzc-cat__offer:hover,
 .dzc-cat__offer:focus-visible { background: rgba(0, 174, 239, 0.22); color: var(--dzc-ink); }
 
-@media (max-width: 680px) {
+@media (max-width: 1100px) {
   .dzc-offers { grid-template-columns: minmax(0, 1fr); }
 }
 
@@ -880,7 +1048,7 @@
 }
 
 @media (max-width: 900px) {
-  .dzc-bar__inner { grid-template-columns: minmax(0, 1fr); }
+  .dzc-bar__inner { grid-template-columns: auto minmax(0, 1fr); }
   .dzc-cat__grid,
   .dzc-cat--flip .dzc-cat__grid { grid-template-columns: minmax(0, 1fr); }
   .dzc-cat--flip .dzc-cat__media { order: 0; }
