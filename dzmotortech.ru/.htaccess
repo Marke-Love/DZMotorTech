@@ -32,3 +32,15 @@ RewriteRule ^ /redirects.php [L]
 # процента ещё раз — адрес превращался в %25D0%259D… и отдавал 404.
 RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\s/+(.*/)?index\.html[\s?] [NC]
 RewriteRule ^(.*/)?index\.html$ /$1 [R=301,L]
+
+# Заголовки безопасности (07.10.2026).
+# frame-ancestors вместо X-Frame-Options: сайт нельзя встроить во фрейм на
+# чужих сайтах, но Метрика (карта кликов, карта скроллинга, Вебвизор)
+# открывать его во фрейме по-прежнему может.
+<IfModule mod_headers.c>
+    Header always set Strict-Transport-Security "max-age=31536000"
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
+    Header always set Content-Security-Policy "frame-ancestors 'self' https://metrika.yandex.ru https://metrika.yandex.by https://metrika.yandex.kz https://metrica.yandex.com https://metrica.yandex.com.tr https://*.webvisor.com"
+</IfModule>

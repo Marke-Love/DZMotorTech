@@ -1,5 +1,6 @@
 Options -Indexes -ExecCGI
 
-<FilesMatch "\.(php|php3|php4|php5|phtml|pl|py|cgi|sh)$">
-    Require all denied
-</FilesMatch>
+# Файлы заявок не отдаются по прямой ссылке: в них персональные данные.
+# Админка скачивает их через admin/download.php, письма и Телеграм берут
+# прямо с диска — веб-доступ им не нужен.
+Require all denied
