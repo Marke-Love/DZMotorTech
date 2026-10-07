@@ -97,7 +97,8 @@ var chectoutpage="";
 </script>
 
 
-<link rel="stylesheet" href="/assets/css/landing.css?v=1792700000">
+<link rel="stylesheet" href="/assets/css/landing.css?v=1794400000">
+  <link rel="preload" href="/assets/images/factory/storage.jpg" as="image" fetchpriority="high">
 </head>
 <body  data-template="page.contact" class="body">
 	<article class="article">
@@ -558,7 +559,7 @@ var chectoutpage="";
             </ol>
           </nav>
           <p class="ln-eyebrow">Equivalent selection</p>
-          <h1 class="ln-hero__h">Electric motor replacement <em>ABB</em> and <em>Siemens</em> by nameplate</h1>
+          <h1 class="ln-hero__h"><em>ABB</em> and <em>Siemens</em> motor replacement by nameplate</h1>
           <p class="ln-hero__lede">We will match a Dazhong industrial motor by power, voltage, speed, duty, mounting and connection dimensions. Besides ABB and Siemens — as a replacement for WEG, VEM and other makers&rsquo; motors.</p>
           <div class="ln-hero__actions">
             <button class="ln-btn ln-btn--primary" type="button" data-ln-upload><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3z"/><circle cx="12" cy="13" r="3.2"/></svg>Send a photo of the nameplate</button>
@@ -840,6 +841,38 @@ var chectoutpage="";
       </div>
     </section>
 
+    <!-- Частые вопросы -->
+    <section class="ln-section">
+      <div class="ln-shell">
+        <div class="ln-head">
+          <p class="ln-eyebrow">Questions and answers</p>
+          <h2 class="ln-h2">Frequently asked</h2>
+        </div>
+        <div class="ln-faq">
+          <details class="ln-faq__item">
+            <summary>Which makers’ motors can you replace?</summary>
+            <p>ABB and Siemens, as well as WEG, VEM and other makers. We match a Dazhong industrial motor by power, voltage, speed, duty, mounting and connection dimensions.</p>
+          </details>
+          <details class="ln-faq__item">
+            <summary>What should I send for a replacement match?</summary>
+            <p>The quickest way is a photo of the nameplate: it carries the power, voltage, speed and ingress protection. A motor datasheet, the manufacturer and full designation of the old model, an outline or connection dimension drawing, or a specification will also do.</p>
+          </details>
+          <details class="ln-faq__item">
+            <summary>What if the nameplate is unreadable or lost?</summary>
+            <p>Send the motor datasheet or the designation of the old model. Our specialist will tell you what to record from the motor on site.</p>
+          </details>
+          <details class="ln-faq__item">
+            <summary>Will the new motor fit in place of the old one?</summary>
+            <p>We check the connection dimensions (shaft height, fixing holes, flange), the mounting, and the shaft extension diameter, length and key, so the motor fits without reworking the foundation, the coupling or the supply. If anything differs, we say exactly what.</p>
+          </details>
+          <details class="ln-faq__item">
+            <summary>How much does a replacement cost and what is the lead time?</summary>
+            <p>Motors are matched and built to order, so the price and the lead time are calculated from the nameplate or your specification. After checking the parameters we send a commercial proposal with the Dazhong model, price and delivery time.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
     <!--
       Условия поставки, гарантии и технической поддержки — блок подготовлен,
       текст ждём от заказчика. Чтобы показать: убрать атрибут hidden и заполнить.
@@ -878,7 +911,7 @@ var chectoutpage="";
         <div class="ln-card">
           <form class="ln-form" method="post" enctype="multipart/form-data" action="/api/submit-lead.php" data-ln-form>
             <p class="ln-form__title">Get the match and the quotation</p>
-            <p class="ln-form__lede">Your name, a phone number or an email and a photo of the nameplate are enough.</p>
+            <p class="ln-form__lede">Your name, company, a phone number or an email and a photo of the nameplate are enough.</p>
 
             <p class="ln-msg" data-ln-bad hidden role="status">The request could not be sent. Please check the fields and try again, or call us: <a href="tel:+79213820715">+7 921 382-07-15</a>.</p>
 
@@ -955,7 +988,7 @@ var chectoutpage="";
 						<a  href="/en/contacts/" class="footer_a_tt foottext" title="Contacts">Contacts</a>
 						<i class="ft_icon"></i>
 						<ul class="footer_sub_nav list-unstyled">
-							<li><a class="foottext" title="Kirill Rogal" style="font-weight:600;">Kirill Rogal</a></li>
+							<li><a class="foottext" href="/en/contacts/" title="Kirill Rogal" style="font-weight:600;">Kirill Rogal</a></li>
 							<li><a class="foottext" href="tel:+79213820715" title="Tel: +7 921 382-07-15">Tel: +7 921 382-07-15</a></li>
 						<li><a class="foottext" href="mailto:info@dzmotortech.ru" title="info@dzmotortech.ru">info@dzmotortech.ru</a></li>
 							<li class="dz-foot-msgr"><span class="dz-msgr"><a class="dz-msgr__btn dz-msgr__btn--tg" href="https://t.me/+79213820715" target="_blank" rel="noopener" aria-label="Message us on Telegram" title="Message us on Telegram"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20.7 4.3 3.4 11c-1.2.5-1.2 1.2-.2 1.5l4.4 1.4 1.7 5.2c.2.6.4.8.8.8.4 0 .6-.2.8-.4l2.2-2.1 4.5 3.3c.8.5 1.4.2 1.6-.8l2.9-13.8c.3-1.2-.4-1.8-1.4-1.3zM9.1 13.6l8.6-5.4c.4-.3.8-.1.5.2l-7 6.4-.3 3.1z"/></svg></a><a class="dz-msgr__btn dz-msgr__btn--max" href="https://max.ru/u/f9LHodD0cOLoBx7u26Vm0x0j_s4Q2VJjMUUyYFz59jx3QaOhKw_FtUmHC-g" target="_blank" rel="noopener" aria-label="Message us on MAX" title="Message us on MAX"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3.2c-4.9 0-8.8 3.6-8.8 8.1 0 1.9.7 3.7 1.9 5.1l-.8 3.6c-.1.5.4.9.8.7l3.4-1.6c1.1.4 2.3.6 3.5.6 4.9 0 8.8-3.6 8.8-8.1S16.9 3.2 12 3.2zm0 12.6a4.6 4.6 0 1 1 0-9.2 4.6 4.6 0 0 1 0 9.2z"/></svg></a></span></li>
@@ -1501,13 +1534,7 @@ var chectoutpage="";
 <script src="/assets/js/to-top.js?v=1787154820" defer></script>
 <script src="/assets/js/contacts.js?v=1790000000" defer></script>
 <script src="/assets/js/lead-modal.js?v=1790000000" defer></script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": []
-}
-</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Which makers’ motors can you replace?", "acceptedAnswer": {"@type": "Answer", "text": "ABB and Siemens, as well as WEG, VEM and other makers. We match a Dazhong industrial motor by power, voltage, speed, duty, mounting and connection dimensions."}}, {"@type": "Question", "name": "What should I send for a replacement match?", "acceptedAnswer": {"@type": "Answer", "text": "The quickest way is a photo of the nameplate: it carries the power, voltage, speed and ingress protection. A motor datasheet, the manufacturer and full designation of the old model, an outline or connection dimension drawing, or a specification will also do."}}, {"@type": "Question", "name": "What if the nameplate is unreadable or lost?", "acceptedAnswer": {"@type": "Answer", "text": "Send the motor datasheet or the designation of the old model. Our specialist will tell you what to record from the motor on site."}}, {"@type": "Question", "name": "Will the new motor fit in place of the old one?", "acceptedAnswer": {"@type": "Answer", "text": "We check the connection dimensions (shaft height, fixing holes, flange), the mounting, and the shaft extension diameter, length and key, so the motor fits without reworking the foundation, the coupling or the supply. If anything differs, we say exactly what."}}, {"@type": "Question", "name": "How much does a replacement cost and what is the lead time?", "acceptedAnswer": {"@type": "Answer", "text": "Motors are matched and built to order, so the price and the lead time are calculated from the nameplate or your specification. After checking the parameters we send a commercial proposal with the Dazhong model, price and delivery time."}}]}</script>
 <script src="/assets/js/landing.js?v=1792600000" defer></script>
 </body>
 </html>

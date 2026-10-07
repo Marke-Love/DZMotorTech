@@ -1182,3 +1182,49 @@ textarea.ln-input { min-height: 84px; line-height: 1.5; resize: vertical; }
 @keyframes ln-pop-fade { from { opacity: 0; } to { opacity: 1; } }
 @keyframes ln-pop-rise { from { opacity: 0; transform: translateY(14px) scale(0.97); } to { opacity: 1; transform: none; } }
 @media (prefers-reduced-motion: reduce) { .ln-pop, .ln-pop__card { animation: none; } }
+
+/* --- 07.10.2026. Узкие телефоны: длинные слова в H1 («ВЗРЫВОЗАЩИЩЁННЫЕ») не должны вылезать за край --- */
+@media (max-width: 420px) {
+  .ln-hero__h {
+    font-size: clamp(21px, 6.7vw, 28px);
+    overflow-wrap: break-word;           /* запасной вариант для экранов уже 320 px */
+  }
+}
+
+/* --- 07.10.2026. Нижняя панель на телефоне: «Позвонить · Telegram · Заявка» (русские посадочные) --- */
+.ln-mbar { display: none; }
+@media (max-width: 760px) {
+  .ln-mbar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9990;                       /* ниже кнопки «наверх» (9999) и баннера cookie */
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    padding-bottom: env(safe-area-inset-bottom);
+    background: #fff;
+    border-top: 1px solid rgba(13, 31, 45, 0.1);
+    box-shadow: 0 -6px 20px rgba(13, 31, 45, 0.08);
+  }
+  .ln-mbar a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    min-height: 58px;
+    color: var(--ln-ink);
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.2;
+    text-decoration: none;
+  }
+  .ln-mbar a:active { background: rgba(13, 31, 45, 0.05); }
+  .ln-mbar svg { width: 22px; height: 22px; }
+  .ln-mbar__tg svg { color: #229ed9; }
+  .ln-mbar a.ln-mbar__req { background: var(--ln-accent); color: #06202c; }
+  .ln-mbar a.ln-mbar__req:active { background: var(--ln-accent-hover); }
+  body:has(.ln-mbar) { padding-bottom: calc(58px + env(safe-area-inset-bottom)); }
+  body:has(.ln-mbar) .dz-to-top { bottom: calc(74px + env(safe-area-inset-bottom)); }
+}
