@@ -1088,7 +1088,7 @@ return [
     '/en/review/index.html' => '/en/catalog/',
     '/en/s-three-phase permanent magnet synchronous motor.html' => '/en/catalog/permanent-magnet/',
     '/en/s-three-phase permanent magnet synchronous motor?sort=6d.html' => '/en/catalog/permanent-magnet/',
-    '/en/www.dzmotortech.com/ZF-Universal-Small-Power-Servo-Motor-p6469242.html' => '/en/catalog/',
+    '/en/www.dzmotortech.com/ZF-Universal-Small-Power-Servo-Motor-p6469242.html' => '/en/catalog/servo/zf.html',
     '/inquiry.html' => '/contacts/',
     '/miniature-servo-motor--c245137.html' => '/catalog/miniature-servo/',
     '/miniature-servo-motor-миниатюрный-сервопривод-c245137' => '/catalog/miniature-servo/',
@@ -1444,4 +1444,11 @@ return [
     '/blog-Industrial-News/Advantages-of-the-Industrial-Servo-Motor-12010623.html' => '/en/news/advantages-of-the-industrial-servo-motor.html',
     '/blog-Industrial-News/What-Is-a-Permanent-Magnet-Motor-11944593.html' => '/en/news/what-is-a-permanent-magnet-motor.html',
     '/blog-Industrial-News/PWM-VFDs-What-Are-PWM-VFDs-11942827.html' => '/en/news/pwm-vfds-what-are-pwm-vfds.html',
+    // 02.11.2026: оставшиеся 404 из отчёта Google Search Console.
+    '/blog-Industrial-News/High-Power-Density-Servo-Motor-11994815.html' => '/en/news/high-power-density-servo-motor-2.html',
+    '/blog-Industrial-News/Selecting-the-Right-Mini-Electric-Motor-For-Your-Next-Project-12003016.html' => '/en/news/selecting-the-right-mini-electric-motor-for-your-next.html',
+    '/ZE-Series-Servo-Motor-p6469237.html' => '/catalog/servo/ze.html',
+    // Китайский каталог частотников со старой платформы на сервер не выкладывался
+    // (37 МБ, на сайте не используется) — ведём на раздел частотников.
+    '/media/en/V2.0_DZ-VFD产品手册(可编辑)G.pdf' => '/en/catalog/vfd/',
 ];

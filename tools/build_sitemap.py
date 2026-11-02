@@ -5,8 +5,12 @@
 Запуск из корня репозитория:  python3 tools/build_sitemap.py
 
 В карту попадают страницы, которые ссылаются canonical сами на себя.
-Страницы пагинации (их canonical ведёт на первую страницу списка), метки,
-служебные папки и файл подтверждения Яндекса пропускаются.
+Страницы пагинации (их canonical ведёт на первую страницу списка), страницы
+с <meta name="robots" content="noindex…">, метки, служебные папки и файл
+подтверждения Яндекса пропускаются.
+
+С 02.11.2026 новости (news/, en/news/) закрыты noindex по решению владельца
+сайта — они были 2/3 адресов и не давали кликов, — поэтому в карту не входят.
 """
 import datetime
 import pathlib
@@ -17,6 +21,7 @@ from urllib.parse import quote, unquote
 ROOT = pathlib.Path(__file__).resolve().parent.parent / 'dzmotortech.ru'
 SITE = 'https://dzmotortech.ru'
 SKIP_DIRS = {'admin', 'api', 'inc', 'leads_uploads', 'assets', 'media', 'common', 'tags', 'feed'}
+NOINDEX = re.compile(r'<meta name="robots" content="[^"]*noindex', re.I)
 CANON = re.compile(r'<link rel="canonical" href="https://dzmotortech\.ru(/[^"]*)"')
 
 
@@ -31,7 +36,7 @@ def page_url(rel: str) -> str:
 
 def main() -> int:
     urls = []
-    skipped = {'пагинация': 0, 'без canonical': 0}
+    skipped = {'пагинация': 0, 'без canonical': 0, 'noindex': 0}
     for path in sorted(ROOT.rglob('*.html')):
         rel = str(path.relative_to(ROOT))
         parts = rel.split('/')
@@ -41,6 +46,9 @@ def main() -> int:
             continue
         text = path.read_text(encoding='utf-8', errors='replace')
         own = page_url(rel)
+        if NOINDEX.search(text):
+            skipped['noindex'] += 1
+            continue
         m = CANON.search(text)
         if not m:
             skipped['без canonical'] += 1
