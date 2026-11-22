@@ -2574,3 +2574,93 @@ a.dz-msgr__btn:focus-visible { transform: translateY(-2px); box-shadow: 0 6px 14
 }
 
 #sidebar-main .dz-side-msgr__btn svg { flex: none; }
+
+/* ==========================================================================
+   Новый подвал .dz-foot (образец пользователя footer-1, 15.10.2026;
+   восстановлен 23.11.2026 для просмотра на странице контактов).
+   Логотип, контакты и мессенджеры слева, три колонки ссылок справа,
+   внизу копирайт и юридические документы. id="footer" оставлен: на него
+   завязаны стили темы (их перекрываем) и якоря «#footer».
+   ========================================================================== */
+body #footer.dz-foot {
+  padding: 0;
+  background: #0d1f2d;
+  color: rgba(255, 255, 255, 0.62);
+  font-family: 'Montserrat', Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+}
+/* На английских страницах Montserrat не подключён (нет fonts.css) — подвал
+   набираем шрифтом английского сайта, как и остальную страницу. */
+html[lang^="en"] body #footer.dz-foot { font-family: 'QuattrocentoSans-Regular', Arial, sans-serif; }
+.dz-foot a { color: inherit; text-decoration: none; transition: color 0.18s ease; }
+.dz-foot a:hover, .dz-foot a:focus-visible { color: #fff; text-decoration: none; }
+.dz-foot ul { margin: 0; padding: 0; list-style: none; }
+.dz-foot p { margin: 0; }   /* отступы абзацев ниже заданы через .dz-foot .класс — иначе это правило сильнее */
+.dz-foot__inner { max-width: 1280px; margin: 0 auto; padding: 64px 32px 28px; }
+.dz-foot__top {
+  display: grid;
+  grid-template-columns: minmax(250px, 0.95fr) minmax(0, 2.6fr);
+  gap: 56px;
+}
+.dz-foot__logo { display: inline-block; }
+.dz-foot__logo img { display: block; width: 150px; height: auto; }
+.dz-foot .dz-foot__contacts { margin-top: 24px; display: grid; gap: 8px; }
+.dz-foot__contacts a { display: inline-flex; align-items: center; gap: 10px; color: #fff; font-weight: 600; }
+.dz-foot__contacts a:hover { color: #00aeef; }
+.dz-foot__contacts svg { flex: none; color: #00aeef; }
+.dz-foot .dz-foot__person { margin-top: 10px; font-size: 14px; }
+.dz-foot__person a { color: #fff; }
+.dz-foot__social { display: flex; gap: 10px; margin-top: 20px; }
+/* Цвета мессенджеров — те же, что у кнопок в шапке (.dz-msgr__btn--tg / --max). */
+.dz-foot__soc {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  transition: transform 0.18s ease, filter 0.18s ease;
+}
+.dz-foot a.dz-foot__soc, .dz-foot a.dz-foot__soc:hover { color: #fff; }
+.dz-foot__soc--tg { background: #27a7e7; }
+.dz-foot__soc--max { background: linear-gradient(135deg, #3e8bff 0%, #7a3dff 100%); }
+.dz-foot__soc:hover { transform: translateY(-2px); filter: brightness(1.08); }
+.dz-foot__cols {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1.1fr) minmax(0, 0.8fr);
+  gap: 32px;
+}
+.dz-foot .dz-foot__h {
+  margin-bottom: 18px;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.dz-foot__col li + li { margin-top: 12px; }
+.dz-foot__col a { display: inline-flex; align-items: center; gap: 8px; }
+.dz-foot__bottom {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 32px;
+  margin-top: 56px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.45);
+  font-size: 13px;
+}
+.dz-foot__legal { display: flex; flex-wrap: wrap; gap: 8px 20px; }
+.dz-foot__legal a:hover { text-decoration: underline; }
+
+@media (max-width: 1100px) {
+  .dz-foot__top { grid-template-columns: minmax(0, 1fr); gap: 40px; }
+}
+@media (max-width: 680px) {
+  .dz-foot__inner { padding: 44px 16px 24px; }
+  .dz-foot__cols { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px 20px; }
+  .dz-foot__cols .dz-foot__col:first-child { grid-column: 1 / -1; }
+  .dz-foot__bottom { flex-direction: column; align-items: flex-start; margin-top: 40px; }
+}
